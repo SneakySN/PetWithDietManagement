@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5D6A2">
+
+    <!-- 상단 네비게이션 바 및 검색 아이콘 -->
+    <ImageButton
+        android:id="@+id/ic_menu"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="fitCenter"
+        android:background="?android:selectableItemBackground"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="string/menu_button_description"
+        android:src="@drawable/menu" />
+
+    <!-- 임시로 마이페이지 아이콘 -->
+    <ImageButton
+        android:id="@+id/ic_search"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="fitCenter"
+        android:background="?android:selectableItemBackground"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="string/my_page_description"
+        android:src="@drawable/my_page" />
+
+    <!-- 식사 시간 선택 (스피너) -->
+    <Spinner
+    android:id="@+id/meal_time_spinner"
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/ic_search"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="120dp"
+    android:entries="@array/meal_times"
+    android:spinnerMode="dropdown"
+    android:background="@drawable/spinner_background"
+    />
+
+    <!-- 카테고리 이미지 버튼 -->
+    <LinearLayout
+        android:id="@+id/category_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/meal_time_spinner"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/ic_korean_food"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="korean_food_description"
+            android:src="@drawable/korean_food" />
+
+        <ImageButton
+            android:id="@+id/ic_western_food"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="western_food_description"
+            android:src="@drawable/western_food" />
+
+        <ImageButton
+            android:id="@+id/ic_japanese_food"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="japanese_food_description"
+            android:src="@drawable/japanese_food" />
+
+        <ImageButton
+            android:id="@+id/ic_more"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="more_button_description"
+            android:src="@drawable/more" />
+    </LinearLayout>
+
+    <!-- 메뉴 추천 -->
+    <LinearLayout
+        android:id="@+id/recommend_section"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/category_buttons"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="20dp"
+        android:background="@android:color/white">
+
+        <!-- Placeholder for recommendation menu -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Recommend Placeholder"
+            android:gravity="center"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+
+    <!-- 건강 팁 -->
+    <LinearLayout
+        android:id="@+id/tip_section"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/recommend_section"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="20dp"
+        android:background="@android:color/white">
+
+        <!-- Placeholder for health tips -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Health tips Placeholder"
+            android:gravity="center"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+
+
+
+
+    <!-- 바텀 네비게이션 바 -->
+    <LinearLayout
+        android:id="@+id/bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFA726"
+        android:orientation="horizontal"
+        android:padding="0dp"
+        android:gravity="center">
+
+        <!-- 홈 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="home_button_description"
+            android:src="@drawable/home_button_selector" />
+
+        <!-- 음식 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_diet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="diet_button_description"
+            android:src="@drawable/diet_button_selector" />
+
+        <!-- 캘린더 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_calendar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="calendar_button_description"
+            android:src="@drawable/calendar_button_selector" />
+
+        <!-- 펫 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_petMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="pet_button_description"
+            android:src="@drawable/pet_button_selector" />
+    </LinearLayout>
+
+</RelativeLayout>

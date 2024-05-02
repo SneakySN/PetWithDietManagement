@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:contentDescription="string/menu_button_description"
+        android:contentDescription="@string/menu_button_description"
         android:src="@drawable/menu" />
 
     <!-- 오른쪽 상단에 위치하는 마이페이지 버튼 -->
@@ -30,17 +30,37 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:contentDescription="string/my_page_description"
+        android:contentDescription="@string/my_page_description"
         android:src="@drawable/my_page" />
+    <!-- 캘린더 섹션 -->
+    <CalendarView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/ic_menu"
+        android:layout_marginTop="16dp"
+        android:dateTextAppearance="@style/CalendarDateText"
+        android:weekDayTextAppearance="@style/CalendarWeekDayText"/>
 
-    <!-- 캐릭터 이미지 -->
-    <ImageView
-        android:id="@+id/ic_pet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:contentDescription="string/menu_button_description"
-        android:src="@drawable/pet_image" />
+    <!-- 그래프 섹션 -->
+    <LinearLayout
+        android:id="@+id/graph_section"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/calendar_view"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="20dp"
+        android:background="@android:color/white">
+
+        <!-- Placeholder for the Graph -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Graph Placeholder"
+            android:gravity="center"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
 
     <!-- 바텀 네비게이션 바 -->
     <LinearLayout
@@ -50,10 +70,10 @@
         android:layout_alignParentBottom="true"
         android:background="#FFA726"
         android:orientation="horizontal"
-        android:padding="0dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="0dp">
 
-        <!-- 홈 아이콘 -->
+        <!-- 하단 메뉴 아이템 -->
         <ImageButton
             android:id="@+id/ic_home"
             android:layout_width="0dp"
@@ -61,10 +81,9 @@
             android:layout_weight="1"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="home_button_description"
+            android:contentDescription="@string/home_button_description"
             android:src="@drawable/home_button_selector" />
 
-        <!-- 음식 아이콘 -->
         <ImageButton
             android:id="@+id/ic_diet"
             android:layout_width="0dp"
@@ -72,10 +91,9 @@
             android:layout_weight="1"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="diet_button_description"
+            android:contentDescription="@string/diet_button_description"
             android:src="@drawable/diet_button_selector" />
 
-        <!-- 캘린더 아이콘 -->
         <ImageButton
             android:id="@+id/ic_calendar"
             android:layout_width="0dp"
@@ -83,10 +101,9 @@
             android:layout_weight="1"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="calendar_button_description"
+            android:contentDescription="@string/calendar_button_description"
             android:src="@drawable/calendar_button_selector" />
 
-        <!-- 펫 아이콘 -->
         <ImageButton
             android:id="@+id/ic_petMenu"
             android:layout_width="0dp"
@@ -94,7 +111,7 @@
             android:layout_weight="1"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="pet_button_description"
+            android:contentDescription="@string/pet_button_description"
             android:src="@drawable/pet_button_selector" />
     </LinearLayout>
 
