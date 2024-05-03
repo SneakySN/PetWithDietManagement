@@ -43,7 +43,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
-            android:
             android:background="@android:color/transparent"
             android:text="추천"
             android:textColor="@color/black"

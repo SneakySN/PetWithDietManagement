@@ -1,4 +1,4 @@
-package com.yourpackage.name;
+package com.example.petwithdietmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.petwithdietmanagement.CalendarActivity;
+import com.example.petwithdietmanagement.DietActivity;
+import com.example.petwithdietmanagement.MenuPageActivity;
+import com.example.petwithdietmanagement.MyPageActivity;
+import com.example.petwithdietmanagement.PetMenuActivity;
 import com.example.petwithdietmanagement.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         dietButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityDiet.class); // 음식 페이지로 이동
+                Intent intent = new Intent(MainActivity.this, DietActivity.class); // 음식 페이지로 이동
                 startActivity(intent);
             }
         });
@@ -40,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityCalendar.class); // 캘린더 페이지로 이동
+                Intent intent = new Intent(MainActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
                 startActivity(intent);
             }
         });
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         petMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityPetMenu.class); // 펫 메뉴 페이지로 이동
+                Intent intent = new Intent(MainActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
             }
         });
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityMenuPage.class); // 메뉴 페이지로 이동
+                Intent intent = new Intent(MainActivity.this, MenuPageActivity.class); // 메뉴 페이지로 이동
                 startActivity(intent);
             }
         });
@@ -70,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         myPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityMyPage.class); // 마이 페이지로 이동
+                Intent intent = new Intent(MainActivity.this, MyPageActivity.class); // 마이 페이지로 이동
                 startActivity(intent);
             }
         });

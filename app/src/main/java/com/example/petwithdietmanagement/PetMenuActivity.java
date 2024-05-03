@@ -14,19 +14,19 @@ import com.example.petwithdietmanagement.PetMenuActivity;
 import com.example.petwithdietmanagement.MainActivity;
 import com.example.petwithdietmanagement.R;
 
-public class SpecifiedDietActivity extends AppCompatActivity {
+public class PetMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // XML 레이아웃 이름을 입력하세요
+        setContentView(R.layout.activity_pet_menu); // XML 레이아웃 이름을 입력하세요
 
         // 홈 버튼
         ImageButton homeButton = findViewById(R.id.ic_home);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SpecifiedDietActivity.this, MainActivity.class); // 홈으로 이동
+                Intent intent = new Intent(PetMenuActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
             }
         });
@@ -36,7 +36,7 @@ public class SpecifiedDietActivity extends AppCompatActivity {
         dietButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SpecifiedDietActivity.this, DietActivity.class); // 음식 페이지로 이동
+                Intent intent = new Intent(PetMenuActivity.this, DietActivity.class); // 음식 페이지로 이동
                 startActivity(intent);
             }
         });
@@ -46,7 +46,7 @@ public class SpecifiedDietActivity extends AppCompatActivity {
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SpecifiedDietActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
+                Intent intent = new Intent(PetMenuActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
                 startActivity(intent);
             }
         });
@@ -56,27 +56,7 @@ public class SpecifiedDietActivity extends AppCompatActivity {
         petMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SpecifiedDietActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
-                startActivity(intent);
-            }
-        });
-
-        // 메뉴 버튼
-        ImageButton menuButton = findViewById(R.id.ic_menu);
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SpecifiedDietActivity.this, MenuPageActivity.class); // 메뉴 페이지로 이동
-                startActivity(intent);
-            }
-        });
-
-        // 마이 페이지 버튼
-        ImageButton myPageButton = findViewById(R.id.ic_myPage);
-        myPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SpecifiedDietActivity.this, MyPageActivity.class); // 마이 페이지로 이동
+                Intent intent = new Intent(PetMenuActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
             }
         });
