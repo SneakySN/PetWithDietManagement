@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5D6A2"
-    android:padding="8dp">
+    android:padding="0dp">
 
     <!-- 바텀 네비게이션 바를 제외한 부분을 나타내는 레이아웃 -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/firstLayout"
         android:layout_width="match_parent"
-        android:layout_height="568dp" >
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.855"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_menu">
 
         <!-- 배경 -->
         <ImageView
             android:id="@+id/background"
-            android:layout_width="401dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -113,9 +119,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="65dp"
-            android:layout_marginEnd="318dp"
+            android:layout_marginEnd="328dp"
             android:layout_marginBottom="280dp"
             android:text="사진 모드"
             android:textSize="20sp"
@@ -258,7 +264,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="51dp"
             android:layout_marginEnd="346dp"
             android:layout_marginBottom="22dp"
@@ -309,7 +315,7 @@
         android:id="@+id/petMemory"
         android:layout_width="89dp"
         android:layout_height="45dp"
-        android:layout_marginStart="107dp"
+        android:layout_marginStart="115dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="19dp"
@@ -333,7 +339,7 @@
             android:layout_height="45dp"
             android:layout_marginStart="197dp"
             android:layout_marginTop="1dp"
-            android:layout_marginEnd="109dp"
+            android:layout_marginEnd="116dp"
             android:layout_marginBottom="19dp"
             android:background="@drawable/right_bottom_rounded_corners"
             android:gravity="center"
@@ -354,7 +360,12 @@
     <LinearLayout
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.145"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_alignParentBottom="true"
         android:background="#FFA726"
         android:orientation="horizontal"
@@ -362,36 +373,48 @@
         android:gravity="center">
 
         <!-- 홈 아이콘 -->
-        <ImageView
-            android:id="@+id/home_icon"
+        <ImageButton
+            android:id="@+id/ic_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/home" />
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="home_button_description"
+            android:src="@drawable/home_button_selector" />
 
         <!-- 음식 아이콘 -->
-        <ImageView
-            android:id="@+id/food_icon"
+        <ImageButton
+            android:id="@+id/ic_diet"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/diet" />
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="diet_button_description"
+            android:src="@drawable/diet_button_selector" />
 
         <!-- 캘린더 아이콘 -->
-        <ImageView
-            android:id="@+id/calendar_icon"
+        <ImageButton
+            android:id="@+id/ic_calendar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/calendar" />
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="calendar_button_description"
+            android:src="@drawable/calendar_button_selector" />
 
         <!-- 펫 아이콘 -->
-        <ImageView
-            android:id="@+id/pet_icon"
+        <ImageButton
+            android:id="@+id/ic_petMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/pet" />
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="pet_button_description"
+            android:src="@drawable/pet_button_selector" />
     </LinearLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

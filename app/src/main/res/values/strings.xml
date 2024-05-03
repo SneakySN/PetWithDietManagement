@@ -6,8 +6,8 @@
     <string name="diet_button_description">식단</string>
     <string name="calendar_button_description">캘린더</string>
     <string name="pet_button_description">펫</string>
-    <string name="korean_food">펫</string>
-    <string name="western_food">펫</string>
-    <string name="japanese_food">펫</string>
+    <string name="korean_food">한식</string>
+    <string name="western_food">양식</string>
+    <string name="japanese_food">일식</string>
 
 </resources>
