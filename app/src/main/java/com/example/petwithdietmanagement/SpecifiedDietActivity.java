@@ -19,7 +19,7 @@ public class SpecifiedDietActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // XML 레이아웃 이름을 입력하세요
+        setContentView(R.layout.activity_specifieddiet); // XML 레이아웃 이름을 입력하세요
 
         // 홈 버튼
         ImageButton homeButton = findViewById(R.id.ic_home);
@@ -62,21 +62,11 @@ public class SpecifiedDietActivity extends AppCompatActivity {
         });
 
         // 메뉴 버튼
-        ImageButton menuButton = findViewById(R.id.ic_menu);
+        ImageButton menuButton = findViewById(R.id.menuButton);
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SpecifiedDietActivity.this, MenuPageActivity.class); // 메뉴 페이지로 이동
-                startActivity(intent);
-            }
-        });
-
-        // 마이 페이지 버튼
-        ImageButton myPageButton = findViewById(R.id.ic_myPage);
-        myPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SpecifiedDietActivity.this, MyPageActivity.class); // 마이 페이지로 이동
                 startActivity(intent);
             }
         });

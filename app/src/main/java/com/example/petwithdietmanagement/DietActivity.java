@@ -30,6 +30,7 @@ public class DietActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -40,6 +41,7 @@ public class DietActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, DietActivity.class); // 음식 페이지로 이동
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -50,6 +52,7 @@ public class DietActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -60,6 +63,7 @@ public class DietActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -70,17 +74,40 @@ public class DietActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, MenuPageActivity.class); // 메뉴 페이지로 이동
                 startActivity(intent);
+                finish();
             }
         });
 
-        // 마이 페이지 버튼
-        ImageButton myPageButton = findViewById(R.id.ic_search);
-        myPageButton.setOnClickListener(new View.OnClickListener() {
+        // 한식
+        ImageButton koreanFoodButton = findViewById(R.id.ic_korean_food);
+        koreanFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DietActivity.this, MyPageActivity.class); // 마이 페이지로 이동
+                Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
+                finish();
             }
         });
+        // 일식
+        ImageButton japaneseFoodButton = findViewById(R.id.ic_japanese_food);
+        japaneseFoodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
+                startActivity(intent);
+                finish();
+            }
+        });
+        // 양식 버튼
+        ImageButton westernFoodButton = findViewById(R.id.ic_western_food);
+        westernFoodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 }

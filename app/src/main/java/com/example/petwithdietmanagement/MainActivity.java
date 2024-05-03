@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -28,6 +28,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -38,6 +39,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, DietActivity.class); // 음식 페이지로 이동
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -48,6 +50,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -58,6 +61,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
+                finish();
             }
         });
     }
