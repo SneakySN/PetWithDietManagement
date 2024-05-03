@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- 상단 메뉴 버튼 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#F5D6A2"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+
+        <ImageButton
+            android:id="@+id/menuButton"
+            android:layout_width="68dp"
+            android:layout_height="72dp"
+            android:background="@null"
+            android:contentDescription=""
+            android:scaleType="fitCenter"
+            android:src="@drawable/menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 검색 버튼 -->
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="83dp"
+            android:layout_height="73dp"
+            android:background="@null"
+            android:contentDescription="검색 버튼"
+            android:scaleType="fitCenter"
+            android:src="@drawable/my_page"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 카테고리 선택 버튼 -->
+            <!-- 추천 버튼 -->
+            <Button
+                android:id="@+id/button_recommended"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="추천"
+                android:textColor="@color/black"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/menuButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/button_korean"
+                app:layout_constraintHorizontal_weight="1"/>
+
+            <!-- 한식 버튼 -->
+            <Button
+                android:id="@+id/button_korean"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="한식"
+                android:textColor="@color/black"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/menuButton"
+                app:layout_constraintStart_toEndOf="@id/button_recommended"
+                app:layout_constraintEnd_toStartOf="@id/button_western"
+                app:layout_constraintHorizontal_weight="1"/>
+
+            <!-- 양식 버튼 -->
+            <Button
+                android:id="@+id/button_western"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="양식"
+                android:textColor="@color/black"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/menuButton"
+                app:layout_constraintStart_toEndOf="@id/button_korean"
+                app:layout_constraintEnd_toStartOf="@id/button_japanese"
+                app:layout_constraintHorizontal_weight="1"/>
+
+            <!-- 일식 버튼 -->
+            <Button
+                android:id="@+id/button_japanese"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="일식"
+                android:textColor="@color/black"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/menuButton"
+                app:layout_constraintStart_toEndOf="@id/button_western"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="84dp"
+            android:layout_height="27dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="137dp" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="84dp"
+            android:layout_height="27dp"
+            tools:layout_editor_absoluteX="305dp"
+            tools:layout_editor_absoluteY="137dp" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="97dp"
+            android:layout_height="27dp"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="137dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 하단 네비게이션 바 -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#F5D6A2"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="481dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:text="TestMenu"/>
+
+        <TextView
+            android:layout_width="262dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:text="TestDescription"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="38dp" />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/camera"
+            tools:layout_editor_absoluteX="262dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/orange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 각 버튼은 추가로 정의 필요 -->
+        <!-- 예: 홈, 즐겨찾기, 설정, 로그아웃 -->
+        <!-- 바텀 네비게이션 바 -->
+        <LinearLayout
+            android:id="@+id/bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:background="#FFA726"
+            android:orientation="horizontal"
+            android:padding="0dp"
+            android:gravity="center">
+
+            <!-- 홈 아이콘 -->
+            <ImageButton
+                android:id="@+id/ic_home"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="home_button_description"
+                android:src="@drawable/home_button_selector" />
+
+            <!-- 음식 아이콘 -->
+            <ImageButton
+                android:id="@+id/ic_diet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="diet_button_description"
+                android:src="@drawable/diet_button_selector" />
+
+            <!-- 캘린더 아이콘 -->
+            <ImageButton
+                android:id="@+id/ic_calendar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="calendar_button_description"
+                android:src="@drawable/calendar_button_selector" />
+
+            <!-- 펫 아이콘 -->
+            <ImageButton
+                android:id="@+id/ic_petMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="pet_button_description"
+                android:src="@drawable/pet_button_selector" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="409dp"
+        android:layout_height="299dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="181dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FADAAA">
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

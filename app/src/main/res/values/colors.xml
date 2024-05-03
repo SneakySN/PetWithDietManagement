@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="orange">#FFA500</color> <!-- 일반 주황색 -->
+    <color name="light_orange">#FFCC80</color> <!-- 연한 주황색 -->
 </resources>
