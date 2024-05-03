@@ -34,7 +34,7 @@
             android:background="@null"
             android:contentDescription="검색 버튼"
             android:scaleType="fitCenter"
-            android:src="@drawable/my_page"
+            android:src="@drawable/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
