@@ -2,8 +2,12 @@ package com.example.petwithdietmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.petwithdietmanagement.CalendarActivity;
@@ -19,6 +23,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); // XML 레이아웃 이름을 입력하세요
+
+        //펫 움직이게 하고싶었어요
+        int[] petImages = {
+                R.drawable.pet_1,
+                R.drawable.pet_2,
+                R.drawable.pet_3,
+                R.drawable.pet_2
+        };
+        ImageView petImageView = findViewById(R.id.ic_pet);
+
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        Runnable imageSwitcher = new Runnable() {
+            int currentIndex = 0;
+            @Override
+            public void run(){
+                petImageView.setImageResource(petImages[currentIndex]);
+                currentIndex = (currentIndex + 1) % petImages.length;
+                handler.postDelayed(this, 1000);
+            }
+        };
+        handler.post(imageSwitcher);
+
 
         // 홈 버튼
         ImageButton homeButton = findViewById(R.id.ic_home);
