@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+
 /*
 import com.example.petwithdietmanagement.CalendarActivity;
 import com.example.petwithdietmanagement.DietActivity;
@@ -22,6 +24,9 @@ public class DietActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet); // XML 레이아웃 이름을 입력하세요
+
+        // Gson 객체 생성
+        Gson gson = new Gson();
 
         // 홈 버튼
         ImageButton homeButton = findViewById(R.id.ic_home);
@@ -84,6 +89,7 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
+                intent.putExtra("tag","0"); // 식단 상세 페이지에 tag값 전달
                 startActivity(intent);
                 finish();
             }
@@ -94,6 +100,7 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
+                intent.putExtra("tag","1"); // 식단 상세 페이지에 tag값 전달
                 startActivity(intent);
                 finish();
             }
@@ -104,6 +111,7 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
+                intent.putExtra("tag","2"); // 식단 상세 페이지에 tag값 전달
                 startActivity(intent);
                 finish();
             }
