@@ -2,9 +2,15 @@ package com.example.petwithdietmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.petwithdietmanagement.CalendarActivity;
 import com.example.petwithdietmanagement.DietActivity;
@@ -64,5 +70,25 @@ public class PetMenuActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // 상점 메뉴 버튼
+        ImageView shopButton = findViewById(R.id.shop);
+        shopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PetMenuActivity.this, ShopActivity.class); // 상점 페이지로 이동
+                startActivity(intent);
+            }
+        });
+
+        // 미션 팝업 설정
+        View popupView = LayoutInflater.from(this).inflate(R.layout.activity_mission, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT, true);
+
+        findViewById(R.id.mission).setOnClickListener(v -> {
+            // 팝업 위치 설정: 화면 중앙
+            popupWindow.showAtLocation(findViewById(R.id.ic_petMenu), Gravity.CENTER, 0, 0);
+        });
+
     }
 }

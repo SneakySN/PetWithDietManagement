@@ -1,0 +1,120 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="300dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/mission_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:layout_marginTop="49dp"
+                android:layout_marginBottom="1dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- 미션들 -->
+                <TextView
+                    android:id="@+id/currentMoney"
+                    android:layout_width="280dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_corners"
+                    android:text="미션 텍스트"
+                    android:textAlignment="center"
+                    android:textSize="30sp" />
+
+                <!-- 미션들 -->
+                <TextView
+                    android:id="@+id/currentMoney"
+                    android:layout_width="280dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_corners"
+                    android:text="미션 텍스트"
+                    android:textAlignment="center"
+                    android:textSize="30sp" />
+
+                <!-- 미션들 -->
+                <TextView
+                    android:id="@+id/currentMoney"
+                    android:layout_width="280dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_corners"
+                    android:text="미션 텍스트"
+                    android:textAlignment="center"
+                    android:textSize="30sp" />
+
+                <!-- 미션들 -->
+                <TextView
+                    android:id="@+id/currentMoney"
+                    android:layout_width="280dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_corners"
+                    android:text="미션 텍스트"
+                    android:textAlignment="center"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 미션 이미지 -->
+    <ImageView
+        android:id="@+id/mission"
+        android:layout_width="107dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginBottom="440dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mission" />
+
+        <!-- "미션" 텍스트 -->
+    <TextView
+        android:id="@+id/missionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="440dp"
+        android:text="미션"
+        android:textSize="60dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mission"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 종료 이미지 -->
+        <ImageView
+            android:id="@+id/exit"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="440dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/missionText"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/exit" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

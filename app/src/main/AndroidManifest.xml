@@ -29,6 +29,8 @@
         <activity android:name=".MyPageActivity"/>
         <activity android:name=".PetMenuActivity"/>
         <activity android:name=".SpecifiedDietActivity"/>
+        <activity android:name=".MissionActivity" />
+        <activity android:name=".ShopActivity" />
     </application>
 
 </manifest>
