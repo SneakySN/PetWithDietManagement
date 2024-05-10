@@ -18,7 +18,7 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar); // XML 레이아웃 이름을 입력하세요
+        setContentView(R.layout.activity_calendar);
 
         // 홈 버튼
         ImageButton homeButton = findViewById(R.id.ic_home);
@@ -59,17 +59,6 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        // 메뉴 버튼
-        ImageButton menuButton = findViewById(R.id.ic_menu);
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, MenuPageActivity.class); // 메뉴 페이지로 이동
                 startActivity(intent);
                 finish();
             }

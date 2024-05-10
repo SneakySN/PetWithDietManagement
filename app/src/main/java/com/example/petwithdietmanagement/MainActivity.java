@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        /*
         // 메뉴 버튼
         ImageButton menuButton = findViewById(R.id.ic_menu);
         menuButton.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, MenuPageActivity.class); // 메뉴 페이지로 이동
                 startActivity(intent);
             }
-        });
+        });*/
 
         // 마이 페이지 버튼
         ImageButton myPageButton = findViewById(R.id.ic_myPage);

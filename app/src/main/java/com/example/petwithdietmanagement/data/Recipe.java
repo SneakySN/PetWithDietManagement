@@ -1,37 +1,75 @@
 package com.example.petwithdietmanagement.data;
 
-public class Recipe {
-    // 요리 이름
-    private String name;
-    // 조리 시간(hour)
-    private int cookingTime;
-    // 육식 점수
-    private int point;
-    // 조리 방법(순서)
-    private String cookingMethod;
+import java.util.List;
 
-    public String getName(){
-        return name;
-    }
-    public void setName(String name){
-        this.name=name;
-    }
-    public int getCookingTime(){
-        return cookingTime;
-    }
-    public void setCookingTime(int cookingTime) {
-        this.cookingTime = cookingTime;
-    }
-    public int getPoint() {
-        return point;
-    }
-    public void setPoint(int point) {
-        this.point = point;
-    }
-    public String getCookingMethod() {
-        return cookingMethod;
-    }
-    public void setCookingMethod(String cookingMethod) {
-        this.cookingTime = cookingTime;
-    }
+public class Recipe {
+    private String rcpSeq;
+    private String rcpNm;
+    private String rcpWay2;
+    private String rcpPat2;
+    private String infoWgt;
+    private String infoEng;
+    private String infoCar;
+    private String infoPro;
+    private String infoFat;
+    private String infoNa;
+    private String hashTag;
+    private String attFileNoMain;
+    private String attFileNoMk;
+    private String rcpPartsDtls;
+    private List<String> manual;
+    private List<String> manualImg;
+    private String rcpNaTip;  // 추가된 필드
+
+    // Getters and Setters
+    public String getRcpSeq() { return rcpSeq; }
+    public void setRcpSeq(String rcpSeq) { this.rcpSeq = rcpSeq; }
+
+    public String getRcpNm() { return rcpNm; }
+    public void setRcpNm(String rcpNm) { this.rcpNm = rcpNm; }
+
+    public String getRcpWay2() { return rcpWay2; }
+    public void setRcpWay2(String rcpWay2) { this.rcpWay2 = rcpWay2; }
+
+    public String getRcpPat2() { return rcpPat2; }
+    public void setRcpPat2(String rcpPat2) { this.rcpPat2 = rcpPat2; }
+
+    public String getInfoWgt() { return infoWgt; }
+    public void setInfoWgt(String infoWgt) { this.infoWgt = infoWgt; }
+
+    public String getInfoEng() { return infoEng; }
+    public void setInfoEng(String infoEng) { this.infoEng = infoEng; }
+
+    public String getInfoCar() { return infoCar; }
+    public void setInfoCar(String infoCar) { this.infoCar = infoCar; }
+
+    public String getInfoPro() { return infoPro; }
+    public void setInfoPro(String infoPro) { this.infoPro = infoPro; }
+
+    public String getInfoFat() { return infoFat; }
+    public void setInfoFat(String infoFat) { this.infoFat = infoFat; }
+
+    public String getInfoNa() { return infoNa; }
+    public void setInfoNa(String infoNa) { this.infoNa = infoNa; }
+
+    public String getHashTag() { return hashTag; }
+    public void setHashTag(String hashTag) { this.hashTag = hashTag; }
+
+    public String getAttFileNoMain() { return attFileNoMain; }
+    public void setAttFileNoMain(String attFileNoMain) { this.attFileNoMain = attFileNoMain; }
+
+    public String getAttFileNoMk() { return attFileNoMk; }
+    public void setAttFileNoMk(String attFileNoMk) { this.attFileNoMk = attFileNoMk; }
+
+    public String getRcpPartsDtls() { return rcpPartsDtls; }
+    public void setRcpPartsDtls(String rcpPartsDtls) { this.rcpPartsDtls = rcpPartsDtls; }
+
+    public List<String> getManual() { return manual; }
+    public void setManual(List<String> manual) { this.manual = manual; }
+
+    public List<String> getManualImg() { return manualImg; }
+    public void setManualImg(List<String> manualImg) { this.manualImg = manualImg; }
+
+    public String getRcpNaTip() { return rcpNaTip; }
+    public void setRcpNaTip(String rcpNaTip) { this.rcpNaTip = rcpNaTip; }
 }

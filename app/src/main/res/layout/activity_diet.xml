@@ -4,21 +4,7 @@
     android:layout_height="match_parent"
     android:background="#F5D6A2">
 
-    <!-- 상단 네비게이션 바 및 검색 아이콘 -->
-    <ImageButton
-        android:id="@+id/ic_menu"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:scaleType="fitCenter"
-        android:background="?android:selectableItemBackground"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:contentDescription="string/menu_button_description"
-        android:src="@drawable/menu" />
-
-    <!-- 임시로 마이페이지 아이콘 -->
+    <!-- 상단 검색 아이콘 -->
     <ImageButton
         android:id="@+id/ic_search"
         android:layout_width="64dp"
@@ -29,7 +15,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:contentDescription="string/my_page_description"
+        android:contentDescription="string/search_description"
         android:src="@drawable/search" />
 
     <!-- 식사 시간 선택 (스피너) -->

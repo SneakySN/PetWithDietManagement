@@ -72,7 +72,7 @@ public class DietActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        /*
         // 메뉴 버튼
         ImageButton menuButton = findViewById(R.id.ic_menu);
         menuButton.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +82,7 @@ public class DietActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
 
         // 한식
         ImageButton koreanFoodButton = findViewById(R.id.ic_korean_food);
