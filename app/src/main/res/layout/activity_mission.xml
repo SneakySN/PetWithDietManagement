@@ -6,6 +6,9 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/constraintLayout"
             android:layout_width="300dp"
             android:layout_height="500dp"
@@ -30,7 +33,7 @@
 
                 <!-- 미션들 -->
                 <TextView
-                    android:id="@+id/currentMoney"
+                    android:id="@+id/mission1"
                     android:layout_width="280dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
@@ -41,7 +44,7 @@
 
                 <!-- 미션들 -->
                 <TextView
-                    android:id="@+id/currentMoney"
+                    android:id="@+id/mission2"
                     android:layout_width="280dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
@@ -52,7 +55,7 @@
 
                 <!-- 미션들 -->
                 <TextView
-                    android:id="@+id/currentMoney"
+                    android:id="@+id/mission3"
                     android:layout_width="280dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
@@ -63,7 +66,7 @@
 
                 <!-- 미션들 -->
                 <TextView
-                    android:id="@+id/currentMoney"
+                    android:id="@+id/mission4"
                     android:layout_width="280dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"

@@ -2,31 +2,38 @@ package com.example.petwithdietmanagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.TabActivity;
 import android.os.Bundle;
 import android.widget.TabHost;
 
-public class ShopActivity extends AppCompatActivity {
+public class ShopActivity extends TabActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
 
-        /*TabHost tabHost = getTabHost();
+        TabHost tabHost = getTabHost();
 
+        TabHost.TabSpec tabSpecHat = tabHost.newTabSpec("HAT").setIndicator("모자");
+        tabSpecHat.setContent(R.id.tabHat);
+        tabHost.addTab(tabSpecHat);
 
-        TabHost.TabSpec tabSpecSong = tabHost.newTabSpec("SONG").setIndicator("음악별");
-        tabSpecSong.setContent(R.id.tabHat);
-        tabHost.addTab(tabSpecSong);
+        TabHost.TabSpec tabSpecBackground = tabHost.newTabSpec("BACKGROUND").setIndicator("배경");
+        tabSpecBackground.setContent(R.id.tabBackground);
+        tabHost.addTab(tabSpecBackground);
 
-        TabHost.TabSpec tabSpecArtist = tabHost.newTabSpec("ARTIST").setIndicator("가수별");
-        tabSpecArtist.setContent(R.id.tabBackground);
-        tabHost.addTab(tabSpecArtist);
+        TabHost.TabSpec tabSpecFloor = tabHost.newTabSpec("FLOOR").setIndicator("바닥");
+        tabSpecFloor.setContent(R.id.tabFloor);
+        tabHost.addTab(tabSpecFloor);
 
-        TabHost.TabSpec tabSpecAlbum = tabHost.newTabSpec("ALBUM").setIndicator("앨범별");
-        tabSpecAlbum.setContent(R.id.tabFloor);
-        tabHost.addTab(tabSpecAlbum);
+        TabHost.TabSpec tabSpecCarpet = tabHost.newTabSpec("CARPET").setIndicator("카펫");
+        tabSpecCarpet.setContent(R.id.tabCarpet);
+        tabHost.addTab(tabSpecCarpet);
 
-        tabHost.setCurrentTab(0);*/
+        tabHost.setCurrentTab(0);
+
+        // back 버튼 클릭 시 종료
+        findViewById(R.id.backButton).setOnClickListener(v->finish());
     }
 }

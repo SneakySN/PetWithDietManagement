@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.petwithdietmanagement.CalendarActivity;
 import com.example.petwithdietmanagement.DietActivity;
@@ -81,13 +83,14 @@ public class PetMenuActivity extends AppCompatActivity {
             }
         });
 
-        // 미션 팝업 설정
-        View popupView = LayoutInflater.from(this).inflate(R.layout.activity_mission, null);
-        PopupWindow popupWindow = new PopupWindow(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT, true);
-
-        findViewById(R.id.mission).setOnClickListener(v -> {
-            // 팝업 위치 설정: 화면 중앙
-            popupWindow.showAtLocation(findViewById(R.id.ic_petMenu), Gravity.CENTER, 0, 0);
+        ImageView missionButton = findViewById(R.id.mission);
+        missionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // CustomDialog 인스턴스 생성 및 표시
+                CustomDialog customDialog = new CustomDialog(PetMenuActivity.this);
+                customDialog.show();
+            }
         });
 
     }
