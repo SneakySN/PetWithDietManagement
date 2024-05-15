@@ -35,6 +35,23 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-inappmessaging:21.0.0")
     testImplementation("junit:junit:4.13.2")
+    // AndroidX Test
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:core:1.4.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+
+    // Mockito or MockK for mocking in tests
+    testImplementation("org.mockito:mockito-core:4.2.0")
+    androidTestImplementation("org.mockito:mockito-android:4.2.0") // For Android
+
+    // Robolectric
+    testImplementation("org.robolectric:robolectric:4.6")
+
+    // Room Database Testing
+    androidTestImplementation("androidx.room:room-testing:2.4.1")
+
+    // WorkManager Testing
+    androidTestImplementation("androidx.work:work-testing:2.7.1")
+
 }
