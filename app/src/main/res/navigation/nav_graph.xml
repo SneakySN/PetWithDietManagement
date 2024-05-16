@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/mainFragment">
+
+    <!-- 메인 Fragment -->
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.petwithdietmanagement.fragment.MainFragment"
+        android:label="Main"
+        tools:layout="@layout/activity_main">
+        <action
+            android:id="@+id/action_mainFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_dietFragment"
+            app:destination="@id/dietFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_petMenuFragment"
+            app:destination="@id/petMenuFragment" />
+    </fragment>
+
+    <!-- 메뉴 Fragment -->
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.petwithdietmanagement.fragment.MenuFragment"
+        android:label="Menu"
+        tools:layout="@layout/activity_menu_page">
+        <action
+            android:id="@+id/action_menuFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
+    </fragment>
+
+    <!-- 마이페이지 Fragment -->
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.example.petwithdietmanagement.fragment.MyPageFragment"
+        android:label="My Page"
+        tools:layout="@layout/activity_my_page">
+        <action
+            android:id="@+id/action_myPageFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
+    <!-- 캘린더 Fragment -->
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.petwithdietmanagement.fragment.CalendarFragment"
+        android:label="Calendar"
+        tools:layout="@layout/activity_calendar">
+        <action
+            android:id="@+id/action_calendarFragment_to_dietFragment"
+            app:destination="@id/dietFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_petMenuFragment"
+            app:destination="@id/petMenuFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
+    <!-- 식단 Fragment -->
+    <fragment
+        android:id="@+id/dietFragment"
+        android:name="com.example.petwithdietmanagement.fragment.DietFragment"
+        android:label="Diet"
+        tools:layout="@layout/activity_diet">
+        <action
+            android:id="@+id/action_dietFragment_to_specifiedDietFragment"
+            app:destination="@id/specifiedDietFragment" />
+        <action
+            android:id="@+id/action_dietFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
+        <action
+            android:id="@+id/action_dietFragment_to_petMenuFragment"
+            app:destination="@id/petMenuFragment" />
+        <action
+            android:id="@+id/action_dietFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_dietFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+    </fragment>
+
+    <!-- 식단-상세 Fragment -->
+    <fragment
+        android:id="@+id/specifiedDietFragment"
+        android:name="com.example.petwithdietmanagement.fragment.SpecifiedDietFragment"
+        android:label="Specified Diet"
+        tools:layout="@layout/activity_specifieddiet" >
+        <action
+            android:id="@+id/action_specifiedDietFragment_to_dietFragment"
+            app:destination="@id/dietFragment" />
+    </fragment>
+
+    <!-- 펫메뉴 Fragment -->
+    <fragment
+        android:id="@+id/petMenuFragment"
+        android:name="com.example.petwithdietmanagement.fragment.PetMenuFragment"
+        android:label="Personal"
+        tools:layout="@layout/activity_pet_menu">
+        <action
+            android:id="@+id/action_petMenuFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
+        <action
+            android:id="@+id/action_petMenuFragment_to_missionFragment"
+            app:destination="@id/missionFragment" />
+        <action
+            android:id="@+id/action_petMenuFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_petMenuFragment_to_dietFragment"
+            app:destination="@id/dietFragment" />
+        <action
+            android:id="@+id/action_petMenuFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+    </fragment>
+
+    <!-- 상점 Fragment -->
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.example.petwithdietmanagement.fragment.ShopFragment"
+        android:label="Shop"
+        tools:layout="@layout/activity_shop" >
+        <action
+            android:id="@+id/shopFragment_to_petMenuFragment"
+            app:destination="@id/petMenuFragment" />
+    </fragment>
+
+    <!-- 미션 Fragment -->
+    <fragment
+        android:id="@+id/missionFragment"
+        android:name="com.example.petwithdietmanagement.fragment.MissionFragment"
+        android:label="Mission"
+        tools:layout="@layout/activity_mission" >
+        <action
+            android:id="@+id/action_missionFragment_to_petMenuFragment"
+            app:destination="@id/petMenuFragment" />
+    </fragment>
+
+</navigation>

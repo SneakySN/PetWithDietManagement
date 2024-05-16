@@ -54,4 +54,17 @@ dependencies {
     // WorkManager Testing
     androidTestImplementation("androidx.work:work-testing:2.7.1")
 
+    // Java language implementation
+    implementation("androidx.navigation:navigation-fragment:2.5.1")
+    implementation("androidx.navigation:navigation-ui:2.5.1")
+
+    // Feature module Support
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.5.1")
+
+    // Testing Navigation
+    androidTestImplementation("androidx.navigation:navigation-testing:2.5.1")
+
+    // Jetpack Compose Integration
+    implementation("androidx.navigation:navigation-compose:2.5.1")
+
 }

@@ -12,8 +12,8 @@ public class Recipe {
     private String cooking_time;
     private String serving_weight;
     private String dish_type;
-    private Map<String, String> images = new HashMap<>();
-    private Map<String, String> manual_steps = new HashMap<>();
+    private Map<String, Images> images = new HashMap<>();
+    private Map<String, String> manual_steps=new HashMap<>();
     private Map<String, String> manual_images = new HashMap<>();
 
     // 영양소 정보를 위한 중첩 클래스
@@ -45,6 +45,19 @@ public class Recipe {
         }
     }
 
+    public static class Images{
+        private String preview_image;
+        private String ingredient_preview_image;
+        public String getPreview_image() {
+            return preview_image;
+        }
+
+        public String getIngredient_preview_image() {
+            return ingredient_preview_image;
+        }
+
+    }
+
     public String getRecipeName() {
         return recipe_name;
     }
@@ -73,7 +86,7 @@ public class Recipe {
         return dish_type;
     }
 
-    public Map<String, String> getImages() {
+    public Map<String, Images> getImages() {
         return images;
     }
 
