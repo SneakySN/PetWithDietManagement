@@ -1,7 +1,12 @@
 package com.example.petwithdietmanagement.jsonFunction;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
+
+import com.example.petwithdietmanagement.CalendarActivity;
 import com.example.petwithdietmanagement.data.Calendar;
 import com.example.petwithdietmanagement.data.Missions;
 import com.example.petwithdietmanagement.data.Pets;
@@ -10,6 +15,7 @@ import com.example.petwithdietmanagement.data.Store;
 import com.example.petwithdietmanagement.data.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.protobuf.NullValue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
@@ -24,7 +30,7 @@ import java.util.Map;
 public class GsonMapping {
     public Map<String, Recipe> getRecipes(Reader json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, new TypeToken<Map<String, Recipe>>(){}.getType());
+        return gson.fromJson(json, new TypeToken<Map<String,Recipe>>(){}.getType());
     }
 
     public Map<String, User> getUser(InputStreamReader json) {
@@ -37,9 +43,9 @@ public class GsonMapping {
         return gson.fromJson(json, new TypeToken<Map<String, Pets>>(){}.getType());
     }
 
-    public Map<String, Calendar> getCalendar(InputStreamReader json) {
+    public Calendar getCalendar(InputStreamReader json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, new TypeToken<Map<String, Calendar>>(){}.getType());
+        return gson.fromJson(json, Calendar.class);
     }
 
     public Store getStore(InputStreamReader json) {
