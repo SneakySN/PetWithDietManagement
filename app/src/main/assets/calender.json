@@ -1,0 +1,70 @@
+{
+    "users": [
+      {
+        "user_id": 1,
+        "food_log": [
+          {
+            "date": "2024-05-15",
+            "meals": {
+              "breakfast": [
+                "scrambled eggs",
+                "toast",
+                "orange juice"
+              ],
+              "lunch": [
+                "chicken salad",
+                "iced tea"
+              ],
+              "dinner": [
+                "spaghetti bolognese",
+                "garlic bread",
+                "red wine"
+              ]
+            }
+          },
+          {
+            "date": "2024-05-16",
+            "meals": {
+              "breakfast": [
+                "pancakes",
+                "coffee"
+              ],
+              "lunch": [
+                "sushi",
+                "green tea"
+              ],
+              "dinner": [
+                "grilled salmon",
+                "steamed vegetables",
+                "water"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "user_id": "user_2",
+        "food_log": [
+          {
+            "date": "2024-05-15",
+            "meals": {
+              "breakfast": [
+                "yogurt",
+                "granola",
+                "blueberries"
+              ],
+              "lunch": [
+                "turkey sandwich",
+                "lemonade"
+              ],
+              "dinner": [
+                "beef stew",
+                "bread",
+                "apple pie"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }

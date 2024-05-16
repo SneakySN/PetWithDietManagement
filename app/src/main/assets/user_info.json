@@ -1,0 +1,70 @@
+{
+    "users": [
+        {
+            "user_id": 1,
+            "name": "John Doe",
+            "username": "johndoe",
+            "password": "password123", // 암호는 일반 텍스트로 저장하지 않고 해시화 해야 함
+            "profile_picture": "https://example.com/images/johndoe.jpg",
+            "goals": "Target weight 70kg",
+            "daily_nutrient_intake": {
+                "calories": 1800,
+                "protein": 140, // grams
+                "fat": 60, // grams
+                "carbs": 220 // grams
+            },
+            "daily_meals": [
+                {
+                    "meal_time": "breakfast",
+                    "items": [
+                        {
+                            "name": "Oatmeal",
+                            "calories": 150,
+                            "protein": 5, // grams
+                            "fat": 3, // grams
+                            "carbs": 27 // grams
+                        },
+                        {
+                            "name": "Banana",
+                            "calories": 90,
+                            "protein": 1, // grams
+                            "fat": 0, // grams
+                            "carbs": 23 // grams
+                        }
+                    ]
+                },
+                {
+                    "meal_time": "lunch",
+                    "items": [
+                        {
+                            "name": "Chicken Salad",
+                            "calories": 350,
+                            "protein": 30, // grams
+                            "fat": 15, // grams
+                            "carbs": 20 // grams
+                        }
+                    ]
+                }
+            ],
+            "health_info": {
+                "weight": 70, // kg
+                "height": 175, // cm
+                "bmi": 22.9,
+                "blood_pressure": "120/80"
+            },
+            "gold": 1500, // 보유한 골드량
+            "items": [
+                {
+                    "type": "backgrounds",
+                    "id": 1,
+                    "equipped": true
+                },
+                {
+                    "type": "floors",
+                    "id": 2,
+                    "equipped": false
+                }
+            ]
+        }
+    ]
+}
