@@ -3,11 +3,7 @@
         {
             "user_id": 1,
             "name": "Fluffy",
-            "type": "Cat",
             "color" : "Red",
-            "age": 2, // age in years
-            "level": 5,
-            "experience": 1200,
             "health": {
                 "current": 80,
                 "max": 100
@@ -27,18 +23,13 @@
                 "I love you!"
             ],
             "hat": {
-                "type": "hats",
-                "id": 1,
+                "hat_id": 1,
                 "equipped": true
             }
         },
         {
             "user_id": 2,
             "name": "Buddy",
-            "type": "Dog",
-            "age": 3,
-            "level": 7,
-            "experience": 2000,
             "health": {
                 "current": 95,
                 "max": 110
@@ -58,8 +49,7 @@
                 "You are the best!"
             ],
             "hat": {
-                "type": "hats",
-                "id": 2,
+                "hat_id": 2,
                 "equipped": true
             }
         }

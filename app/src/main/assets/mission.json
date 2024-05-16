@@ -1,7 +1,7 @@
 {
     "missions": [
         {
-            "id": 1,
+            "mission_id": 1,
             "name": "Hydration Hero",
             "description": "Drink at least 1 liter of water.",
             "goal": {
@@ -12,7 +12,7 @@
             "reward": 100 
         },
         {
-            "id": 2,
+            "mission_id": 2,
             "name": "Step Master",
             "description": "Walk at least 3000 steps.",
             "goal": {
@@ -23,7 +23,7 @@
             "reward": 150 
         },
         {
-            "id": 3,
+            "mission_id": 3,
             "name": "Fruit Feast",
             "description": "Eat 3 servings of fruit.",
             "goal": {
@@ -35,7 +35,7 @@
             "reward": 200 
         },
         {
-            "id": 4,
+            "mission_id": 4,
             "name": "Veggie Victory",
             "description": "Eat 2 servings of vegetables.",
             "goal": {
@@ -47,7 +47,7 @@
             "reward": 200 
         },
         {
-            "id": 5,
+            "mission_id": 5,
             "name": "Protein Power",
             "description": "Consume 50 grams of protein.",
             "goal": {

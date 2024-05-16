@@ -6,39 +6,32 @@
           {
             "date": "2024-05-15",
             "meals": {
-              "breakfast": [
-                "scrambled eggs",
-                "toast",
-                "orange juice"
+              "breakfast_foodid": [
+                "28"
               ],
-              "lunch": [
-                "chicken salad",
-                "iced tea"
+              "lunch_foodid": [
+                "35",
+                "58"
               ],
-              "dinner": [
-                "spaghetti bolognese",
-                "garlic bread",
-                "red wine"
+              "dinner_foodid": [
+                "152"
               ]
             }
           },
           {
             "date": "2024-05-16",
             "meals": {
-              "breakfast": [
-                "pancakes",
-                "coffee"
-              ],
-              "lunch": [
-                "sushi",
-                "green tea"
-              ],
-              "dinner": [
-                "grilled salmon",
-                "steamed vegetables",
-                "water"
-              ]
-            }
+                "breakfast_foodid": [
+                  "28"
+                ],
+                "lunch_foodid": [
+                  "35",
+                  "58"
+                ],
+                "dinner_foodid": [
+                  "152"
+                ]
+              }
           }
         ]
       },
@@ -48,21 +41,17 @@
           {
             "date": "2024-05-15",
             "meals": {
-              "breakfast": [
-                "yogurt",
-                "granola",
-                "blueberries"
-              ],
-              "lunch": [
-                "turkey sandwich",
-                "lemonade"
-              ],
-              "dinner": [
-                "beef stew",
-                "bread",
-                "apple pie"
-              ]
-            }
+                "breakfast_foodid": [
+                  "28"
+                ],
+                "lunch_foodid": [
+                  "35",
+                  "58"
+                ],
+                "dinner_foodid": [
+                  "152"
+                ]
+              }
           }
         ]
       }

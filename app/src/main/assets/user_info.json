@@ -13,39 +13,7 @@
                 "fat": 60, // grams
                 "carbs": 220 // grams
             },
-            "daily_meals": [
-                {
-                    "meal_time": "breakfast",
-                    "items": [
-                        {
-                            "name": "Oatmeal",
-                            "calories": 150,
-                            "protein": 5, // grams
-                            "fat": 3, // grams
-                            "carbs": 27 // grams
-                        },
-                        {
-                            "name": "Banana",
-                            "calories": 90,
-                            "protein": 1, // grams
-                            "fat": 0, // grams
-                            "carbs": 23 // grams
-                        }
-                    ]
-                },
-                {
-                    "meal_time": "lunch",
-                    "items": [
-                        {
-                            "name": "Chicken Salad",
-                            "calories": 350,
-                            "protein": 30, // grams
-                            "fat": 15, // grams
-                            "carbs": 20 // grams
-                        }
-                    ]
-                }
-            ],
+            "daily_meals": "2024-05-15",
             "health_info": {
                 "weight": 70, // kg
                 "height": 175, // cm
