@@ -290,7 +290,19 @@
             app:layout_constraintTop_toTopOf="@+id/background"
             app:srcCompat="@drawable/game" />
 
-        <!-- 칭호와 이름 텍스트-->
+        <!-- 이름 텍스트-->
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/badge"
+            android:layout_marginBottom="-50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/floor"
+            app:layout_constraintEnd_toEndOf="@+id/floor"
+            app:layout_constraintStart_toStartOf="@+id/floor"
+            app:layout_constraintTop_toTopOf="@+id/floor"/>
+
         <TextView
             android:id="@+id/petTitleAndName"
             android:layout_width="180dp"
@@ -298,61 +310,19 @@
             android:layout_marginStart="107dp"
             android:layout_marginTop="55dp"
             android:layout_marginEnd="108dp"
-            android:layout_marginBottom="65dp"
-            android:background="@drawable/half_top_rounded_corners"
+            android:layout_marginBottom="0dp"
             android:gravity="center"
-            android:text="건강하게 자라는    용용이"
+            android:text="용용이"
             android:textAlignment="center"
-            android:textSize="15sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/floor"
             app:layout_constraintEnd_toEndOf="@+id/floor"
             app:layout_constraintStart_toStartOf="@+id/floor"
             app:layout_constraintTop_toTopOf="@+id/floor" />
 
-        <!-- 추억 텍스트-->
-        <TextView
-        android:id="@+id/petMemory"
-        android:layout_width="89dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="19dp"
-        android:background="@drawable/left_bottom_rounded_corners"
-        android:gravity="center"
-        android:text="추억"
-        android:textAlignment="center"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/floor"
-        app:layout_constraintEnd_toStartOf="@+id/petStatus"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/floor"
-        app:layout_constraintTop_toBottomOf="@+id/petTitleAndName"
-        app:layout_constraintVertical_bias="0.0" />
 
-        <!-- 상태 텍스트-->
-        <TextView
-            android:id="@+id/petStatus"
-            android:layout_width="89dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="197dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginBottom="19dp"
-            android:background="@drawable/right_bottom_rounded_corners"
-            android:gravity="center"
-            android:text="상태"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/floor"
-            app:layout_constraintEnd_toEndOf="@+id/floor"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/floor"
-            app:layout_constraintTop_toBottomOf="@+id/petTitleAndName"
-            app:layout_constraintVertical_bias="0.0" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
