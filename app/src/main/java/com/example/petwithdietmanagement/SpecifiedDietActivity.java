@@ -1,11 +1,14 @@
 package com.example.petwithdietmanagement;
 
 import android.content.Intent;
+import android.view.ViewGroup;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.petwithdietmanagement.CalendarActivity;
@@ -15,11 +18,16 @@ import com.example.petwithdietmanagement.MyPageActivity;
 import com.example.petwithdietmanagement.PetMenuActivity;
 import com.example.petwithdietmanagement.MainActivity;
 import com.example.petwithdietmanagement.R;
+import com.example.petwithdietmanagement.data.Recipe;
+import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
 
+import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 public class SpecifiedDietActivity extends AppCompatActivity {
     private int curStatus;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,7 @@ public class SpecifiedDietActivity extends AppCompatActivity {
         Button korButton = findViewById(R.id.button_korean);
         Button wesButton = findViewById(R.id.button_western);
         Button japButton = findViewById(R.id.button_japanese);
+        linearLayout = findViewById(R.id.ItemLinearLayout);
 
         Intent choiceIntent = getIntent();
         String choice = choiceIntent.getStringExtra("tag");
@@ -122,5 +131,29 @@ public class SpecifiedDietActivity extends AppCompatActivity {
                 curStatus = 3;
             }
         });
+    }
+    private void addButton(String buttonText) {
+        Button newButton = new Button(this);
+        newButton.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+        newButton.setText(buttonText);
+        newButton.setBackgroundColor(0x24000000);
+        newButton.setPadding(0, 10, 0, 0);
+
+        linearLayout.addView(newButton);
+    }
+
+}
+
+public class SpecifiedDiet_json_read {
+    private static final String TAG = "SpecificDiet_json_read";
+
+    public void recipes() throws IOException {
+        GsonMapping gsonMapping = new GsonMapping();
+        Map<String, Recipe> recipeData = (Map<String, Recipe>) gsonMapping.getRecipes("recipeList.json");
+
+        Recipe recipe = recipeData.get();
     }
 }
