@@ -7,13 +7,7 @@
             "password": "password123", // 암호는 일반 텍스트로 저장하지 않고 해시화 해야 함
             "profile_picture": "https://example.com/images/johndoe.jpg",
             "goals": "Target weight 70kg",
-            "daily_nutrient_intake": {
-                "calories": 1800,
-                "protein": 140, // grams
-                "fat": 60, // grams
-                "carbs": 220 // grams
-            },
-            "daily_meals": "2024-05-15",
+            "daily_info": "2024-05-15",
             "health_info": {
                 "weight": 70, // kg
                 "height": 175, // cm
