@@ -9,8 +9,9 @@
     <!--최상단 뒤로가기 버튼과 상점 아이콘 표시 레이아웃-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#F6C066">
+        android:layout_height="60dp"
+        android:elevation="12dp"
+        android:background="#d89a34">
         <!-- 뒤로가기 버튼 -->
         <Button
             android:id="@+id/backButton"
@@ -84,9 +85,10 @@
 
             <TabWidget
                 android:id="@android:id/tabs"
+                android:elevation="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#F6C066" >
+                android:background="#F6d58a" >
             </TabWidget>
 
             <FrameLayout

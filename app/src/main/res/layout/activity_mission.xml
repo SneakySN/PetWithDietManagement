@@ -37,8 +37,9 @@
                     android:layout_width="280dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_corners"
+                    android:background="@drawable/misson_completed_textview"
                     android:text="미션 텍스트"
+                    android:textColor="#FF000000"
                     android:textAlignment="center"
                     android:textSize="30sp" />
 
@@ -48,8 +49,9 @@
                     android:layout_width="280dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_corners"
+                    android:background="@drawable/mission_ongoing_textview"
                     android:text="미션 텍스트"
+                    android:textColor="#FF000000"
                     android:textAlignment="center"
                     android:textSize="30sp" />
 
@@ -59,8 +61,9 @@
                     android:layout_width="280dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_corners"
+                    android:background="@drawable/mission_ongoing_textview"
                     android:text="미션 텍스트"
+                    android:textColor="#FF000000"
                     android:textAlignment="center"
                     android:textSize="30sp" />
 
@@ -70,8 +73,9 @@
                     android:layout_width="280dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_corners"
+                    android:background="@drawable/mission_ongoing_textview"
                     android:text="미션 텍스트"
+                    android:textColor="#FF000000"
                     android:textAlignment="center"
                     android:textSize="30sp" />
 
@@ -103,6 +107,7 @@
         android:text="미션"
         android:textSize="60dp"
         android:textStyle="bold"
+        android:textColor="#FF000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/mission"

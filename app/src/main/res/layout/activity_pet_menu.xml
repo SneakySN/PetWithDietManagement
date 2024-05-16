@@ -12,7 +12,7 @@
         android:id="@+id/firstLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.855"
+        app:layout_constraintHeight_percent="0.905"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -119,15 +119,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="65dp"
-            android:layout_marginEnd="328dp"
-            android:layout_marginBottom="280dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="270dp"
             android:text="사진 모드"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
+            app:layout_constraintEnd_toEndOf="@+id/camera"
             app:layout_constraintStart_toStartOf="@+id/background"
             app:layout_constraintTop_toTopOf="@+id/camera" />
 
@@ -264,7 +262,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="51dp"
             android:layout_marginEnd="346dp"
             android:layout_marginBottom="22dp"
@@ -272,7 +270,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/background"
             app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
+            app:layout_constraintStart_toStartOf="@+id/game"
             app:layout_constraintTop_toTopOf="@+id/game" />
 
         <!-- 게임 이미지 -->
@@ -280,7 +278,7 @@
             android:id="@+id/game"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="1dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="281dp"
             android:layout_marginEnd="340dp"
             android:layout_marginBottom="34dp"
@@ -331,7 +329,7 @@
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.145"
+        app:layout_constraintHeight_percent="0.095"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstLayout"
