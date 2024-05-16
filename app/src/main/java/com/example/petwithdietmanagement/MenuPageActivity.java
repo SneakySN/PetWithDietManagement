@@ -45,7 +45,7 @@ public class MenuPageActivity extends AppCompatActivity {
             }
         });
 
-
+/*
         ImageButton lightModButton = findViewById(R.id.ic_lightMod);
         lightModButton.setOnClickListener(new View.OnClickListener(){
             // 다크모드 버튼 누르면 라이트모드/다크모드 이미지 변경
@@ -60,7 +60,7 @@ public class MenuPageActivity extends AppCompatActivity {
                 isLightMod = !isLightMod;
             }
         });
-
+*/
 
         // 공유 버튼 누르면 간단한 텍스트와 함께 공유
         ImageButton shareButton = findViewById(R.id.ic_share);

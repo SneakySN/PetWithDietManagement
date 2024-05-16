@@ -21,11 +21,23 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page); // XML 레이아웃 이름을 입력하세요
 
-        Button homeButton = findViewById(R.id.ic_backBtn);
+
+        // back 버튼
+        ImageButton homeButton = findViewById(R.id.ic_backBtn);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        // 메뉴 버튼
+        ImageButton menuButton = findViewById(R.id.ic_menu);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyPageActivity.this, MenuPageActivity.class); // 메뉴 페이지로 이동
+                startActivity(intent);
             }
         });
     }

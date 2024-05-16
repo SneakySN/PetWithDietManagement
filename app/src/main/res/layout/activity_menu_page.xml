@@ -38,14 +38,6 @@
             app:srcCompat="@drawable/alarm_on" />
 
         <!--다크 모드에 대한 버튼-->
-        <ImageButton
-            android:id="@+id/ic_lightMod"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:background="?android:selectableItemBackground"
-            app:srcCompat="@drawable/light_mod" />
 
         <!--식단 및 펫 정보를 클라우드에 저장하기 위한 버튼-->
         <ImageButton
