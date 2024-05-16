@@ -58,15 +58,15 @@ public class GsonMapping {
             // 파일명에 따라 적절한 메서드를 호출합니다.
             if (fileName.equals("recipeList.json")) {
                 return getRecipes(json);
-            } else if (fileName.equals("userList.json")) {
+            } else if (fileName.equals("user_info.json")) {
                 return getUser(json);
-            } else if (fileName.equals("petsList.json")) {
+            } else if (fileName.equals("pet.json")) {
                 return getPets(json);
-            } else if (fileName.equals("calendarList.json")) {
+            } else if (fileName.equals("calender.json")) {
                 return getCalendar(json);
-            } else if (fileName.equals("storeList.json")) {
+            } else if (fileName.equals("Item.json")) {
                 return getStore(json);
-            } else if (fileName.equals("missionsList.json")) {
+            } else if (fileName.equals("mission.json")) {
                 return getMissions(json);
             } else {
                 throw new IllegalArgumentException("Unknown JSON file name");
