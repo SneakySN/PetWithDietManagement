@@ -15,8 +15,8 @@
 
         <ImageButton
             android:id="@+id/menuButton"
-            android:layout_width="68dp"
-            android:layout_height="72dp"
+            android:layout_width="64dp"
+            android:layout_height="71dp"
             android:layout_marginTop="8dp"
             android:background="@null"
             android:contentDescription="메뉴"
@@ -28,8 +28,8 @@
         <!-- 검색 버튼 -->
         <ImageButton
             android:id="@+id/searchButton"
-            android:layout_width="83dp"
-            android:layout_height="73dp"
+            android:layout_width="47dp"
+            android:layout_height="44dp"
             android:layout_marginTop="8dp"
             android:background="@null"
             android:contentDescription="검색 버튼"
@@ -42,14 +42,14 @@
             android:id="@+id/button_recommended"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="71dp"
             android:background="@android:color/transparent"
             android:text="추천"
             android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@id/button_korean"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/menuButton" />
 
         <Button
             android:id="@+id/button_korean"
@@ -138,7 +138,8 @@
             android:layout_height="match_parent"
             android:padding="10dp"
             android:text="TestMenu"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
 
         <TextView
             android:layout_width="262dp"
@@ -230,6 +231,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/ItemScrollView"
         android:layout_width="408dp"
         android:layout_height="266dp"
         android:layout_marginStart="1dp"
@@ -238,6 +240,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/ItemLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FADAAA"
