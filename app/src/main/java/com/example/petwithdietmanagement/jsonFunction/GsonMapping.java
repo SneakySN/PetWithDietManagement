@@ -12,78 +12,45 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
 public class GsonMapping {
-    public Map<String, Recipe> getRecipes(String json) {
+    public Map<String, Recipe> getRecipes(Reader json) {
         Gson gson = new Gson();
         return gson.fromJson(json, new TypeToken<Map<String, Recipe>>(){}.getType());
     }
 
-    public Map<String, User> getUser(String json) {
+    public Map<String, User> getUser(InputStreamReader json) {
         Gson gson = new Gson();
         return gson.fromJson(json, new TypeToken<Map<String, User>>(){}.getType());
     }
 
-    public Map<String, Pets> getPets(String json) {
+    public Map<String, Pets> getPets(InputStreamReader json) {
         Gson gson = new Gson();
         return gson.fromJson(json, new TypeToken<Map<String, Pets>>(){}.getType());
     }
 
-    public Map<String, Calendar> getCalendar(String json) {
+    public Map<String, Calendar> getCalendar(InputStreamReader json) {
         Gson gson = new Gson();
         return gson.fromJson(json, new TypeToken<Map<String, Calendar>>(){}.getType());
     }
 
-    public Store getStore(String json) {
+    public Store getStore(InputStreamReader json) {
         Gson gson = new Gson();
         return gson.fromJson(json, Store.class);
     }
 
-    public Missions getMissions(String json) {
+    public Missions getMissions(InputStreamReader json) {
         Gson gson = new Gson();
         return gson.fromJson(json, Missions.class);
     }
 
-    public Object parseJsonFile(Context context, String fileName) {
-        try {
-            AssetManager assetManager = context.getAssets();
-            InputStream inputStream = assetManager.open(fileName);
-            String json = new String(readAllBytesFromStream(inputStream), StandardCharsets.UTF_8);
 
-            // 파일명에 따라 적절한 메서드를 호출합니다.
-            if (fileName.equals("recipeList.json")) {
-                return getRecipes(json);
-            } else if (fileName.equals("user_info.json")) {
-                return getUser(json);
-            } else if (fileName.equals("pet.json")) {
-                return getPets(json);
-            } else if (fileName.equals("calender.json")) {
-                return getCalendar(json);
-            } else if (fileName.equals("Item.json")) {
-                return getStore(json);
-            } else if (fileName.equals("mission.json")) {
-                return getMissions(json);
-            } else {
-                throw new IllegalArgumentException("Unknown JSON file name");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private byte[] readAllBytesFromStream(InputStream inputStream) throws IOException {
-        byte[] buffer = new byte[8192];
-        int bytesRead;
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            output.write(buffer, 0, bytesRead);
-        }
-        return output.toByteArray();
-    }
 }

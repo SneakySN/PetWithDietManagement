@@ -12,7 +12,7 @@ public class Recipe {
     private String cooking_time;
     private String serving_weight;
     private String dish_type;
-    private Map<String, Images> images = new HashMap<>();
+    private Map<String, String> images = new HashMap<>();
     private Map<String, String> manual_steps=new HashMap<>();
     private Map<String, String> manual_images = new HashMap<>();
 
@@ -86,7 +86,7 @@ public class Recipe {
         return dish_type;
     }
 
-    public Map<String, Images> getImages() {
+    public Map<String, String> getImages() {
         return images;
     }
 
