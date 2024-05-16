@@ -1,59 +1,29 @@
 {
-    "users": [
+  "users": [
       {
-        "user_id": 1,
-        "food_log": [
-          {
-            "date": "2024-05-15",
-            "meals": {
-              "breakfast_foodid": [
-                "28"
-              ],
-              "lunch_foodid": [
-                "35",
-                "58"
-              ],
-              "dinner_foodid": [
-                "152"
-              ]
-            }
-          },
-          {
-            "date": "2024-05-16",
-            "meals": {
-                "breakfast_foodid": [
-                  "28"
-                ],
-                "lunch_foodid": [
-                  "35",
-                  "58"
-                ],
-                "dinner_foodid": [
-                  "152"
-                ]
+          "user_id": 1,
+          "food_log": {
+              "2024-05-15": {
+                  "breakfast_foodid": ["28"],
+                  "lunch_foodid": ["35", "58"],
+                  "dinner_foodid": ["152"]
+              },
+              "2024-05-16": {
+                  "breakfast_foodid": ["28"],
+                  "lunch_foodid": ["35", "58"],
+                  "dinner_foodid": ["152"]
               }
           }
-        ]
       },
       {
-        "user_id": "user_2",
-        "food_log": [
-          {
-            "date": "2024-05-15",
-            "meals": {
-                "breakfast_foodid": [
-                  "28"
-                ],
-                "lunch_foodid": [
-                  "35",
-                  "58"
-                ],
-                "dinner_foodid": [
-                  "152"
-                ]
+          "user_id": "user_2",
+          "food_log": {
+              "2024-05-15": {
+                  "breakfast_foodid": ["28"],
+                  "lunch_foodid": ["35", "58"],
+                  "dinner_foodid": ["152"]
               }
           }
-        ]
       }
-    ]
-  }
+  ]
+}
