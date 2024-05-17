@@ -153,7 +153,5 @@ public class SpecifiedDiet_json_read {
     public void recipes() throws IOException {
         GsonMapping gsonMapping = new GsonMapping();
         Map<String, Recipe> recipeData = (Map<String, Recipe>) gsonMapping.getRecipes("recipeList.json");
-
-        Recipe recipe = recipeData.get();
     }
 }
