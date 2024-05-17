@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
         //펫 움직이게 하고싶었어요
         int[] petImages = {
-                R.drawable.pet_1,
-                R.drawable.pet_2,
-                R.drawable.pet_3,
-                R.drawable.pet_2
+                R.drawable.slime01,
+                R.drawable.slime02,
+                R.drawable.slime03,
+                R.drawable.slime02
         };
         ImageView petImageView = findViewById(R.id.ic_pet);
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             public void run(){
                 petImageView.setImageResource(petImages[currentIndex]);
                 currentIndex = (currentIndex + 1) % petImages.length;
-                handler.postDelayed(this, 1000);
+                handler.postDelayed(this, 800);
             }
         };
         handler.post(imageSwitcher);
