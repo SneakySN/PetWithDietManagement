@@ -147,11 +147,11 @@ public class SpecifiedDietActivity extends AppCompatActivity {
 
 }
 
-public class SpecifiedDiet_json_read {
+/*public class SpecifiedDiet_json_read {
     private static final String TAG = "SpecificDiet_json_read";
 
     public void recipes() throws IOException {
         GsonMapping gsonMapping = new GsonMapping();
-        Map<String, Recipe> recipeData = (Map<String, Recipe>) gsonMapping.getRecipes("recipeList.json");
+        //Map<String, Recipe> recipeData = (Map<String, Recipe>) gsonMapping.getRecipes("recipeList.json");
     }
-}
+}*/
