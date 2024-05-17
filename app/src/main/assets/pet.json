@@ -1,6 +1,6 @@
 {
-    "pets": [
-        {
+    "pets": {
+        "1": {
             "user_id": 1,
             "name": "Fluffy",
             "color" : "Red",
@@ -27,7 +27,7 @@
                 "equipped": true
             }
         },
-        {
+        "2": {
             "user_id": 2,
             "name": "Buddy",
             "health": {
@@ -53,5 +53,5 @@
                 "equipped": true
             }
         }
-    ]
+    }
 }

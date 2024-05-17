@@ -1,68 +1,68 @@
 {
     "store": {
-        "backgrounds": [
-            {
+        "backgrounds": {
+            "1": {
                 "background_id": 1,
                 "name": "Sunny Meadow",
                 "price": 500,
                 "imageUrl": "https://example.com/images/sunny_meadow.png",
                 "description": "A bright and sunny meadow."
             },
-            {
+            "2": {
                 "background_id": 2,
                 "name": "Starry Night",
                 "price": 700,
                 "imageUrl": "https://example.com/images/starry_night.png",
                 "description": "A peaceful night under the stars."
             }
-        ],
-        "floors": [
-            {
+        },
+        "floors": {
+            "1": {
                 "floor_id": 1,
                 "name": "Wooden Floor",
                 "price": 300,
                 "imageUrl": "https://example.com/images/wooden_floor.png",
                 "description": "A classic wooden floor."
             },
-            {
+            "2": {
                 "floor_id": 2,
                 "name": "Marble Floor",
                 "price": 1000,
                 "imageUrl": "https://example.com/images/marble_floor.png",
                 "description": "A luxurious marble floor."
             }
-        ],
-        "carpets": [
-            {
+        },
+        "carpets": {
+            "1": {
                 "carpet_id": 1,
                 "name": "Red Carpet",
                 "price": 200,
                 "imageUrl": "https://example.com/images/red_carpet.png",
                 "description": "A stylish red carpet."
             },
-            {
+            "2": {
                 "carpet_id": 2,
                 "name": "Blue Carpet",
                 "price": 200,
                 "imageUrl": "https://example.com/images/blue_carpet.png",
                 "description": "A cozy blue carpet."
             }
-        ],
-        "hats": [
-            {
+        },
+        "hats": {
+            "1": {
                 "hat_id": 1,
                 "name": "Top Hat",
                 "price": 150,
                 "imageUrl": "https://example.com/images/top_hat.png",
                 "description": "A classy top hat."
             },
-            {
+            "2": {
                 "hat_id": 2,
                 "name": "Baseball Cap",
                 "price": 100,
                 "imageUrl": "https://example.com/images/baseball_cap.png",
                 "description": "A cool baseball cap."
             }
-        ]
+        }
     }
 }
