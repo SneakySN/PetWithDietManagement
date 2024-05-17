@@ -1,24 +1,76 @@
 package com.example.petwithdietmanagement;
 
+import static android.content.ContentValues.TAG;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.util.Log;
 import android.content.Intent;
+
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.petwithdietmanagement.CalendarActivity;
-import com.example.petwithdietmanagement.DietActivity;
-import com.example.petwithdietmanagement.MenuPageActivity;
-import com.example.petwithdietmanagement.MyPageActivity;
-import com.example.petwithdietmanagement.PetMenuActivity;
-import com.example.petwithdietmanagement.R;
+import com.example.petwithdietmanagement.data.Calendar;
+import com.example.petwithdietmanagement.data.Missions;
+import com.example.petwithdietmanagement.data.Recipe;
+import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map;
 
 public class CalendarActivity extends AppCompatActivity {
+
+    private CalendarView calendarView;
+    private TextView graphPlaceholder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        // 캘린더 뷰와 그래프 플레이스홀더 초기화
+        calendarView = findViewById(R.id.calendar_view);
+
+        // 캘린더 날짜 변경 이벤트 설정
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                String date = year + "-" + (month + 1) + "-" + dayOfMonth;
+                // Gson 객체 생성 및 JSON 파싱
+                GsonMapping gsonMapping = new GsonMapping();
+                AssetManager assetManager = CalendarActivity.this.getAssets();
+                try (InputStream inputStream = assetManager.open("mission.json");
+                     InputStreamReader reader = new InputStreamReader(inputStream)) {
+                    Missions missions = gsonMapping.getMissions(reader);
+                    List<Missions.Mission> users=missions.getMissions();
+                    Log.d(TAG, "Mission_id= " + users.get(0).getMission_id());
+
+                    if (users != null) {
+                        Log.d(TAG, "Mission_id= " + users.get(0).getMission_id());
+
+                    } else {
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Error reading the JSON file: " + e.getMessage());
+                }
+            }
+        });
 
         // 홈 버튼
         ImageButton homeButton = findViewById(R.id.ic_home);
@@ -73,5 +125,11 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void updateGraphData(String date) {
+        // 예시로 그래프 데이터를 업데이트하는 메서드
+        // 실제로는 데이터를 가져와서 그래프를 업데이트하는 로직을 구현해야 합니다.
+        graphPlaceholder.setText("Data for " + date);
     }
 }
