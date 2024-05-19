@@ -1,26 +1,15 @@
 package com.example.petwithdietmanagement;
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
 import android.content.Intent;
-
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.petwithdietmanagement.data.Calendar;
-import com.example.petwithdietmanagement.data.Items;
-import com.example.petwithdietmanagement.data.Pets;
-import com.example.petwithdietmanagement.data.Recipe;
-import com.example.petwithdietmanagement.data.Users;
 import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,38 +18,38 @@ import java.util.Map;
 public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
-    private TextView graphPlaceholder;
-
+    private TextView dateTextView, breakfastInfo, lunchInfo, dinnerInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        // 캘린더 뷰와 그래프 플레이스홀더 초기화
+        // 캘린더 뷰와 텍스트 뷰 초기화
         calendarView = findViewById(R.id.calendar_view);
+        dateTextView = findViewById(R.id.date);
+        breakfastInfo = findViewById(R.id.breakfast_info);
+        lunchInfo = findViewById(R.id.lunch_info);
+        dinnerInfo = findViewById(R.id.dinner_info);
 
         // 캘린더 날짜 변경 이벤트 설정
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                String date = year + "-" + (month + 1) + "-" + dayOfMonth;
+                String date = year + "-" + String.format("%02d", (month + 1)) + "-" + String.format("%02d", dayOfMonth);
                 // Gson 객체 생성 및 JSON 파싱
                 GsonMapping gsonMapping = new GsonMapping();
                 AssetManager assetManager = CalendarActivity.this.getAssets();
                 try (InputStream inputStream = assetManager.open("calendar.json");
                      InputStreamReader reader = new InputStreamReader(inputStream)) {
-                    Calendar recipes = gsonMapping.getCalendar(reader);
-                    Map<String, Calendar.User> recipe=recipes.getUsers();
+                    Calendar calendarData = gsonMapping.getCalendar(reader);
+                    Map<String, Calendar.User> users = calendarData.getUsers();
+                    Calendar.User.Meals meals = users.get("1").getFood_log().get(date);
 
-
-
-
-                    if (recipe != null) {
-                        Log.d(TAG, "Name= " + recipe.get("1").getFood_log().get("2024-05-15").getBreakfast_foodid().get(0));
-
+                    if (meals != null) {
+                        updateGraphData(date, meals);
                     } else {
-
+                        updateGraphData(date, null);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -124,9 +113,16 @@ public class CalendarActivity extends AppCompatActivity {
         });
     }
 
-    private void updateGraphData(String date) {
-        // 예시로 그래프 데이터를 업데이트하는 메서드
-        // 실제로는 데이터를 가져와서 그래프를 업데이트하는 로직을 구현해야 합니다.
-        graphPlaceholder.setText("Data for " + date);
+    private void updateGraphData(String date, Calendar.User.Meals meals) {
+        dateTextView.setText("Data for " + date);
+        if (meals != null) {
+            breakfastInfo.setText("아침: " + String.join(", ", meals.getBreakfast_foodid()));
+            lunchInfo.setText("점심: " + String.join(", ", meals.getLunch_foodid()));
+            dinnerInfo.setText("저녁: " + String.join(", ", meals.getDinner_foodid()));
+        } else {
+            breakfastInfo.setText("아침: 정보 없음");
+            lunchInfo.setText("점심: 정보 없음");
+            dinnerInfo.setText("저녁: 정보 없음");
+        }
     }
 }

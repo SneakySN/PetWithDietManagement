@@ -3,59 +3,55 @@ package com.example.petwithdietmanagement;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.petwithdietmanagement.data.Recipe;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
+
+import com.example.petwithdietmanagement.data.Missions;
 import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
+import java.io.InputStreamReader;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
     private static final String TAG = "ExampleInstrumentedTest";
 
     @Test
-    public void testNutrientsCalories() throws IOException {
-        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        AssetManager assetManager = context.getAssets();
-        InputStream inputStream = assetManager.open("recipeList.json");
-        String json = new String(readAllBytesFromStream(inputStream), StandardCharsets.UTF_8);
+    public void testParseMissionJson() {
+        // 앱 컨텍스트 가져오기
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        // Gson 객체 생성 및 JSON 파싱
+        // GsonMapping 객체 생성
         GsonMapping gsonMapping = new GsonMapping();
-        Map<String, Recipe> recipes = gsonMapping.getRecipes(json);
+        AssetManager assetManager = appContext.getAssets();
 
-        // 28번 레시피의 이름을 로그에 출력
-        Recipe recipe = recipes.get("28");
-        assertNotNull(recipe);  // Recipe 객체가 null이 아닌지 확인
-        Log.d(TAG, "Recipe Name: " + recipe.getRecipeName());
+        try (InputStream inputStream = assetManager.open("mission.json");
+             InputStreamReader reader = new InputStreamReader(inputStream)) {
+            Missions missions = gsonMapping.getMissions(reader);
+            assertNotNull("Missions object should not be null", missions);
 
-        // 28번 레시피의 Nutrients 객체의 calories 필드 값 검증
-        assertEquals("220", recipe.getNutrients().getCalories());
-    }
+            List<Missions.Mission> users = missions.getMissions();
+            assertNotNull("Missions list should not be null", users);
+            assertTrue("Missions list should not be empty", !users.isEmpty());
 
-    private byte[] readAllBytesFromStream(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int nRead;
-        byte[] data = new byte[16384]; // 16Kb
+            // Log를 사용하여 미션 ID 출력
+            Log.d(TAG, "Mission_id= " + users.get(0).getMission_id());
+            System.out.println("Mission_id= " + users.get(0).getMission_id());
 
-        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, nRead);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading the JSON file: " + e.getMessage());
+            assertTrue("Exception should not be thrown", false);
         }
-
-        buffer.flush();
-        return buffer.toByteArray();
     }
 }
