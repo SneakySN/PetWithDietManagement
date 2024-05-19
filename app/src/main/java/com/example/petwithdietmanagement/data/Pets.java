@@ -1,170 +1,178 @@
 package com.example.petwithdietmanagement.data;
 
+import java.util.HashMap;
 import java.util.List;
-
-
+import java.util.Map;
 
 public class Pets {
-    private int user_id;
-    private String name;
-    private String color;
-    private Health health;
-    private Happiness happiness;
-    private Hunger hunger;
-    private List<String> quotes;
-    private Hat hat;
+    Map<String,Pet> pets=new HashMap<>();
 
-    public static class Health {
-        private int current;
-        private int max;
+    public Map<String,Pet> getPets() {
+        return pets;
+    }
 
-        // Getters and setters
-        public int getCurrent() {
-            return current;
+    public class Pet {
+        private int user_id;
+        private String name;
+        private String color;
+        private Health health;
+        private Happiness happiness;
+        private Hunger hunger;
+        private List<String> quotes;
+        private Hat hat;
+
+        private class Health {
+            private int current;
+            private int max;
+
+            // Getters and setters
+            public int getCurrent() {
+                return current;
+            }
+
+            public void setCurrent(int current) {
+                this.current = current;
+            }
+
+            public int getMax() {
+                return max;
+            }
+
+            public void setMax(int max) {
+                this.max = max;
+            }
         }
 
-        public void setCurrent(int current) {
-            this.current = current;
+        private class Happiness {
+            private int current;
+            private int max;
+
+            // Getters and setters
+            public int getCurrent() {
+                return current;
+            }
+
+            public void setCurrent(int current) {
+                this.current = current;
+            }
+
+            public int getMax() {
+                return max;
+            }
+
+            public void setMax(int max) {
+                this.max = max;
+            }
         }
 
-        public int getMax() {
-            return max;
+        private class Hunger {
+            private int current;
+            private int max;
+
+            // Getters and setters
+            public int getCurrent() {
+                return current;
+            }
+
+            public void setCurrent(int current) {
+                this.current = current;
+            }
+
+            public int getMax() {
+                return max;
+            }
+
+            public void setMax(int max) {
+                this.max = max;
+            }
         }
 
-        public void setMax(int max) {
-            this.max = max;
-        }
-    }
+        private class Hat {
+            private int hat_id;
+            private boolean equipped;
 
-    public static class Happiness {
-        private int current;
-        private int max;
+            // Getters and setters
+            public int getHat_id() {
+                return hat_id;
+            }
 
-        // Getters and setters
-        public int getCurrent() {
-            return current;
-        }
+            public void setHat_id(int hat_id) {
+                this.hat_id = hat_id;
+            }
 
-        public void setCurrent(int current) {
-            this.current = current;
-        }
+            public boolean isEquipped() {
+                return equipped;
+            }
 
-        public int getMax() {
-            return max;
-        }
-
-        public void setMax(int max) {
-            this.max = max;
-        }
-    }
-
-    public static class Hunger {
-        private int current;
-        private int max;
-
-        // Getters and setters
-        public int getCurrent() {
-            return current;
+            public void setEquipped(boolean equipped) {
+                this.equipped = equipped;
+            }
         }
 
-        public void setCurrent(int current) {
-            this.current = current;
+        // Getters and setters for Pet class fields
+        public int getUser_id() {
+            return user_id;
         }
 
-        public int getMax() {
-            return max;
+        public void setUser_id(int user_id) {
+            this.user_id = user_id;
         }
 
-        public void setMax(int max) {
-            this.max = max;
-        }
-    }
-
-    public static class Hat {
-        private int hat_id;
-        private boolean equipped;
-
-        // Getters and setters
-        public int getHat_id() {
-            return hat_id;
+        public String getName() {
+            return name;
         }
 
-        public void setHat_id(int hat_id) {
-            this.hat_id = hat_id;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public boolean isEquipped() {
-            return equipped;
+        public String getColor() {
+            return color;
         }
 
-        public void setEquipped(boolean equipped) {
-            this.equipped = equipped;
+        public void setColor(String color) {
+            this.color = color;
         }
-    }
 
-    // Getters and setters for Pet class fields
-    public int getUser_id() {
-        return user_id;
-    }
+        public Health getHealth() {
+            return health;
+        }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
+        public void setHealth(Health health) {
+            this.health = health;
+        }
 
-    public String getName() {
-        return name;
-    }
+        public Happiness getHappiness() {
+            return happiness;
+        }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        public void setHappiness(Happiness happiness) {
+            this.happiness = happiness;
+        }
 
-    public String getColor() {
-        return color;
-    }
+        public Hunger getHunger() {
+            return hunger;
+        }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+        public void setHunger(Hunger hunger) {
+            this.hunger = hunger;
+        }
 
-    public Health getHealth() {
-        return health;
-    }
+        public List<String> getQuotes() {
+            return quotes;
+        }
 
-    public void setHealth(Health health) {
-        this.health = health;
-    }
+        public void setQuotes(List<String> quotes) {
+            this.quotes = quotes;
+        }
 
-    public Happiness getHappiness() {
-        return happiness;
-    }
+        public Hat getHat() {
+            return hat;
+        }
 
-    public void setHappiness(Happiness happiness) {
-        this.happiness = happiness;
-    }
-
-    public Hunger getHunger() {
-        return hunger;
-    }
-
-    public void setHunger(Hunger hunger) {
-        this.hunger = hunger;
-    }
-
-    public List<String> getQuotes() {
-        return quotes;
-    }
-
-    public void setQuotes(List<String> quotes) {
-        this.quotes = quotes;
-    }
-
-    public Hat getHat() {
-        return hat;
-    }
-
-    public void setHat(Hat hat) {
-        this.hat = hat;
+        public void setHat(Hat hat) {
+            this.hat = hat;
+        }
     }
 }
 

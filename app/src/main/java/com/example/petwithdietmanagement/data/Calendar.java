@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Calendar {
-    private List<User> users;
+    private Map<String,User> users=new HashMap<>();
 
-    public List<User> getUsers() {
+    public Map<String,User> getUsers() {
         return users;
     }
 

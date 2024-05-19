@@ -2,8 +2,6 @@ package com.example.petwithdietmanagement;
 
 import static android.content.ContentValues.TAG;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.util.Log;
 import android.content.Intent;
 
@@ -13,22 +11,19 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.petwithdietmanagement.data.Calendar;
-import com.example.petwithdietmanagement.data.Missions;
+import com.example.petwithdietmanagement.data.Items;
+import com.example.petwithdietmanagement.data.Pets;
 import com.example.petwithdietmanagement.data.Recipe;
+import com.example.petwithdietmanagement.data.Users;
 import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Map;
 
 public class CalendarActivity extends AppCompatActivity {
@@ -53,14 +48,16 @@ public class CalendarActivity extends AppCompatActivity {
                 // Gson 객체 생성 및 JSON 파싱
                 GsonMapping gsonMapping = new GsonMapping();
                 AssetManager assetManager = CalendarActivity.this.getAssets();
-                try (InputStream inputStream = assetManager.open("mission.json");
+                try (InputStream inputStream = assetManager.open("calendar.json");
                      InputStreamReader reader = new InputStreamReader(inputStream)) {
-                    Missions missions = gsonMapping.getMissions(reader);
-                    List<Missions.Mission> users=missions.getMissions();
-                    Log.d(TAG, "Mission_id= " + users.get(0).getMission_id());
+                    Calendar recipes = gsonMapping.getCalendar(reader);
+                    Map<String, Calendar.User> recipe=recipes.getUsers();
 
-                    if (users != null) {
-                        Log.d(TAG, "Mission_id= " + users.get(0).getMission_id());
+
+
+
+                    if (recipe != null) {
+                        Log.d(TAG, "Name= " + recipe.get("1").getFood_log().get("2024-05-15").getBreakfast_foodid().get(0));
 
                     } else {
 

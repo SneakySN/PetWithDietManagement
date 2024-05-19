@@ -4,19 +4,17 @@
             "user_id": 1,
             "name": "John Doe",
             "username": "johndoe",
-            "password": "password123", // 암호는 일반 텍스트로 저장하지 않고 해시화 해야 함
+            "password": "password123",
             "profile_picture": "https://example.com/images/johndoe.jpg",
             "goals": "Target weight 70kg",
             "daily_info": "2024-05-15",
             "health_info": {
                 "weight": 70,
-                // kg
                 "height": 175,
-                // cm
                 "bmi": 22.9,
                 "blood_pressure": "120/80"
             },
-            "gold": 1500, // 보유한 골드량
+            "gold": 1500,
             "items": [
                 {
                     "type": "backgrounds",
