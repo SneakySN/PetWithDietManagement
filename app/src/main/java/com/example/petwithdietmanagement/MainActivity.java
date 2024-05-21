@@ -7,7 +7,9 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.graphics.drawable.AnimationDrawable;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.petwithdietmanagement.CalendarActivity;
@@ -19,32 +21,41 @@ import com.example.petwithdietmanagement.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ImageView petImageView;
+    private Handler handler;
+    private Runnable imageSwitcher;
+    private AnimationDrawable petJumpAnimation;
+    private  int currentIndex = 0;
+    int[] petImages = {
+            R.drawable.slime01,
+            R.drawable.slime02,
+            R.drawable.slime03,
+            R.drawable.slime02
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); // XML 레이아웃 이름을 입력하세요
 
-        //펫 움직이게 하고싶었어요
-        int[] petImages = {
-                R.drawable.slime01,
-                R.drawable.slime02,
-                R.drawable.slime03,
-                R.drawable.slime02
-        };
-        ImageView petImageView = findViewById(R.id.ic_pet);
+        petImageView = findViewById(R.id.ic_pet);
+        handler = new Handler(Looper.getMainLooper());
+        imageSwitcher = new Runnable() {
 
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        Runnable imageSwitcher = new Runnable() {
-            int currentIndex = 0;
             @Override
             public void run(){
                 petImageView.setImageResource(petImages[currentIndex]);
                 currentIndex = (currentIndex + 1) % petImages.length;
-                handler.postDelayed(this, 800);
+                handler.postDelayed(this, 750);
             }
         };
         handler.post(imageSwitcher);
+
+        petImageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                changeJumpImage();
+            }
+        });
 
 
         // 홈 버튼
@@ -107,5 +118,37 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void changeJumpImage(){
+        handler.removeCallbacks(imageSwitcher);
+
+        // 점프 애니메이션 설정
+        petImageView.setImageResource(R.drawable.pet_jump_animation);
+        petJumpAnimation = (AnimationDrawable) petImageView.getDrawable();
+        petJumpAnimation.start();
+
+        // 점프 애니메이션 끝난 후 원래 애니메이션 시퀀스로 돌아가기
+        int animationDuration = getAnimationDuration(petJumpAnimation);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run(){
+                petJumpAnimation.stop();
+                startOriginalAnimation();
+            }
+        }, animationDuration);
+    }
+
+    private void startOriginalAnimation() {
+        currentIndex = 0;
+        handler.post(imageSwitcher); // 원래 애니메이션 시퀀스 재시작
+    }
+
+    private int getAnimationDuration(AnimationDrawable animationDrawable) {
+        int duration = 0;
+        for (int i = 0; i < 12; i++) {
+            duration += animationDrawable.getDuration(i);
+        }
+        return duration;
     }
 }

@@ -113,7 +113,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/background"
             app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/pet_image" />
+            app:srcCompat="@drawable/slime01" />
 
         <!-- "사진 모드" 텍스트 -->
         <TextView
