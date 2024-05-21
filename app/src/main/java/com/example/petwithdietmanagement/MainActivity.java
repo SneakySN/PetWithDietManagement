@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Runnable imageSwitcher;
     private AnimationDrawable petJumpAnimation;
     private  int currentIndex = 0;
+    private boolean isJumping = false;
     int[] petImages = {
             R.drawable.slime01,
             R.drawable.slime02,
@@ -43,9 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void run(){
-                petImageView.setImageResource(petImages[currentIndex]);
-                currentIndex = (currentIndex + 1) % petImages.length;
-                handler.postDelayed(this, 750);
+                if (!isJumping) {
+                    petImageView.setImageResource(petImages[currentIndex]);
+                    currentIndex = (currentIndex + 1) % petImages.length;
+                    handler.postDelayed(this, 750);
+                }
             }
         };
         handler.post(imageSwitcher);
@@ -53,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         petImageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                changeJumpImage();
+                if (!isJumping)
+                    changeJumpImage();
             }
         });
 
@@ -121,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void changeJumpImage(){
+        isJumping = true;
         handler.removeCallbacks(imageSwitcher);
 
         // 점프 애니메이션 설정
@@ -134,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run(){
                 petJumpAnimation.stop();
+                isJumping = false;
                 startOriginalAnimation();
             }
         }, animationDuration);

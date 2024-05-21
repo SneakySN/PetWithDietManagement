@@ -166,32 +166,28 @@
             android:id="@+id/img_breakfast"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_weight="1" />
 
         <!--점심 메뉴 사진-->
         <ImageView
             android:id="@+id/img_lunch"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_weight="1" />
 
         <!--저녁 메뉴 사진-->
         <ImageView
             android:id="@+id/img_dinner"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_weight="1" />
 
         <!--끼니를 통해 얻은 탄수, 단백, 지방 표 보여줌-->
         <ImageView
             android:id="@+id/table_cpf"
             android:layout_width="64dp"
             android:layout_height="96dp"
-            android:layout_weight="1.5"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_weight="1.5" />
     </LinearLayout>
 
     <!--사진 밑에 표시되는 메뉴 이름과 칼로리-->
