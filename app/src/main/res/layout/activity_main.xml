@@ -8,8 +8,8 @@
     <!-- 오른쪽 상단에 위치하는 마이페이지 버튼 -->
     <ImageButton
         android:id="@+id/ic_myPage"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:scaleType="fitCenter"
         android:background="?android:selectableItemBackground"
         android:layout_alignParentTop="true"
