@@ -30,14 +30,20 @@ public class PetMenuActivity extends AppCompatActivity {
     private Handler handler;
     private Runnable imageSwitcher;
     private AnimationDrawable petJumpAnimation;
-    private  int currentIndex = 0;
-    private boolean isJumping = false;
+    private int currentIndex = 0;
     int[] petImages = {
             R.drawable.slime01,
             R.drawable.slime02,
             R.drawable.slime03,
             R.drawable.slime02
     };
+
+    // 숨길 뷰 변수 선언
+    private View speechBubble, speechBubbleText, currentMoney, coin, shop, mission, decorating, badge, petTitleAndName, shoptext, missiontext, decotext, cameratext, bottom_menu;
+    private ImageView cameraButton;
+    private ConstraintLayout firstLayout;
+    private boolean isCameraMode = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,22 +52,45 @@ public class PetMenuActivity extends AppCompatActivity {
         petImageView = findViewById(R.id.character_image);
         handler = new Handler(Looper.getMainLooper());
         imageSwitcher = new Runnable() {
-
             @Override
-            public void run(){
-                if (!isJumping){
-                    petImageView.setImageResource(petImages[currentIndex]);
-                    currentIndex = (currentIndex + 1) % petImages.length;
-                    handler.postDelayed(this, 750);
-                }
+            public void run() {
+                petImageView.setImageResource(petImages[currentIndex]);
+                currentIndex = (currentIndex + 1) % petImages.length;
+                handler.postDelayed(this, 750);
             }
         };
         handler.post(imageSwitcher);
 
-        petImageView.setOnClickListener(new View.OnClickListener(){
+        petImageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                if (!isJumping) changeJumpImage();
+            public void onClick(View v) {
+                changeJumpImage();
+            }
+        });
+
+        // 숨길 뷰들 초기화
+        speechBubble = findViewById(R.id.speechBubble);
+        speechBubbleText = findViewById(R.id.speechBubbleText);
+        currentMoney = findViewById(R.id.currentMoney);
+        coin = findViewById(R.id.coin);
+        shop = findViewById(R.id.shop);
+        mission = findViewById(R.id.mission);
+        decorating = findViewById(R.id.decorating);
+        badge = findViewById(R.id.badge);
+        petTitleAndName = findViewById(R.id.petTitleAndName);
+        shoptext = findViewById(R.id.shoptext);
+        missiontext = findViewById(R.id.missiontext);
+        decotext = findViewById(R.id.decotext);
+        cameratext = findViewById(R.id.cameratext);
+        bottom_menu = findViewById(R.id.bottom_menu);
+        firstLayout = findViewById(R.id.firstLayout);
+
+        // 카메라 버튼 클릭 이벤트
+        cameraButton = findViewById(R.id.camera);
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleCameraMode();
             }
         });
 
@@ -128,11 +157,69 @@ public class PetMenuActivity extends AppCompatActivity {
                 customDialog.show();
             }
         });
-
     }
 
-    private void changeJumpImage(){
-        isJumping = true;
+    private void toggleCameraMode() {
+        if (isCameraMode) {
+            // 원래 상태로 복구
+            showViews();
+            cameraButton.setImageResource(R.drawable.camera); // 원래 카메라 이미지로 변경
+        } else {
+            // 카메라 모드로 전환
+            hideViews();
+            cameraButton.setImageResource(R.drawable.back); // back 이미지로 변경
+        }
+        isCameraMode = !isCameraMode;
+    }
+
+    private void hideViews() {
+        // 숨길 뷰들을 INVISIBLE로 설정
+        speechBubble.setVisibility(View.INVISIBLE);
+        speechBubbleText.setVisibility(View.INVISIBLE);
+        currentMoney.setVisibility(View.INVISIBLE);
+        coin.setVisibility(View.INVISIBLE);
+        shop.setVisibility(View.INVISIBLE);
+        mission.setVisibility(View.INVISIBLE);
+        decorating.setVisibility(View.INVISIBLE);
+        badge.setVisibility(View.INVISIBLE);
+        petTitleAndName.setVisibility(View.INVISIBLE);
+        shoptext.setVisibility(View.INVISIBLE);
+        missiontext.setVisibility(View.INVISIBLE);
+        decotext.setVisibility(View.INVISIBLE);
+        cameratext.setVisibility(View.INVISIBLE);
+        bottom_menu.setVisibility(View.GONE); // bottom_menu를 GONE으로 설정
+
+        // firstLayout의 높이를 전체 화면으로 변경
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
+        layoutParams.height = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        firstLayout.setLayoutParams(layoutParams);
+    }
+
+    private void showViews() {
+        // 숨긴 뷰들을 다시 VISIBLE로 설정
+        speechBubble.setVisibility(View.VISIBLE);
+        speechBubbleText.setVisibility(View.VISIBLE);
+        currentMoney.setVisibility(View.VISIBLE);
+        coin.setVisibility(View.VISIBLE);
+        shop.setVisibility(View.VISIBLE);
+        mission.setVisibility(View.VISIBLE);
+        decorating.setVisibility(View.VISIBLE);
+        badge.setVisibility(View.VISIBLE);
+        petTitleAndName.setVisibility(View.VISIBLE);
+        shoptext.setVisibility(View.VISIBLE);
+        missiontext.setVisibility(View.VISIBLE);
+        decotext.setVisibility(View.VISIBLE);
+        cameratext.setVisibility(View.VISIBLE);
+        bottom_menu.setVisibility(View.VISIBLE); // bottom_menu를 VISIBLE로 설정
+
+        // firstLayout의 높이를 원래 상태로 변경
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
+        layoutParams.height = 0;
+        layoutParams.matchConstraintPercentHeight = 0.905f; // 원래 퍼센트로 복구
+        firstLayout.setLayoutParams(layoutParams);
+    }
+
+    private void changeJumpImage() {
         handler.removeCallbacks(imageSwitcher);
 
         // 점프 애니메이션 설정
@@ -144,9 +231,8 @@ public class PetMenuActivity extends AppCompatActivity {
         int animationDuration = getAnimationDuration(petJumpAnimation);
         handler.postDelayed(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 petJumpAnimation.stop();
-                isJumping = false;
                 startOriginalAnimation();
             }
         }, animationDuration);
