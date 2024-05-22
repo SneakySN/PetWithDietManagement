@@ -1,5 +1,6 @@
 package com.example.petwithdietmanagement;
 
+import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -7,15 +8,21 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TabHost;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petwithdietmanagement.CalendarActivity;
 import com.example.petwithdietmanagement.DietActivity;
@@ -43,6 +50,7 @@ public class PetMenuActivity extends AppCompatActivity {
     private ImageView cameraButton;
     private ConstraintLayout firstLayout;
     private boolean isCameraMode = false;
+    private LinearLayout slideUpLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +92,7 @@ public class PetMenuActivity extends AppCompatActivity {
         cameratext = findViewById(R.id.cameratext);
         bottom_menu = findViewById(R.id.bottom_menu);
         firstLayout = findViewById(R.id.firstLayout);
+        slideUpLayout = findViewById(R.id.slideUpLayout);
 
         // 카메라 버튼 클릭 이벤트
         cameraButton = findViewById(R.id.camera);
@@ -91,6 +100,14 @@ public class PetMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toggleCameraMode();
+            }
+        });
+
+        // 꾸미기 버튼 클릭 이벤트
+        decorating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSlideUpLayout();
             }
         });
 
@@ -157,6 +174,71 @@ public class PetMenuActivity extends AppCompatActivity {
                 customDialog.show();
             }
         });
+
+        initializeTabs();
+    }
+
+    private void initializeTabs() {
+        TabHost tabHost = findViewById(android.R.id.tabhost);
+        tabHost.setup();
+
+        TabHost.TabSpec spec = tabHost.newTabSpec("Hat");
+        spec.setContent(R.id.tabHat);
+        spec.setIndicator("모자");
+        tabHost.addTab(spec);
+
+        spec = tabHost.newTabSpec("Background");
+        spec.setContent(R.id.tabBackground);
+        spec.setIndicator("배경");
+        tabHost.addTab(spec);
+
+        spec = tabHost.newTabSpec("Floor");
+        spec.setContent(R.id.tabFloor);
+        spec.setIndicator("바닥");
+        tabHost.addTab(spec);
+
+        spec = tabHost.newTabSpec("Carpet");
+        spec.setContent(R.id.tabCarpet);
+        spec.setIndicator("카펫");
+        tabHost.addTab(spec);
+    }
+
+
+    // 바깥 영역 터치시 slideUpLayout 숨기기
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            if (slideUpLayout.getVisibility() == View.VISIBLE) {
+                // slideUpLayout 영역 바깥을 터치한 경우
+                if (!isPointInsideView(ev.getRawX(), ev.getRawY(), slideUpLayout)) {
+                    hideSlideUpLayout();
+                    return true;
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private boolean isPointInsideView(float x, float y, View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int viewX = location[0];
+        int viewY = location[1];
+
+        // View의 사각형 영역 안에 포인트가 있는지 확인
+        return (x > viewX && x < (viewX + view.getWidth()) && y > viewY && y < (viewY + view.getHeight()));
+    }
+
+    private void showSlideUpLayout() {
+        slideUpLayout.setVisibility(View.VISIBLE);
+        Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up_animation);
+        slideUpLayout.startAnimation(slideUp);
+    }
+
+    private void hideSlideUpLayout() {
+        Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down_animation);
+        slideUpLayout.startAnimation(slideDown);
+        slideUpLayout.setVisibility(View.GONE);
     }
 
     private void toggleCameraMode() {
