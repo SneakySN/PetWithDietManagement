@@ -1,6 +1,5 @@
 package com.example.petwithdietmanagement;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.AnimationDrawable;
@@ -12,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 import com.example.petwithdietmanagement.data.Calendar;
 import com.example.petwithdietmanagement.data.Recipe;
 import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
@@ -28,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView carbsInfoTextView;
     private TextView proteinInfoTextView;
     private TextView fatInfoTextView;
-    private TextView breakfastInfoTextView;
-    private TextView lunchInfoTextView;
-    private TextView dinnerInfoTextView;
     private Handler handler;
     private Runnable imageSwitcher;
     private int currentIndex = 0;
     private boolean isJumping = false;
     private Map<String, Recipe> recipes;
+    private ViewPager2 viewPager;
+    private int[] layouts = {R.layout.breakfast_section, R.layout.lunch_section, R.layout.dinner_section};
+    private MealPagerAdapter adapter;
     int[] petImages = {
             R.drawable.slime01,
             R.drawable.slime02,
@@ -52,9 +52,7 @@ public class MainActivity extends AppCompatActivity {
         carbsInfoTextView = findViewById(R.id.carbs_info);
         proteinInfoTextView = findViewById(R.id.protein_info);
         fatInfoTextView = findViewById(R.id.fat_info);
-        breakfastInfoTextView = findViewById(R.id.breakfast_info);
-        lunchInfoTextView = findViewById(R.id.lunch_info);
-        dinnerInfoTextView = findViewById(R.id.dinner_info);
+        viewPager = findViewById(R.id.view_pager);
 
         handler = new Handler(Looper.getMainLooper());
         imageSwitcher = new Runnable() {
@@ -86,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 finish();
-                overridePendingTransition(0,0);
             }
         });
 
@@ -137,8 +134,20 @@ public class MainActivity extends AppCompatActivity {
         // JSON 데이터 로드
         loadRecipeData();
 
+        // 뷰페이저 설정
+        adapter = new MealPagerAdapter(layouts);
+        viewPager.setAdapter(adapter);
+
         // 오늘 날짜에 맞는 데이터 로드
         loadCalendarData();
+
+        // 뷰페이저 초기 데이터 로드 및 페이지 변경 시 데이터 업데이트
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                updateMealInfo(position);
+            }
+        });
     }
 
     @Override
@@ -222,35 +231,80 @@ public class MainActivity extends AppCompatActivity {
                 proteinInfoTextView.setText(totalProtein + "g");
                 fatInfoTextView.setText(totalFat + "g");
 
-                updateMealInfo(meals, breakfastInfoTextView, lunchInfoTextView, dinnerInfoTextView);
+                // 각 페이지가 준비되면 updateMealInfo 호출
+                viewPager.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateMealInfo(viewPager.getCurrentItem());
+                    }
+                });
+            } else {
+                // meals가 null인 경우 초기화
+                updateMealInfo(null);
             }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error reading the JSON file: " + e.getMessage());
+            // 오류가 발생한 경우 초기화
+            updateMealInfo(null);
         }
     }
 
-    private void updateMealInfo(Calendar.User.Meals meals, TextView breakfastTextView, TextView lunchTextView, TextView dinnerTextView) {
-        updateMealSection(meals.getBreakfast_foodid(), breakfastTextView);
-        updateMealSection(meals.getLunch_foodid(), lunchTextView);
-        updateMealSection(meals.getDinner_foodid(), dinnerTextView);
-    }
+    private void updateMealInfo(Integer position) {
+        Calendar.User.Meals meals = getTodayMeals();
 
-    private void updateMealSection(List<String> foodIds, TextView mealTextView) {
-        if (foodIds == null || foodIds.isEmpty()) {
-            mealTextView.setText("단식했어요");
-        } else {
-            StringBuilder mealInfo = new StringBuilder();
-            for (String foodId : foodIds) {
-                Recipe recipe = recipes.get(foodId);
-                if (recipe != null) {
-                    if (mealInfo.length() > 0) {
-                        mealInfo.append(", ");
-                    }
-                    mealInfo.append(recipe.getRecipeName());
+        for (int i = 0; i < layouts.length; i++) {
+            View view = viewPager.findViewWithTag("page_" + i);
+            if (view != null) {
+                TextView mealInfoTextView;
+                switch (i) {
+                    case 0:
+                        mealInfoTextView = view.findViewById(R.id.breakfast_info);
+                        mealInfoTextView.setText(meals == null ? "단식했어요" : getMealNames(meals.getBreakfast_foodid()));
+                        break;
+                    case 1:
+                        mealInfoTextView = view.findViewById(R.id.lunch_info);
+                        mealInfoTextView.setText(meals == null ? "단식했어요" : getMealNames(meals.getLunch_foodid()));
+                        break;
+                    case 2:
+                        mealInfoTextView = view.findViewById(R.id.dinner_info);
+                        mealInfoTextView.setText(meals == null ? "단식했어요" : getMealNames(meals.getDinner_foodid()));
+                        break;
                 }
             }
-            mealTextView.setText(mealInfo.toString());
+        }
+    }
+
+    private String getMealNames(List<String> foodIds) {
+        if (foodIds == null || foodIds.isEmpty()) {
+            return "단식했어요";
+        }
+
+        StringBuilder mealNames = new StringBuilder();
+        for (String foodId : foodIds) {
+            Recipe recipe = recipes.get(foodId);
+            if (recipe != null) {
+                mealNames.append(recipe.getRecipeName()).append(", ");
+            }
+        }
+        if (mealNames.length() > 0) {
+            mealNames.setLength(mealNames.length() - 2); // Remove trailing comma and space
+        }
+        return mealNames.toString();
+    }
+
+    private Calendar.User.Meals getTodayMeals() {
+        GsonMapping gsonMapping = new GsonMapping();
+        AssetManager assetManager = MainActivity.this.getAssets();
+        try (InputStream inputStream = assetManager.open("calendar.json");
+             InputStreamReader reader = new InputStreamReader(inputStream)) {
+            Calendar calendarData = gsonMapping.getCalendar(reader);
+            Map<String, Calendar.User> users = calendarData.getUsers();
+            return users.get("1").getFood_log().get(getTodayDate());
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading the JSON file: " + e.getMessage());
+            return null;
         }
     }
 
@@ -259,7 +313,8 @@ public class MainActivity extends AppCompatActivity {
         int year = calendar.get(java.util.Calendar.YEAR);
         int month = calendar.get(java.util.Calendar.MONTH) + 1; // 0-indexed
         int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-        return String.format("%04d-%02d-%02d", year, month, day);
+        //return String.format("%04d-%02d-%02d", year, month, day);
+        return "2024-05-15";
     }
 
     private List<Recipe.Nutrients> getNutrientValue(List<String> foodIds) {
@@ -291,3 +346,4 @@ public class MainActivity extends AppCompatActivity {
         return sum;
     }
 }
+

@@ -20,14 +20,11 @@
         android:src="@drawable/my_page" />
 
     <!-- 캐릭터 이미지 -->
-
-
     <ImageView
         android:id="@+id/ic_pet"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@id/ic_myPage"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="120dp"
         android:contentDescription="string/menu_button_description"
         android:src="@drawable/slime01" />
 
@@ -38,7 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ic_pet"
         android:orientation="horizontal"
-        android:layout_marginBottom="15dp"
         android:gravity="center"
         >
 
@@ -115,127 +111,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 식사 정보 -->
-    <ScrollView
+    <!-- 식사 정보 뷰페이저 -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nutrient_info_container"
         android:layout_above="@id/bottom_menu"
-        android:padding="16dp"
-        android:clipToPadding="false">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- 아침 섹션 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:background="@drawable/rounded_corner_bg"
-                android:layout_marginBottom="16dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/korean_food"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="아침"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/breakfast_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="단식했어요"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="14sp"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-
-            <!-- 점심 섹션 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:background="@drawable/rounded_corner_bg"
-                android:layout_marginBottom="16dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/japanese_food"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="점심"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/lunch_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="단식했어요"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="14sp"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-
-            <!-- 저녁 섹션 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:background="@drawable/rounded_corner_bg"
-                android:layout_marginBottom="16dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/western_food"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="저녁"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/dinner_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="단식했어요"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="14sp"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_margin="16dp"
+        />
 
     <!-- 바텀 네비게이션 바 -->
     <LinearLayout
@@ -294,4 +178,3 @@
     </LinearLayout>
 
 </RelativeLayout>
-
