@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TabHost;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,9 +35,16 @@ public class SpecifiedDietActivity extends AppCompatActivity {
     private int curStatus;
     private LinearLayout linearLayout;
     private int ScreenTag;
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(0, 0);
+    }
+/*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         // 각 버튼 함수 내에서 구현할 것들 : 버튼을 누를 시 .json 파일에서 데이터 불러오기
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specifieddiet);
@@ -113,28 +119,37 @@ public class SpecifiedDietActivity extends AppCompatActivity {
             }
         });
 
-        TabHost tabHost = findViewById(android.R.id.tabhost);
-        tabHost.setup();
+        recButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                curStatus = 0;
+                recButton.setBackgroundColor(Color.parseColor("#80000000"));
+            }
+        });
 
-        TabHost.TabSpec spec1 = tabHost.newTabSpec("추천");
-        spec1.setContent(R.id.tab1);
-        spec1.setIndicator("추천");
-        tabHost.addTab(spec1);
+        korButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                curStatus = 0;
+                korButton.setBackgroundColor(Color.parseColor("#80000000"));
+            }
+        });
 
-        TabHost.TabSpec spec2 = tabHost.newTabSpec("한식");
-        spec2.setContent(R.id.tab2);
-        spec2.setIndicator("한식");
-        tabHost.addTab(spec2);
+        wesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                curStatus = 2;
+                wesButton.setBackgroundColor(Color.parseColor("#80000000"));
+            }
+        });
 
-        TabHost.TabSpec spec3 = tabHost.newTabSpec("양식");
-        spec3.setContent(R.id.tab3);
-        spec3.setIndicator("양식");
-        tabHost.addTab(spec3);
-
-        TabHost.TabSpec spec4 = tabHost.newTabSpec("일식");
-        spec4.setContent(R.id.tab4);
-        spec4.setIndicator("일식");
-        tabHost.addTab(spec4);
+        japButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                curStatus = 1;
+                japButton.setBackgroundColor(Color.parseColor("#80000000"));
+            }
+        });
     }
     private void addButton(String buttonText) {
         Button newButton = new Button(this);
@@ -174,5 +189,9 @@ public class SpecifiedDietActivity extends AppCompatActivity {
                 }
             }
         }
+
+
     }
+    */
+
 }
