@@ -313,8 +313,8 @@ public class MainActivity extends AppCompatActivity {
         int year = calendar.get(java.util.Calendar.YEAR);
         int month = calendar.get(java.util.Calendar.MONTH) + 1; // 0-indexed
         int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-        //return String.format("%04d-%02d-%02d", year, month, day);
-        return "2024-05-15";
+        return String.format("%04d-%02d-%02d", year, month, day);
+        //return "2024-05-15";
     }
 
     private List<Recipe.Nutrients> getNutrientValue(List<String> foodIds) {
