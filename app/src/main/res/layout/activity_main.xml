@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ic_pet"
         android:orientation="horizontal"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="15dp"
         android:gravity="center"
         >
 
@@ -121,9 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/nutrient_info_container"
         android:layout_above="@id/bottom_menu"
-        android:paddingTop="0dp"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
+        android:padding="16dp"
         android:clipToPadding="false">
 
         <LinearLayout
