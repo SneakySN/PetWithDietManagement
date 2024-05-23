@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -112,37 +113,28 @@ public class SpecifiedDietActivity extends AppCompatActivity {
             }
         });
 
-        recButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                curStatus = 0;
-                recButton.setBackgroundColor(Color.parseColor("#80000000"));
-            }
-        });
+        TabHost tabHost = findViewById(android.R.id.tabhost);
+        tabHost.setup();
 
-        korButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                curStatus = 0;
-                korButton.setBackgroundColor(Color.parseColor("#80000000"));
-            }
-        });
+        TabHost.TabSpec spec1 = tabHost.newTabSpec("추천");
+        spec1.setContent(R.id.tab1);
+        spec1.setIndicator("추천");
+        tabHost.addTab(spec1);
 
-        wesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                curStatus = 2;
-                wesButton.setBackgroundColor(Color.parseColor("#80000000"));
-            }
-        });
+        TabHost.TabSpec spec2 = tabHost.newTabSpec("한식");
+        spec2.setContent(R.id.tab2);
+        spec2.setIndicator("한식");
+        tabHost.addTab(spec2);
 
-        japButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                curStatus = 1;
-                japButton.setBackgroundColor(Color.parseColor("#80000000"));
-            }
-        });
+        TabHost.TabSpec spec3 = tabHost.newTabSpec("양식");
+        spec3.setContent(R.id.tab3);
+        spec3.setIndicator("양식");
+        tabHost.addTab(spec3);
+
+        TabHost.TabSpec spec4 = tabHost.newTabSpec("일식");
+        spec4.setContent(R.id.tab4);
+        spec4.setIndicator("일식");
+        tabHost.addTab(spec4);
     }
     private void addButton(String buttonText) {
         Button newButton = new Button(this);

@@ -38,8 +38,8 @@ dependencies {
     // AndroidX Test
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.test:core:1.4.0")
-    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("androidx.test:core:1.5.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
 
     // Mockito or MockK for mocking in tests
     testImplementation("org.mockito:mockito-core:4.2.0")
@@ -49,23 +49,23 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.6")
 
     // Room Database Testing
-    androidTestImplementation("androidx.room:room-testing:2.4.1")
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
 
     // WorkManager Testing
-    androidTestImplementation("androidx.work:work-testing:2.7.1")
+    androidTestImplementation("androidx.work:work-testing:2.9.0")
 
     // Java language implementation
-    implementation("androidx.navigation:navigation-fragment:2.5.1")
-    implementation("androidx.navigation:navigation-ui:2.5.1")
+    implementation("androidx.navigation:navigation-fragment:2.7.7")
+    implementation("androidx.navigation:navigation-ui:2.7.7")
 
     // Feature module Support
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.5.1")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.7.7")
 
     // Testing Navigation
-    androidTestImplementation("androidx.navigation:navigation-testing:2.5.1")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
 
     // Jetpack Compose Integration
-    implementation("androidx.navigation:navigation-compose:2.5.1")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
