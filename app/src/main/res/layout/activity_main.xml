@@ -21,24 +21,26 @@
 
     <!-- 캐릭터 이미지 -->
 
-    <!-- 탄수화물, 단백질, 지방 정보 -->
+
     <ImageView
         android:id="@+id/ic_pet"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_below="@id/ic_myPage"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:contentDescription="string/menu_button_description"
         android:src="@drawable/slime01" />
 
+    <!-- 탄수화물, 단백질, 지방 정보 -->
     <LinearLayout
         android:id="@+id/nutrient_info_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ic_pet"
         android:orientation="horizontal"
+        android:layout_marginBottom="4dp"
         android:gravity="center"
-        android:layout_marginTop="40dp">
+        >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -119,7 +121,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/nutrient_info_container"
         android:layout_above="@id/bottom_menu"
-        android:padding="16dp"
+        android:paddingTop="0dp"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
         android:clipToPadding="false">
 
         <LinearLayout
