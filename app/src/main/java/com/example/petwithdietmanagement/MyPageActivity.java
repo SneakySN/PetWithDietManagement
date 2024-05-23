@@ -16,6 +16,14 @@ import com.example.petwithdietmanagement.R;
 
 public class MyPageActivity extends AppCompatActivity {
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +46,7 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MyPageActivity.this, MenuPageActivity.class); // 메뉴 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
             }
         });
     }

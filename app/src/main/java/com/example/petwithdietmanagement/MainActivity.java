@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView carbsInfoTextView;
     private TextView proteinInfoTextView;
     private TextView fatInfoTextView;
+    private TextView breakfastInfoTextView;
+    private TextView lunchInfoTextView;
+    private TextView dinnerInfoTextView;
     private Handler handler;
     private Runnable imageSwitcher;
     private int currentIndex = 0;
@@ -49,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         carbsInfoTextView = findViewById(R.id.carbs_info);
         proteinInfoTextView = findViewById(R.id.protein_info);
         fatInfoTextView = findViewById(R.id.fat_info);
+        breakfastInfoTextView = findViewById(R.id.breakfast_info);
+        lunchInfoTextView = findViewById(R.id.lunch_info);
+        dinnerInfoTextView = findViewById(R.id.dinner_info);
 
         handler = new Handler(Looper.getMainLooper());
         imageSwitcher = new Runnable() {
@@ -78,7 +84,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -89,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DietActivity.class); // 음식 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
             }
         });
 
@@ -99,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
             }
         });
 
@@ -109,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
             }
         });
 
@@ -119,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MyPageActivity.class); // 마이 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
             }
         });
 
@@ -127,6 +139,13 @@ public class MainActivity extends AppCompatActivity {
 
         // 오늘 날짜에 맞는 데이터 로드
         loadCalendarData();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(0, 0);
     }
 
     private void changeJumpImage(){
@@ -202,10 +221,36 @@ public class MainActivity extends AppCompatActivity {
                 carbsInfoTextView.setText(totalCarbs + "g");
                 proteinInfoTextView.setText(totalProtein + "g");
                 fatInfoTextView.setText(totalFat + "g");
+
+                updateMealInfo(meals, breakfastInfoTextView, lunchInfoTextView, dinnerInfoTextView);
             }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error reading the JSON file: " + e.getMessage());
+        }
+    }
+
+    private void updateMealInfo(Calendar.User.Meals meals, TextView breakfastTextView, TextView lunchTextView, TextView dinnerTextView) {
+        updateMealSection(meals.getBreakfast_foodid(), breakfastTextView);
+        updateMealSection(meals.getLunch_foodid(), lunchTextView);
+        updateMealSection(meals.getDinner_foodid(), dinnerTextView);
+    }
+
+    private void updateMealSection(List<String> foodIds, TextView mealTextView) {
+        if (foodIds == null || foodIds.isEmpty()) {
+            mealTextView.setText("단식했어요");
+        } else {
+            StringBuilder mealInfo = new StringBuilder();
+            for (String foodId : foodIds) {
+                Recipe recipe = recipes.get(foodId);
+                if (recipe != null) {
+                    if (mealInfo.length() > 0) {
+                        mealInfo.append(", ");
+                    }
+                    mealInfo.append(recipe.getRecipeName());
+                }
+            }
+            mealTextView.setText(mealInfo.toString());
         }
     }
 
@@ -215,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
         int month = calendar.get(java.util.Calendar.MONTH) + 1; // 0-indexed
         int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
         return String.format("%04d-%02d-%02d", year, month, day);
-
     }
 
     private List<Recipe.Nutrients> getNutrientValue(List<String> foodIds) {

@@ -99,7 +99,7 @@ public class CalendarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -110,7 +110,7 @@ public class CalendarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarActivity.this, DietActivity.class); // 음식 페이지로 이동
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -121,7 +121,9 @@ public class CalendarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -132,7 +134,7 @@ public class CalendarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -143,8 +145,16 @@ public class CalendarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarActivity.this, MyPageActivity.class); // 마이 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(0, 0);
     }
 
     private void loadRecipeData() {
@@ -224,15 +234,15 @@ public class CalendarActivity extends AppCompatActivity {
 
 
     private List<Recipe.Nutrients> getNutrientValue(List<String> foodIds) {
-    List<Recipe.Nutrients> nutrientsList = new ArrayList<>();
-    for (String foodId : foodIds) {
-        Recipe recipe = recipes.get(foodId);
-        if (recipe != null) {
-            nutrientsList.add(recipe.getNutrients());
+        List<Recipe.Nutrients> nutrientsList = new ArrayList<>();
+        for (String foodId : foodIds) {
+            Recipe recipe = recipes.get(foodId);
+            if (recipe != null) {
+                nutrientsList.add(recipe.getNutrients());
+            }
         }
+        return nutrientsList;
     }
-    return nutrientsList;
-}
 
     private float calculateNutrientSum(List<Recipe.Nutrients> nutrientsList, String nutrient) {
         float sum = 0;

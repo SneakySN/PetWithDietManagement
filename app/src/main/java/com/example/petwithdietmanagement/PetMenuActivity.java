@@ -52,6 +52,13 @@ public class PetMenuActivity extends AppCompatActivity {
     private boolean isCameraMode = false;
     private LinearLayout slideUpLayout;
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(0, 0);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,7 +125,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -129,7 +136,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, DietActivity.class); // 음식 페이지로 이동
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -140,7 +147,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -151,7 +158,9 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -162,6 +171,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, ShopActivity.class); // 상점 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
             }
         });
 

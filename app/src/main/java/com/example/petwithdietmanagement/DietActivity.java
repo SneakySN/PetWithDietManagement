@@ -22,9 +22,17 @@ import com.example.petwithdietmanagement.R;
 public class DietActivity extends AppCompatActivity {
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet); // XML 레이아웃 이름을 입력하세요
+
 
 
         // 홈 버튼
@@ -34,7 +42,7 @@ public class DietActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -45,7 +53,9 @@ public class DietActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, DietActivity.class); // 음식 페이지로 이동
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -55,8 +65,9 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
+                intent.addFlags(intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
 
@@ -67,9 +78,11 @@ public class DietActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
+
+
 
 
         // 한식
@@ -80,7 +93,7 @@ public class DietActivity extends AppCompatActivity {
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
                 intent.putExtra("tag","0"); // 식단 상세 페이지에 tag값 전달
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
         // 일식
@@ -91,7 +104,7 @@ public class DietActivity extends AppCompatActivity {
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
                 intent.putExtra("tag","1"); // 식단 상세 페이지에 tag값 전달
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
         // 양식 버튼
@@ -102,9 +115,11 @@ public class DietActivity extends AppCompatActivity {
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
                 intent.putExtra("tag","2"); // 식단 상세 페이지에 tag값 전달
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0,0);
             }
         });
+
+
 
     }
 }
