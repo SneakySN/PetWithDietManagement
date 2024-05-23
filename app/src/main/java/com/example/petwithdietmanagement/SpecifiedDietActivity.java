@@ -1,6 +1,7 @@
 package com.example.petwithdietmanagement;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.view.ViewGroup;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,14 +21,20 @@ import com.example.petwithdietmanagement.MainActivity;
 import com.example.petwithdietmanagement.R;
 import com.example.petwithdietmanagement.data.Recipe;
 import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Objects;
 
 public class SpecifiedDietActivity extends AppCompatActivity {
     private int curStatus;
     private LinearLayout linearLayout;
+    private int ScreenTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,25 +46,26 @@ public class SpecifiedDietActivity extends AppCompatActivity {
         ImageButton calendarButton = findViewById(R.id.ic_calendar);
         ImageButton petMenuButton = findViewById(R.id.ic_petMenu);
         ImageButton menuButton = findViewById(R.id.menuButton);
+        linearLayout = findViewById(R.id.ItemLinearLayout);
+        Intent choiceIntent = getIntent();
+        String choice = choiceIntent.getStringExtra("tag");
         Button recButton = findViewById(R.id.button_recommended);
         Button korButton = findViewById(R.id.button_korean);
         Button wesButton = findViewById(R.id.button_western);
         Button japButton = findViewById(R.id.button_japanese);
-        linearLayout = findViewById(R.id.ItemLinearLayout);
-
-        Intent choiceIntent = getIntent();
-        String choice = choiceIntent.getStringExtra("tag");
-
         if (Objects.equals(choice, "0")) {
             korButton.setBackgroundColor(Color.parseColor("#80000000"));
-            curStatus = 1;
+            curStatus = 0;
         } else if (Objects.equals(choice, "1")) {
+            japButton.setBackgroundColor(Color.parseColor("#80000000"));
+            curStatus = 1;
+        } else if (Objects.equals(choice, "2")) {
             wesButton.setBackgroundColor(Color.parseColor("#80000000"));
             curStatus = 2;
-        } else if (Objects.equals(choice, "2")) {
-            japButton.setBackgroundColor(Color.parseColor("#80000000"));
-            curStatus = 3;
         }
+
+        new SpecifiedDiet_json_read();
+
 
         // 홈 버튼
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -108,13 +116,15 @@ public class SpecifiedDietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 curStatus = 0;
+                recButton.setBackgroundColor(Color.parseColor("#80000000"));
             }
         });
 
         korButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                curStatus = 1;
+                curStatus = 0;
+                korButton.setBackgroundColor(Color.parseColor("#80000000"));
             }
         });
 
@@ -122,13 +132,15 @@ public class SpecifiedDietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 curStatus = 2;
+                wesButton.setBackgroundColor(Color.parseColor("#80000000"));
             }
         });
 
         japButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                curStatus = 3;
+                curStatus = 1;
+                japButton.setBackgroundColor(Color.parseColor("#80000000"));
             }
         });
     }
@@ -144,14 +156,31 @@ public class SpecifiedDietActivity extends AppCompatActivity {
 
         linearLayout.addView(newButton);
     }
+    class SpecifiedDiet_json_read {
+        private static final String TAG = "SpecificDiet_json_read";
 
-}
+        public void recipes() throws IOException {
+            Gson gson = new Gson();
+            GsonMapping gsonMapping = new GsonMapping();
+            AssetManager assetManager = SpecifiedDietActivity.this.getAssets();
+            try (InputStream inputStream = assetManager.open("recipeList.json");
+                 InputStreamReader reader = new InputStreamReader(inputStream)) {
 
-/*public class SpecifiedDiet_json_read {
-    private static final String TAG = "SpecificDiet_json_read";
+                Map<String, Recipe> recipes = gsonMapping.getRecipes(reader);
 
-    public void recipes() throws IOException {
-        GsonMapping gsonMapping = new GsonMapping();
-        //Map<String, Recipe> recipeData = (Map<String, Recipe>) gsonMapping.getRecipes("recipeList.json");
+                for (Map.Entry<String, Recipe> entry : recipes.entrySet()) {
+                    Recipe recipe = entry.getValue();
+                    if ("한식".equals(recipe.getDishType()) && curStatus == 0) {
+                        addButton(recipe.getCookingMethod());
+                    } else if ("일식".equals(recipe.getDishType()) && curStatus == 1) {
+                        addButton(recipe.getCookingMethod());
+                    } else if ("양식".equals(recipe.getDishType()) && curStatus == 2) {
+                        addButton(recipe.getCookingMethod());
+                    } else {
+                        addButton(recipe.getCookingMethod());
+                    }
+                }
+            }
+        }
     }
-}*/
+}
