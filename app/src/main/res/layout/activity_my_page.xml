@@ -15,40 +15,48 @@
         android:layout_height="match_parent"
         android:background="#fff2e9">
 
-        <!--메뉴 버튼-->
-        <ImageButton
-            android:id="@+id/ic_menu"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:scaleType="fitCenter"
-            android:background="?android:selectableItemBackground"
-            android:layout_marginStart="8dp"
-            android:contentDescription="string/menu_button_description"
-            android:src="@drawable/setting" />
-
-    <!--back 버튼-->
-        <ImageButton
-            android:id="@+id/ic_backBtn"
-            android:layout_width="64dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_row="0"
             android:layout_column="0"
-            android:layout_marginLeft="340dp"
-            android:background="?android:selectableItemBackground"
-            android:scaleType="fitCenter"
-            android:text="back"
-            app:srcCompat="@drawable/back" />
+            android:orientation="horizontal">
 
-    <!--제일 위의 타이틀-->
-    <TextView
-        android:id="@+id/title_myInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:text="나의 정보"
-        android:textAlignment="center"
-        android:textSize="34sp" />
+            <!--메뉴 버튼-->
+            <ImageButton
+                android:id="@+id/ic_menu"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:scaleType="fitCenter"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="string/menu_button_description"
+                android:src="@drawable/setting" />
+
+            <!--제일 위의 타이틀-->
+            <TextView
+                android:id="@+id/title_myInfo"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="나의 정보"
+                android:textAlignment="center"
+                android:layout_weight="2"
+                android:textSize="34sp" />
+            <!--back 버튼-->
+            <ImageButton
+                android:id="@+id/ic_backBtn"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="?android:selectableItemBackground"
+                android:scaleType="fitCenter"
+                android:text="back"
+                app:srcCompat="@drawable/back" />
+
+        </LinearLayout>
 
     <!--프로필 사진-->
     <ImageView
@@ -166,32 +174,28 @@
             android:id="@+id/img_breakfast"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_weight="1" />
 
         <!--점심 메뉴 사진-->
         <ImageView
             android:id="@+id/img_lunch"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_weight="1" />
 
         <!--저녁 메뉴 사진-->
         <ImageView
             android:id="@+id/img_dinner"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_weight="1" />
 
         <!--끼니를 통해 얻은 탄수, 단백, 지방 표 보여줌-->
         <ImageView
             android:id="@+id/table_cpf"
             android:layout_width="64dp"
             android:layout_height="96dp"
-            android:layout_weight="1.5"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_weight="1.5" />
     </LinearLayout>
 
     <!--사진 밑에 표시되는 메뉴 이름과 칼로리-->
@@ -315,6 +319,8 @@
         android:layout_marginLeft="10dp"
         android:text="혈압: 수축기 115mmHg, 이완기 76mmHg"
         android:textSize="18sp" />
+
+
 
     </GridLayout>
 </ScrollView>

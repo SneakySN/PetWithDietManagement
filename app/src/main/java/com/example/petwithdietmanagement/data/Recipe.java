@@ -2,6 +2,7 @@ package com.example.petwithdietmanagement.data;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Recipe {
@@ -13,8 +14,8 @@ public class Recipe {
     private String serving_weight;
     private String dish_type;
     private Map<String, String> images = new HashMap<>();
-    private Map<String, String> manual_steps=new HashMap<>();
-    private Map<String, String> manual_images = new HashMap<>();
+    private List<String> manual_steps;
+    private List<String> manual_images ;
 
     // 영양소 정보를 위한 중첩 클래스
     public static class Nutrients {
@@ -90,12 +91,12 @@ public class Recipe {
         return images;
     }
 
-    public Map<String, String> getManualSteps() {
-        return manual_steps;
+    public List<String> getManual_images() {
+        return manual_images;
     }
 
-    public Map<String, String> getManualImages() {
-        return manual_images;
+    public List<String> getManual_steps() {
+        return manual_steps;
     }
 }
 

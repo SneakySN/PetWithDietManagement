@@ -1,44 +1,36 @@
 package com.example.petwithdietmanagement.data;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Store {
-    private List<Background> backgrounds;
-    private List<Floor> floors;
-    private List<Carpet> carpets;
-    private List<Hat> hats;
+public class Items {
+    private Store store;
 
-    // Getters and setters
-    public List<Background> getBackgrounds() {
-        return backgrounds;
+    public Store getStore() {
+        return store;
     }
 
-    public void setBackgrounds(List<Background> backgrounds) {
-        this.backgrounds = backgrounds;
-    }
+    public static class Store {
+        private Map<String, Background> backgrounds = new HashMap<>();
+        private Map<String, Floor> floors = new HashMap<>();
+        private Map<String, Carpet> carpets = new HashMap<>();
+        private Map<String, Hat> hats = new HashMap<>();
 
-    public List<Floor> getFloors() {
-        return floors;
-    }
+        public Map<String, Background> getBackgrounds() {
+            return backgrounds;
+        }
 
-    public void setFloors(List<Floor> floors) {
-        this.floors = floors;
-    }
+        public Map<String, Floor> getFloors() {
+            return floors;
+        }
 
-    public List<Carpet> getCarpets() {
-        return carpets;
-    }
+        public Map<String, Carpet> getCarpets() {
+            return carpets;
+        }
 
-    public void setCarpets(List<Carpet> carpets) {
-        this.carpets = carpets;
-    }
-
-    public List<Hat> getHats() {
-        return hats;
-    }
-
-    public void setHats(List<Hat> hats) {
-        this.hats = hats;
+        public Map<String, Hat> getHats() {
+            return hats;
+        }
     }
 
     public static class Background {
@@ -48,7 +40,6 @@ public class Store {
         private String imageUrl;
         private String description;
 
-        // Getters and setters
         public int getBackground_id() {
             return background_id;
         }
@@ -97,7 +88,6 @@ public class Store {
         private String imageUrl;
         private String description;
 
-        // Getters and setters
         public int getFloor_id() {
             return floor_id;
         }
@@ -146,7 +136,6 @@ public class Store {
         private String imageUrl;
         private String description;
 
-        // Getters and setters
         public int getCarpet_id() {
             return carpet_id;
         }
@@ -195,7 +184,6 @@ public class Store {
         private String imageUrl;
         private String description;
 
-        // Getters and setters
         public int getHat_id() {
             return hat_id;
         }

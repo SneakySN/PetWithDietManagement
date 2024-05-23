@@ -1,30 +1,16 @@
 package com.example.petwithdietmanagement.jsonFunction;
 
-import static android.content.ContentValues.TAG;
-
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.util.Log;
-
-import com.example.petwithdietmanagement.CalendarActivity;
 import com.example.petwithdietmanagement.data.Calendar;
 import com.example.petwithdietmanagement.data.Missions;
 import com.example.petwithdietmanagement.data.Pets;
 import com.example.petwithdietmanagement.data.Recipe;
-import com.example.petwithdietmanagement.data.Store;
-import com.example.petwithdietmanagement.data.User;
+import com.example.petwithdietmanagement.data.Items;
+import com.example.petwithdietmanagement.data.Users;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.protobuf.NullValue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Map;
 
 public class GsonMapping {
@@ -33,14 +19,14 @@ public class GsonMapping {
         return gson.fromJson(json, new TypeToken<Map<String,Recipe>>(){}.getType());
     }
 
-    public Map<String, User> getUser(InputStreamReader json) {
+    public Users getUsers(InputStreamReader json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, new TypeToken<Map<String, User>>(){}.getType());
+        return gson.fromJson(json, Users.class);
     }
 
-    public Map<String, Pets> getPets(InputStreamReader json) {
+    public Pets getPets(InputStreamReader json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, new TypeToken<Map<String, Pets>>(){}.getType());
+        return gson.fromJson(json, Pets.class);
     }
 
     public Calendar getCalendar(InputStreamReader json) {
@@ -48,9 +34,9 @@ public class GsonMapping {
         return gson.fromJson(json, Calendar.class);
     }
 
-    public Store getStore(InputStreamReader json) {
+    public Items getItems(InputStreamReader json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, Store.class);
+        return gson.fromJson(json, Items.class);
     }
 
     public Missions getMissions(InputStreamReader json) {

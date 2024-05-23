@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5D6A2"
-    android:padding="0dp">
+    android:padding="0dp"
+    android:id="@+id/mainLayout">
 
     <!-- 바텀 네비게이션 바를 제외한 부분을 나타내는 레이아웃 -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,7 +75,6 @@
             android:layout_marginStart="112dp"
             android:layout_marginTop="143dp"
             android:layout_marginEnd="83dp"
-            android:layout_marginBottom="107dp"
             app:layout_constraintBottom_toBottomOf="@+id/background"
             app:layout_constraintEnd_toEndOf="@+id/background"
             app:layout_constraintStart_toStartOf="@+id/background"
@@ -113,216 +113,302 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/background"
             app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/pet_image" />
+            app:srcCompat="@drawable/slime01" />
 
-        <!-- "사진 모드" 텍스트 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="270dp"
-            android:text="사진 모드"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/camera"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/camera" />
 
-        <!-- 카메라 이미지 -->
-        <ImageView
-            android:id="@+id/camera"
-            android:layout_width="80dp"
+        <!--카메라, 돈 표시를 포함하는 LinearLayout-->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:scaleType="fitXY"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/camera" />
-
-        <!-- 현재 보유 돈 표시 -->
-        <TextView
-            android:id="@+id/currentMoney"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="169dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="319dp"
-            android:background="@drawable/rounded_corners"
-            android:gravity="end"
-            android:text="2,000    "
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background" />
-
-        <!-- 코인 이미지 -->
-        <ImageView
-            android:id="@+id/coin"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="167dp"
-            android:layout_marginBottom="310dp"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
             app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/currentMoney"
-            app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/coin" />
+            app:layout_constraintTop_toTopOf="@+id/background">
 
-        <!-- "상점" 텍스트 -->
-        <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1">
+
+                <!-- 카메라 이미지 -->
+                <ImageView
+                    android:id="@+id/camera"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:srcCompat="@drawable/camera"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <!-- "사진 모드" 텍스트 -->
+                <TextView
+                    android:id="@+id/cameratext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="60dp"
+                    android:text="사진 모드"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/camera" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="500dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1">
+
+                <!-- 현재 보유 돈 표시 -->
+                    <TextView
+                        android:id="@+id/currentMoney"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="end"
+                        android:text="2,000    "
+                        android:textSize="30sp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="40dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                        />
+
+                <!-- 코인 이미지 -->
+                    <ImageView
+                        android:id="@+id/coin"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/coin"
+                        />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <!--상점, 미션, 꾸미기 버튼 정렬된 LinearLayout-->
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/background"
+            app:layout_constraintTop_toTopOf="@id/background">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <!-- 상점 이미지 -->
+                <ImageView
+                    android:id="@+id/shop"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:srcCompat="@drawable/shop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <!-- "상점" 텍스트 -->
+                <TextView
+                    android:id="@+id/shoptext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상점"
+                    android:textStyle="bold"
+                    android:layout_marginTop="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/shop" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <!-- 미션 이미지 -->
+                <ImageView
+                    android:id="@+id/mission"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:srcCompat="@drawable/mission"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <!-- "미션" 텍스트 -->
+                <TextView
+                    android:id="@+id/missiontext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="미션"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/mission" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <!-- 꾸미기 이미지 -->
+                <ImageView
+                    android:id="@+id/decorating"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/decorating" />
+
+                <!-- "꾸미기" 텍스트 -->
+                <TextView
+                    android:id="@+id/decotext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:text="꾸미기"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/decorating" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+
+        <!--명찰 이미지-->
+        <ImageView
+            android:id="@+id/badge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="354dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginEnd="21dp"
-            android:text="상점"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/mission"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/shop" />
-
-        <!-- 상점 이미지 -->
-        <ImageView
-            android:id="@+id/shop"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="331dp"
-            android:layout_marginTop="106dp"
-            android:layout_marginBottom="22dp"
-            app:layout_constraintBottom_toTopOf="@+id/mission"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/shop" />
-
-        <!-- "미션" 텍스트 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="354dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginBottom="12dp"
-            android:text="미션"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/decorating"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/mission" />
-
-        <!-- 미션 이미지 -->
-        <ImageView
-            android:id="@+id/mission"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="336dp"
-            android:layout_marginTop="198dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="23dp"
-            app:layout_constraintBottom_toTopOf="@+id/decorating"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/mission" />
-
-        <!-- "꾸미기" 텍스트 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="350dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="19dp"
-            android:layout_marginBottom="25dp"
-            android:text="꾸미기"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/decorating" />
-
-        <!-- 꾸미기 이미지 -->
-        <ImageView
-            android:id="@+id/decorating"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="338dp"
-            android:layout_marginTop="281dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="34dp"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/decorating" />
-
-        <!-- "게임하기" 텍스트 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="51dp"
-            android:layout_marginEnd="346dp"
-            android:layout_marginBottom="22dp"
-            android:text="게임하기"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/game"
-            app:layout_constraintTop_toTopOf="@+id/game" />
-
-        <!-- 게임 이미지 -->
-        <ImageView
-            android:id="@+id/game"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="281dp"
-            android:layout_marginEnd="340dp"
-            android:layout_marginBottom="34dp"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/game" />
-
-        <!-- 이름 텍스트-->
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/badge"
-            android:layout_marginBottom="-50dp"
             app:layout_constraintBottom_toBottomOf="@+id/floor"
             app:layout_constraintEnd_toEndOf="@+id/floor"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="@+id/floor"
-            app:layout_constraintTop_toTopOf="@+id/floor"/>
+            app:layout_constraintTop_toTopOf="@+id/floor"
+            app:layout_constraintVertical_bias="0.628"
+            app:srcCompat="@drawable/badge" />
 
+        <!-- 이름 텍스트-->
         <TextView
             android:id="@+id/petTitleAndName"
             android:layout_width="180dp"
             android:layout_height="45dp"
-            android:layout_marginStart="107dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginEnd="108dp"
-            android:layout_marginBottom="0dp"
             android:gravity="center"
-            android:text="용용이"
+            android:text="슬라임"
             android:textAlignment="center"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/floor"
-            app:layout_constraintEnd_toEndOf="@+id/floor"
-            app:layout_constraintStart_toStartOf="@+id/floor"
-            app:layout_constraintTop_toTopOf="@+id/floor" />
-
-
-
+            app:layout_constraintBottom_toBottomOf="@+id/badge"
+            app:layout_constraintEnd_toEndOf="@+id/badge"
+            app:layout_constraintStart_toStartOf="@+id/badge"
+            app:layout_constraintTop_toTopOf="@+id/badge" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 슬라이드 업 레이아웃 -->
+    <LinearLayout
+        android:id="@+id/slideUpLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="#F6d58a"
+        android:visibility="gone"
+        app:layout_constraintHeight_percent="0.8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="보유 아이템 목록"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- 탭 호스트-->
+        <TabHost
+            android:id="@android:id/tabhost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F5D6A2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:elevation="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F6d58a" >
+                </TabWidget>
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <!-- 모자 아이템을 나열할 RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/tabHat"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:padding="16dp" />
+
+                    <!-- 배경 아이템을 나열할 RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/tabBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:padding="16dp" />
+
+                    <!-- 바닥 아이템을 나열할 RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/tabFloor"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:padding="16dp" />
+
+                    <!-- 카펫 아이템을 나열할 RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/tabCarpet"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:padding="16dp" />
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+
+    </LinearLayout>
 
     <!-- 바텀 네비게이션 바 -->
     <LinearLayout
