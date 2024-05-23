@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_dinner"
+        android:src="@drawable/ic_lunch"
         android:layout_gravity="center"/>
 
     <TextView

@@ -15,46 +15,64 @@
         <!-- 뒤로가기 버튼 -->
         <Button
             android:id="@+id/backButton"
-            android:layout_width="73dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginStart="4dp"
             android:layout_marginTop="2dp"
-            android:background="@drawable/back"/>
+            android:background="@drawable/back"
+            android:layout_weight="2"/>
 
-        <!-- 상점 이미지 -->
-        <ImageView
-            android:id="@+id/shop"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="70dp"
-            android:src="@drawable/shop"/>
-
-        <TextView
+        <!-- 상점 이미지와 텍스트 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="상점"
-            android:gravity="center"
-            android:textSize="30sp"/>
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="3">
+
+            <ImageView
+                android:id="@+id/shop"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/shop"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:text="상점"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="4dp"
             android:layout_marginTop="4dp"
             android:layout_weight="1">
+
             <!-- 현재 보유 돈 표시 -->
             <TextView
                 android:id="@+id/currentMoney"
-                android:layout_width="140dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/rounded_corners"
                 android:gravity="center"
                 android:text="2,000"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -65,13 +83,11 @@
                 android:id="@+id/coin"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="98dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
                 android:src="@drawable/coin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/currentMoney"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
@@ -119,14 +135,14 @@
                         android:layout_weight="1">
 
                         <ImageView
-                            android:id="@+id/testImg1"
+                            android:id="@+id/heilo"
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             app:layout_constraintBottom_toTopOf="@+id/testText1"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/camera"/>
+                            android:src="@drawable/heilo_sample"/>
 
                         <TextView
                             android:id="@+id/testText1"
@@ -138,7 +154,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg1" />
+                            app:layout_constraintTop_toBottomOf="@+id/heilo" />
 
                         <ImageView
                             android:id="@+id/imageView1"
@@ -149,7 +165,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/testText1"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg1"
+                            app:layout_constraintTop_toBottomOf="@+id/heilo"
                             android:src ="@drawable/coin" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -162,14 +178,14 @@
                         android:layout_weight="1">
 
                         <ImageView
-                            android:id="@+id/testImg2"
+                            android:id="@+id/pinWheel"
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             app:layout_constraintBottom_toTopOf="@+id/testText2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/camera" />
+                            android:src="@drawable/pinwheel_sample" />
 
                         <TextView
                             android:id="@+id/testText2"
@@ -181,7 +197,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg2" />
+                            app:layout_constraintTop_toBottomOf="@+id/pinWheel" />
 
                         <ImageView
                             android:id="@+id/imageView2"
@@ -192,7 +208,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/testText2"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg2"
+                            app:layout_constraintTop_toBottomOf="@+id/pinWheel"
                             android:src ="@drawable/coin" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
@@ -213,14 +229,14 @@
                         android:layout_margin="30dp">
 
                         <ImageView
-                            android:id="@+id/testImg3"
+                            android:id="@+id/starNightBg"
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             app:layout_constraintBottom_toTopOf="@+id/testText3"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/camera" />
+                            android:src="@drawable/star_night_background" />
 
                         <TextView
                             android:id="@+id/testText3"
@@ -232,7 +248,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg3" />
+                            app:layout_constraintTop_toBottomOf="@+id/starNightBg" />
 
                         <ImageView
                             android:id="@+id/imageView3"
@@ -243,7 +259,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/testText3"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg3"
+                            app:layout_constraintTop_toBottomOf="@+id/starNightBg"
                             android:src ="@drawable/coin" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
@@ -315,14 +331,14 @@
                         android:layout_margin="30dp">
 
                         <ImageView
-                            android:id="@+id/testImg5"
+                            android:id="@+id/orange_carpet"
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             app:layout_constraintBottom_toTopOf="@+id/testText5"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/camera" />
+                            android:src="@drawable/orange_carpet" />
 
                         <TextView
                             android:id="@+id/testText5"
@@ -334,7 +350,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg5" />
+                            app:layout_constraintTop_toBottomOf="@+id/orange_carpet" />
 
                         <ImageView
                             android:id="@+id/imageView5"
@@ -345,7 +361,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/testText5"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg5"
+                            app:layout_constraintTop_toBottomOf="@+id/orange_carpet"
                             android:src ="@drawable/coin" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
