@@ -103,16 +103,11 @@
             android:id="@+id/character_image"
             android:layout_width="290dp"
             android:layout_height="261dp"
-            android:layout_marginStart="53dp"
-            android:layout_marginTop="283dp"
-            android:layout_marginEnd="53dp"
-            android:layout_marginBottom="61dp"
+            android:layout_marginBottom="100dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="@+id/floor"
-            app:layout_constraintEnd_toEndOf="@+id/background"
+            app:layout_constraintEnd_toEndOf="@+id/carpet"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background"
             app:srcCompat="@drawable/slime01" />
 
 
