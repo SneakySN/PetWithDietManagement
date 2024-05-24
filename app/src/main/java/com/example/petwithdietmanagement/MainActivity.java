@@ -6,6 +6,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,6 +16,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.petwithdietmanagement.data.Calendar;
 import com.example.petwithdietmanagement.data.Recipe;
 import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
+
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.slime03,
             R.drawable.slime02
     };
-
+    private RecipeDatabaseManager dbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +152,30 @@ public class MainActivity extends AppCompatActivity {
                 updateMealInfo(position);
             }
         });
+
+        // DB 관련 파트
+        dbManager = new RecipeDatabaseManager(this);
+
+        // 데이터베이스가 비어 있는지 확인
+        if (dbManager.isDatabaseEmpty()) {
+            // JSON 파일 읽기
+            String jsonString = JsonUtils.loadJSONFromAsset(this, "recipeList.json");
+            if (jsonString != null) {
+                try {
+                    dbManager.insertRecipeData(jsonString);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("MainActivity", "Failed to load JSON file.");
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbManager.close();
     }
 
     @Override
