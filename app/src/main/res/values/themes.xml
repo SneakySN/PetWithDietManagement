@@ -3,7 +3,7 @@
     <style name="Base.Theme.PetWithDietManagement" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:fontFamily">@font/stardust</item>
+        <item name="android:fontFamily">@font/hanbit</item>
     </style>
 
     <style name="Theme.PetWithDietManagement" parent="Base.Theme.PetWithDietManagement" />

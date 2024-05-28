@@ -70,10 +70,11 @@ public class PetMenuActivity extends AppCompatActivity {
         imageSwitcher = new Runnable() {
             @Override
             public void run() {
-                if (!isJumping)
+                if (!isJumping){
                     petImageView.setImageResource(petImages[currentIndex]);
                     currentIndex = (currentIndex + 1) % petImages.length;
                     handler.postDelayed(this, 750);
+                }
             }
         };
         handler.post(imageSwitcher);
@@ -81,7 +82,7 @@ public class PetMenuActivity extends AppCompatActivity {
         petImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isJumping)
+                if (!isJumping)
                     changeJumpImage();
             }
         });

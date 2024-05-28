@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int getAnimationDuration(AnimationDrawable animationDrawable) {
         int duration = 0;
-        for (int i = 0; i < animationDrawable.getNumberOfFrames(); i++) {
+        for (int i = 0; i < 12; i++) {
             duration += animationDrawable.getDuration(i);
         }
         return duration;

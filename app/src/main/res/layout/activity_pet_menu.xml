@@ -54,18 +54,17 @@
         <!-- 카펫 -->
         <ImageView
             android:id="@+id/carpet"
-            android:layout_width="306dp"
-            android:layout_height="239dp"
+            android:layout_width="280dp"
+            android:layout_height="200dp"
             android:layout_marginStart="44dp"
-            android:layout_marginTop="350dp"
             android:layout_marginEnd="45dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="80dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="@+id/floor"
             app:layout_constraintEnd_toEndOf="@+id/floor"
             app:layout_constraintStart_toStartOf="@+id/floor"
-            app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/carpet" />
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:srcCompat="@drawable/orange_carpet" />
 
         <!-- 말풍선 -->
         <ImageView
@@ -115,6 +114,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@+id/background"
             app:layout_constraintEnd_toEndOf="@+id/background"
@@ -123,7 +123,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="4dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_weight="1">
 
@@ -299,7 +299,7 @@
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="@+id/floor"
             app:layout_constraintTop_toTopOf="@+id/floor"
-            app:layout_constraintVertical_bias="0.628"
+            app:layout_constraintVertical_bias="0.7"
             app:srcCompat="@drawable/badge" />
 
         <!-- 이름 텍스트-->

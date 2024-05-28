@@ -2,29 +2,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5D6A2"
+    android:background="#e6f4ff"
     android:padding="0dp">
 
+    <LinearLayout
+        android:id="@+id/upper_bar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@drawable/linear_layout_bottom_border"
+        android:elevation="12dp">
     <!-- 오른쪽 상단에 위치하는 마이페이지 버튼 -->
-    <ImageButton
-        android:id="@+id/ic_myPage"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:scaleType="fitCenter"
-        android:background="?android:selectableItemBackground"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="@string/my_page_description"
-        android:src="@drawable/my_page" />
+        <ImageView
+            android:id="@+id/myImage"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="10dp"
+            android:contentDescription="string/my_page_description"
+            android:src="@drawable/my_page" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="사용자 1"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:textSize="24dp"
+            android:layout_weight="1"
+            android:textColor="#fff3d9"
+            />
+
+        <ImageButton
+            android:id="@+id/ic_myPage"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/dots"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:layout_marginEnd="10dp"/>
+    </LinearLayout>
 
     <!-- 캘린더 섹션 -->
     <CalendarView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@id/ic_myPage"
+        android:layout_below="@id/upper_bar"
         android:layout_marginTop="16dp"
         android:dateTextAppearance="@style/CalendarDateText"
         android:weekDayTextAppearance="@style/CalendarWeekDayText" />
