@@ -249,19 +249,19 @@ public class CalendarActivity extends AppCompatActivity {
         for (Recipe.Nutrients nutrients : nutrientsList) {
             switch (nutrient) {
                 case "칼로리":
-                    sum += Float.parseFloat(nutrients.getCalories());
+                    sum += nutrients.getCalories();
                     break;
                 case "단백질":
-                    sum += Float.parseFloat(nutrients.getProtein());
+                    sum += nutrients.getProtein();
                     break;
                 case "지방":
-                    sum += Float.parseFloat(nutrients.getFat());
+                    sum += nutrients.getFat();
                     break;
                 case "탄수화물":
-                    sum += Float.parseFloat(nutrients.getCarbohydrate());
+                    sum += nutrients.getCarbohydrate();
                     break;
                 case "나트륨":
-                    sum += Float.parseFloat(nutrients.getSodium());
+                    sum += nutrients.getSodium();
                     break;
             }
         }

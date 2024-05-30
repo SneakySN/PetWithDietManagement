@@ -1,12 +1,12 @@
-package com.example.petwithdietmanagement;
+package com.example.petwithdietmanagement.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class RecipeDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "recipes.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     public static final String TABLE_RECIPES = "recipes";
     public static final String COLUMN_ID = "_id";
@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_MANUAL_STEPS = "manual_steps";
     public static final String COLUMN_MANUAL_IMAGES = "manual_images";
 
-    public DatabaseHelper(Context context) {
+    public RecipeDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -35,11 +35,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_RECIPE_NAME + " TEXT,"
                 + COLUMN_COOKING_METHOD + " TEXT,"
                 + COLUMN_INGREDIENTS + " TEXT,"
-                + COLUMN_CALORIES + " TEXT,"
-                + COLUMN_PROTEIN + " TEXT,"
-                + COLUMN_FAT + " TEXT,"
-                + COLUMN_CARBOHYDRATE + " TEXT,"
-                + COLUMN_SODIUM + " TEXT,"
+                + COLUMN_CALORIES + " REAL,"
+                + COLUMN_PROTEIN + " REAL,"
+                + COLUMN_FAT + " REAL,"
+                + COLUMN_CARBOHYDRATE + " REAL,"
+                + COLUMN_SODIUM + " REAL,"
                 + COLUMN_DISH_TYPE + " TEXT,"
                 + COLUMN_PREVIEW_IMAGE + " TEXT,"
                 + COLUMN_INGREDIENT_PREVIEW_IMAGE + " TEXT,"
@@ -50,7 +50,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPES);
-        onCreate(db);
+        if (oldVersion < 4) {
+            // 기존 테이블을 삭제하고 새 테이블을 생성
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPES);
+            onCreate(db);
+        }
     }
 }

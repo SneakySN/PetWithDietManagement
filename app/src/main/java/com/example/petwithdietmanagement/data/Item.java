@@ -3,7 +3,7 @@ package com.example.petwithdietmanagement.data;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Items {
+public class Item {
     private Store store;
 
     public Store getStore() {

@@ -14,9 +14,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.petwithdietmanagement.data.Calendar;
+import com.example.petwithdietmanagement.data.Mission;
 import com.example.petwithdietmanagement.data.Recipe;
+import com.example.petwithdietmanagement.database.MissionDBManager;
+import com.example.petwithdietmanagement.database.RecipeDBHelper;
+import com.example.petwithdietmanagement.database.RecipeDBManager;
 import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -46,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.slime03,
             R.drawable.slime02
     };
-    private RecipeDatabaseManager dbManager;
+    private RecipeDBManager dbManager;
+    private MissionDBManager missionDBM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // DB 관련 파트
-        dbManager = new RecipeDatabaseManager(this);
+// DB 관련 파트
+        dbManager = new RecipeDBManager(this); // recipeDB를 활용하기 위한 변수 선언
 
         // 데이터베이스가 비어 있는지 확인
         if (dbManager.isDatabaseEmpty()) {
@@ -170,6 +176,48 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", "Failed to load JSON file.");
             }
         }
+    // 예제: "새우 두부 계란찜" 레시피의 칼로리 값을 "220"로 수정
+        //dbManager.updateRecipeField("새우 두부 계란찜", RecipeDBHelper.COLUMN_CALORIES, "220");
+
+    // 예제: 레시피 명을 입력해 레시피의 ID 값 가져오기
+        //dbManager.getRecipeIdByName("브로콜리 컬리플라워 샐러드와 두유 요거트 소스");
+
+    // 예제: ID를 입력해 레시피의 데이터를 가져오기
+        /*try {
+            Recipe recipe = dbManager.getRecipeById(14);
+            Recipe.Nutrients nutrients = recipe.getNutrients();
+            Log.d("MainActivity", "메뉴 이름: " + recipe.getRecipeName());
+            Log.d("MainActivity", "칼로리: " + nutrients.getCalories());
+            Log.d("MainActivity", "메뉴얼 이미지들: " + recipe.getManualImages());
+            Log.d("MainActivity", "메뉴얼 스텝들: " + recipe.getManualSteps());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }*/
+
+    // 예제: 특정 개수의 필터링되고 정렬된 레시피들 가져오기 (true: 오름차순, false: 내림차순), (cookingMethod: 끓이기, 찌기, 굽기, 볶기, 튀기기, 기타), (dishType: 한식, 양식, 기타)
+        /*try {
+            JSONArray recipes = dbManager.getRecipes(RecipeDBHelper.COLUMN_CALORIES, false, 10,"볶기","양식");
+            Log.d("MainActivity", "Recipes: " + recipes.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
+
+        missionDBM = new MissionDBManager(this); // missionDB를 활용하기 위한 변수 선언
+    //missionDB에 데이터 넣기
+        //missionDBM.insertMission("Dehydration Villan","Drink at least 1 liter of water.","water_intake",1,"liters",100);
+
+    //missionDB의 특정 값 가져오기
+        /*Mission mission = missionDBM.getMissionById(1);
+        Log.d("MainActivity", "미션 내용: " + mission.getDescription());*/
+
+    //missionDB의 특정 값 수정하기
+        /*Mission mission = missionDBM.getMissionById(1);
+        mission.setReward(15300);
+        missionDBM.updateMission(mission);*/
+
+    //missionDB의 특정 데이터 삭제하기
+        //missionDBM.deleteMission(1);
+
     }
 
     @Override
@@ -361,13 +409,13 @@ public class MainActivity extends AppCompatActivity {
         for (Recipe.Nutrients nutrients : nutrientsList) {
             switch (nutrient) {
                 case "탄수화물":
-                    sum += Float.parseFloat(nutrients.getCarbohydrate());
+                    sum += nutrients.getCarbohydrate();
                     break;
                 case "단백질":
-                    sum += Float.parseFloat(nutrients.getProtein());
+                    sum += nutrients.getProtein();
                     break;
                 case "지방":
-                    sum += Float.parseFloat(nutrients.getFat());
+                    sum += nutrients.getFat();
                     break;
             }
         }
