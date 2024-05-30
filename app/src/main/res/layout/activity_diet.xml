@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main_layout"
     android:background="#FFF4DA">
-
 
     <LinearLayout
         android:id="@+id/top_menu"
@@ -18,15 +18,17 @@
         android:orientation="horizontal"
         android:padding="0dp">
 
-
-
         <!-- 상단 검색 아이콘 -->
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:focusable="true"
+            app:iconifiedByDefault="false"
             android:background="@drawable/spinner_background"
+            android:queryBackground="@drawable/spinner_background"
+            app:queryHint="음식 검색"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="5dp"/>
 
@@ -41,7 +43,6 @@
             android:contentDescription="string/search_description"
             android:scaleType="fitEnd"
             android:src="@drawable/search" />
-
     </LinearLayout>
 
     <!-- 식사 시간 선택 (스피너) -->

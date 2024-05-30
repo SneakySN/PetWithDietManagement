@@ -32,7 +32,7 @@ public class MenuPageActivity extends AppCompatActivity {
         ImageButton exitButton = findViewById(R.id.ic_exit);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){ finish(); }
+            public void onClick(View v){ finish(); overridePendingTransition(0, 0);}
         });
 
 

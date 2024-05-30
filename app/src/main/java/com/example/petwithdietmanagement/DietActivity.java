@@ -3,23 +3,19 @@ package com.example.petwithdietmanagement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-
-/*
-import com.example.petwithdietmanagement.CalendarActivity;
-import com.example.petwithdietmanagement.DietActivity;
-import com.example.petwithdietmanagement.MenuPageActivity;
-import com.example.petwithdietmanagement.MyPageActivity;
-import com.example.petwithdietmanagement.PetMenuActivity;
-import com.example.petwithdietmanagement.MainActivity;
-import com.example.petwithdietmanagement.R;
- */
-
 public class DietActivity extends AppCompatActivity {
+
+    private SearchView searchView;
 
     @Override
     public void onBackPressed() {
@@ -31,9 +27,35 @@ public class DietActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diet); // XML 레이아웃 이름을 입력하세요
+        setContentView(R.layout.activity_diet);
 
+        searchView = findViewById(R.id.search_view);
 
+        // 검색 버튼
+        ImageButton searchButton = findViewById(R.id.ic_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setQuery(searchView.getQuery(), true);
+                searchView.clearFocus(); // 키보드 닫기
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(DietActivity.this, "검색 처리됨 : " + query, Toast.LENGTH_SHORT).show();
+                searchView.setQuery("", false);
+                searchView.clearFocus(); // 키보드 닫기
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // @TODO: 검색어가 변경되었을 때 수행할 작업
+                return true;
+            }
+        });
 
         // 홈 버튼
         ImageButton homeButton = findViewById(R.id.ic_home);
@@ -43,6 +65,7 @@ public class DietActivity extends AppCompatActivity {
                 Intent intent = new Intent(DietActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
                 overridePendingTransition(0,0);
+                finish();
             }
         });
 
@@ -55,7 +78,6 @@ public class DietActivity extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 finish();
-                overridePendingTransition(0,0);
             }
         });
 
@@ -65,7 +87,6 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
-                intent.addFlags(intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
                 overridePendingTransition(0,0);
             }
@@ -82,44 +103,49 @@ public class DietActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-        // 한식
+        // 한식 버튼
         ImageButton koreanFoodButton = findViewById(R.id.ic_korean_food);
         koreanFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
-                intent.putExtra("tag","0"); // 식단 상세 페이지에 tag값 전달
+                intent.putExtra("tag", "0"); // 식단 상세 페이지에 tag값 전달
                 startActivity(intent);
                 overridePendingTransition(0,0);
             }
         });
-        // 일식
+
+        // 일식 버튼
         ImageButton japaneseFoodButton = findViewById(R.id.ic_japanese_food);
         japaneseFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
-                intent.putExtra("tag","1"); // 식단 상세 페이지에 tag값 전달
+                intent.putExtra("tag", "1"); // 식단 상세 페이지에 tag값 전달
                 startActivity(intent);
                 overridePendingTransition(0,0);
             }
         });
+
         // 양식 버튼
         ImageButton westernFoodButton = findViewById(R.id.ic_western_food);
         westernFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
-                intent.putExtra("tag","2"); // 식단 상세 페이지에 tag값 전달
+                intent.putExtra("tag", "2"); // 식단 상세 페이지에 tag값 전달
                 startActivity(intent);
                 overridePendingTransition(0,0);
             }
         });
 
-
-
+        // SearchView 이외의 다른 공간을 누르면 키보드를 숨깁니다.
+        RelativeLayout mainLayout = findViewById(R.id.main_layout); // main_layout의 ID를 XML과 일치시킵니다
+        mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.clearFocus();
+            }
+        });
     }
 }
