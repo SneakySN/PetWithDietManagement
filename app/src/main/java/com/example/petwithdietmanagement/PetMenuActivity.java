@@ -247,12 +247,20 @@ public class PetMenuActivity extends AppCompatActivity {
         slideUpLayout.setVisibility(View.VISIBLE);
         Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up_animation);
         slideUpLayout.startAnimation(slideUp);
+
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
+        layoutParams.bottomMargin = 1000;
+        firstLayout.setLayoutParams(layoutParams);
     }
 
     private void hideSlideUpLayout() {
         Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down_animation);
         slideUpLayout.startAnimation(slideDown);
         slideUpLayout.setVisibility(View.GONE);
+
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
+        layoutParams.bottomMargin = 0;
+        firstLayout.setLayoutParams(layoutParams);
     }
 
     private void toggleCameraMode() {
@@ -284,11 +292,6 @@ public class PetMenuActivity extends AppCompatActivity {
         decotext.setVisibility(View.INVISIBLE);
         cameratext.setVisibility(View.INVISIBLE);
         bottom_menu.setVisibility(View.GONE); // bottom_menu를 GONE으로 설정
-
-        // firstLayout의 높이를 전체 화면으로 변경
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
-        layoutParams.height = ConstraintLayout.LayoutParams.MATCH_PARENT;
-        firstLayout.setLayoutParams(layoutParams);
     }
 
     private void showViews() {
@@ -307,12 +310,6 @@ public class PetMenuActivity extends AppCompatActivity {
         decotext.setVisibility(View.VISIBLE);
         cameratext.setVisibility(View.VISIBLE);
         bottom_menu.setVisibility(View.VISIBLE); // bottom_menu를 VISIBLE로 설정
-
-        // firstLayout의 높이를 원래 상태로 변경
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
-        layoutParams.height = 0;
-        layoutParams.matchConstraintPercentHeight = 0.905f; // 원래 퍼센트로 복구
-        firstLayout.setLayoutParams(layoutParams);
     }
 
     private void changeJumpImage() {
