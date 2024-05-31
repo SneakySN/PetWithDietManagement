@@ -3,7 +3,11 @@ package com.example.petwithdietmanagement;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TabHost;
 
 public class ShopActivity extends TabActivity {
@@ -40,6 +44,14 @@ public class ShopActivity extends TabActivity {
         tabHost.setCurrentTab(0);
 
         // back 버튼 클릭 시 종료
-        findViewById(R.id.backButton).setOnClickListener(v->finish());
+        // 캘린더 버튼
+        Button backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(0, 0);
+            }
+        });
     }
 }
