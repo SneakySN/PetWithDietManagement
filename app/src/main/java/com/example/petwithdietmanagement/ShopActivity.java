@@ -29,8 +29,8 @@ public class ShopActivity extends TabActivity {
         tabSpecBackground.setContent(R.id.tabBackground);
         tabHost.addTab(tabSpecBackground);
 
-        TabHost.TabSpec tabSpecFloor = tabHost.newTabSpec("FLOOR").setIndicator("바닥");
-        tabSpecFloor.setContent(R.id.tabFloor);
+        TabHost.TabSpec tabSpecFloor = tabHost.newTabSpec("BADGE").setIndicator("명찰");
+        tabSpecFloor.setContent(R.id.tabBadge);
         tabHost.addTab(tabSpecFloor);
 
         TabHost.TabSpec tabSpecCarpet = tabHost.newTabSpec("CARPET").setIndicator("카펫");

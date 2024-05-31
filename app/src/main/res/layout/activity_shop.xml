@@ -15,13 +15,13 @@
         <!-- 뒤로가기 버튼 -->
         <Button
             android:id="@+id/backButton"
-            android:layout_width="0dp"
+            android:layout_width="20dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginStart="4dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/back"
-            android:layout_weight="2"/>
+            android:layout_weight="1"/>
 
         <!-- 상점 이미지와 텍스트 -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
                 android:text="상점"
                 android:gravity="center"
                 android:textSize="30sp"
@@ -226,7 +227,8 @@
                         android:layout_height="180dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="30dp">
+                        android:layout_margin="16dp"
+                        android:layout_weight="1">
 
                         <ImageView
                             android:id="@+id/starNightBg"
@@ -262,6 +264,15 @@
                             app:layout_constraintTop_toBottomOf="@+id/starNightBg"
                             android:src ="@drawable/coin" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="150dp"
+                        android:layout_height="180dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </LinearLayout>
 
                 <!--바닥 아이템 관련 레이아웃-->
@@ -270,14 +281,15 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:id="@+id/tabFloor">
+                    android:id="@+id/tabBadge">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="150dp"
                         android:layout_height="180dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="30dp">
+                        android:layout_margin="16dp"
+                        android:layout_weight="1">
 
                         <ImageView
                             android:id="@+id/testImg4"
@@ -287,7 +299,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/camera" />
+                            android:src="@drawable/badge" />
 
                         <TextView
                             android:id="@+id/testText4"
@@ -313,6 +325,15 @@
                             app:layout_constraintTop_toBottomOf="@+id/testImg4"
                             android:src ="@drawable/coin" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="150dp"
+                        android:layout_height="180dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </LinearLayout>
 
                 <!--카펫 아이템 관련 레이아웃-->
@@ -328,7 +349,8 @@
                         android:layout_height="180dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="30dp">
+                        android:layout_margin="16dp"
+                        android:layout_weight="1">
 
                         <ImageView
                             android:id="@+id/orange_carpet"
@@ -364,6 +386,15 @@
                             app:layout_constraintTop_toBottomOf="@+id/orange_carpet"
                             android:src ="@drawable/coin" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="150dp"
+                        android:layout_height="180dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

@@ -206,9 +206,9 @@ public class PetMenuActivity extends AppCompatActivity {
         spec.setIndicator("배경");
         tabHost.addTab(spec);
 
-        spec = tabHost.newTabSpec("Floor");
-        spec.setContent(R.id.tabFloor);
-        spec.setIndicator("바닥");
+        spec = tabHost.newTabSpec("Badge");
+        spec.setContent(R.id.tabBadge);
+        spec.setIndicator("명찰");
         tabHost.addTab(spec);
 
         spec = tabHost.newTabSpec("Carpet");
@@ -246,21 +246,25 @@ public class PetMenuActivity extends AppCompatActivity {
     private void showSlideUpLayout() {
         slideUpLayout.setVisibility(View.VISIBLE);
         Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up_animation);
+        slideUp.setDuration(0);
         slideUpLayout.startAnimation(slideUp);
 
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
         layoutParams.bottomMargin = 1000;
         firstLayout.setLayoutParams(layoutParams);
+        bottom_menu.setVisibility(View.GONE);
     }
 
     private void hideSlideUpLayout() {
         Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down_animation);
         slideUpLayout.startAnimation(slideDown);
+        slideDown.setDuration(0);
         slideUpLayout.setVisibility(View.GONE);
 
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
         layoutParams.bottomMargin = 0;
         firstLayout.setLayoutParams(layoutParams);
+        bottom_menu.setVisibility(View.VISIBLE);
     }
 
     private void toggleCameraMode() {
