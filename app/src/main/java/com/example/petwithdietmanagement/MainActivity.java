@@ -14,8 +14,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.petwithdietmanagement.data.Calendar;
+import com.example.petwithdietmanagement.data.Item;
 import com.example.petwithdietmanagement.data.Mission;
 import com.example.petwithdietmanagement.data.Recipe;
+import com.example.petwithdietmanagement.database.ItemDBManager;
 import com.example.petwithdietmanagement.database.MissionDBManager;
 import com.example.petwithdietmanagement.database.RecipeDBHelper;
 import com.example.petwithdietmanagement.database.RecipeDBManager;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private RecipeDBManager dbManager;
     private MissionDBManager missionDBM;
+    private ItemDBManager itemDBM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -217,6 +220,30 @@ public class MainActivity extends AppCompatActivity {
 
     //missionDB의 특정 데이터 삭제하기
         //missionDBM.deleteMission(1);
+
+        itemDBM = new ItemDBManager(this); // itemDB를 활용하기 위한 변수 선언
+    //itemDB에 데이터 넣기
+        //itemDBM.insertItemData("Hat","heilo",500,"heilo_sample","천사같은 펫에게 어울리는 최고의 모자이다.");
+
+    //itemDB의 특정 값 가져오기
+        /*Item item = itemDBM.getItemById(1);
+        Log.d("MainActivity", "아이템 내용: " + item.getDescription());*/
+
+    // 아이템 명을 입력해 아이템의 ID 값 가져오기
+        //Log.d("MainActivity", "아이템 ID: " + itemDBM.getItemIdByName("orange_carpet"));
+
+    //특정 아이템 타입의 아이템들만 가져오기
+        /*List<Item> filteredItems = itemDBM.getItemsByType("Hat");
+        for (Item item : filteredItems) {
+            Log.d("MainActivity", "Filtered Item: " + item.getItemName() + ", Type: " + item.getItemType());
+        }*/
+    //itemDB의 특정 값 수정하기
+        /*Item item = itemDBM.getItemById(1);
+        item.setItemPrice(15300);
+        itemDBM.updateItem(item);*/
+
+    //itemDB의 특정 데이터 삭제하기
+        //itemDBM.deleteItem(1);
 
     }
 

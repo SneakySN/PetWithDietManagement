@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MissionDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "missions.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_MISSIONS = "missions";
     public static final String COLUMN_MISSION_ID = "mission_id";
@@ -24,7 +24,7 @@ public class MissionDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_RECIPES_TABLE = "CREATE TABLE " + TABLE_MISSIONS + "("
-                + COLUMN_MISSION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_MISSION_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_MISSION_NAME + " TEXT,"
                 + COLUMN_DESCRIPTION + " TEXT,"
                 + COLUMN_MISSION_TYPE + " TEXT,"
@@ -34,9 +34,11 @@ public class MissionDBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_RECIPES_TABLE);
     }
 
-    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MISSIONS);
-        onCreate(db);
+        if (oldVersion < 2) {
+            // 기존 테이블을 삭제하고 새 테이블을 생성
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_MISSIONS);
+            onCreate(db);
+        }
     }
 }

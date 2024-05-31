@@ -23,6 +23,11 @@ public class RecipeDBManager {
         database = dbHelper.getWritableDatabase();
     }
 
+    public Cursor getRecipesByName(String name) {
+        String sql = "SELECT * FROM recipes WHERE recipe_name LIKE ?";
+        return database.rawQuery(sql, new String[] { "%" + name + "%" });
+    }
+
     public void insertRecipeData(String jsonString) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonString);
         JSONArray keys = jsonObject.names();

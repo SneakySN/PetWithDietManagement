@@ -1,21 +1,32 @@
 package com.example.petwithdietmanagement;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.petwithdietmanagement.database.RecipeDBManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DietActivity extends AppCompatActivity {
 
     private SearchView searchView;
+    private RecipeDBManager dbManager;
+    private List<String> recipeList;
 
     @Override
     public void onBackPressed() {
@@ -41,9 +52,14 @@ public class DietActivity extends AppCompatActivity {
             }
         });
 
+        dbManager = new RecipeDBManager(this);
+        recipeList = new ArrayList<>();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                searchRecipes(query);
+                Log.d("DietActivity", "리스트: " + recipeList);
                 Toast.makeText(DietActivity.this, "검색 처리됨 : " + query, Toast.LENGTH_SHORT).show();
                 searchView.setQuery("", false);
                 searchView.clearFocus(); // 키보드 닫기
@@ -147,5 +163,17 @@ public class DietActivity extends AppCompatActivity {
                 searchView.clearFocus();
             }
         });
+    }
+
+    private void searchRecipes(String query) {
+        Cursor cursor = dbManager.getRecipesByName(query);
+        recipeList.clear();
+        if (cursor.moveToFirst()) {
+            do {
+                String recipeName = cursor.getString(cursor.getColumnIndexOrThrow("recipe_name"));
+                recipeList.add(recipeName);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
     }
 }

@@ -22,6 +22,7 @@ public class MissionDBManager {
     // 미션 데이터 삽입 메소드
     public void insertMission(String missionName, String description, String missionType, Integer missionTarget, String missionUnit, Integer reward) {
         ContentValues values = new ContentValues();
+        values.put(MissionDBHelper.COLUMN_MISSION_ID, getNextMissionId());
         values.put(MissionDBHelper.COLUMN_MISSION_NAME, missionName);
         values.put(MissionDBHelper.COLUMN_DESCRIPTION, description);
         values.put(MissionDBHelper.COLUMN_MISSION_TYPE, missionType);
@@ -30,6 +31,17 @@ public class MissionDBManager {
         values.put(MissionDBHelper.COLUMN_REWARD, reward);
 
         database.insert(MissionDBHelper.TABLE_MISSIONS, null, values);
+    }
+
+    // 다음 미션 ID를 가져오는 메소드
+    private int getNextMissionId() {
+        Cursor cursor = database.rawQuery("SELECT MAX(" + MissionDBHelper.COLUMN_MISSION_ID + ") FROM " + MissionDBHelper.TABLE_MISSIONS, null);
+        int maxId = 0;
+        if (cursor.moveToFirst()) {
+            maxId = cursor.getInt(0);
+        }
+        cursor.close();
+        return maxId + 1;
     }
 
     // 모든 미션 데이터 가져오기 메소드
@@ -86,7 +98,6 @@ public class MissionDBManager {
         values.put(MissionDBHelper.COLUMN_MISSION_TARGET, mission.getTarget());
         values.put(MissionDBHelper.COLUMN_MISSION_UNIT, mission.getUnit());
         values.put(MissionDBHelper.COLUMN_REWARD, mission.getReward());
-
         String whereClause = MissionDBHelper.COLUMN_MISSION_ID + "=?";
         String[] whereArgs = { String.valueOf(mission.getId()) };
 
