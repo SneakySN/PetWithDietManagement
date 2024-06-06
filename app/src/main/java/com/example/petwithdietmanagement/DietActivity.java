@@ -27,8 +27,9 @@ public class DietActivity extends AppCompatActivity {
     private List<Recipe> recipeList;
     private RecipeAdapter adapter;
     private RecyclerView recipeRecyclerView;
-    private Spinner mealTimeSpinner, categorySpinner;
-    private String selectedMealTime, selectedCategory;
+    private Spinner cookMethodSpinner, categorySpinner;
+    private String selectedCookMethod = "전체";
+    private String selectedCategory = "전체";
 
     @Override
     public void onBackPressed() {
@@ -46,20 +47,20 @@ public class DietActivity extends AppCompatActivity {
         recipeRecyclerView = findViewById(R.id.recipe_recycler_view);
         recipeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mealTimeSpinner = findViewById(R.id.meal_time_spinner);
+        cookMethodSpinner = findViewById(R.id.cook_method_spinner);
         categorySpinner = findViewById(R.id.category_spinner);
 
         // 스피너 선택 리스너 설정
-        mealTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        cookMethodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedMealTime = parent.getItemAtPosition(position).toString();
-                filterRecipes(searchView.getQuery().toString());
+                selectedCookMethod = parent.getItemAtPosition(position).toString();
+                filterRecipes();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedMealTime = null;
+                selectedCookMethod = "전체";
             }
         });
 
@@ -67,12 +68,12 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedCategory = parent.getItemAtPosition(position).toString();
-                filterRecipes(searchView.getQuery().toString());
+                filterRecipes();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedCategory = null;
+                selectedCategory = "전체";
             }
         });
 
@@ -98,7 +99,7 @@ public class DietActivity extends AppCompatActivity {
             public void onItemClick(Recipe recipe) {
                 searchView.setQuery(recipe.getRecipeName(), false);
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
-                intent.putExtra("Recipe", searchView.getQuery()); // 필터링된 Recipe List를 전달
+                intent.putExtra("Recipe", recipe.getRecipeName()); // 필터링된 Recipe List를 전달
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }
@@ -107,34 +108,14 @@ public class DietActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchRecipes(query);
-                ArrayList<Recipe> filteredRecipes = new ArrayList<>(adapter.getFilteredList());
-                String RecipeName = null;
-                // 검색어와 일치하는 레시피가 있는지 확인
-                boolean isRecipeFound = false;
-                for (Recipe recipe : filteredRecipes) {
-                    if (query.equals(recipe.getRecipeName())) {
-                        isRecipeFound = true;
-                        RecipeName = recipe.getRecipeName();
-                        break;
-                    }
-                }
-
-                // 일치하는 레시피가 있으면 포커스 해제
-                if (isRecipeFound) {
-                    Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
-                    intent.putExtra("Recipe", RecipeName); // 필터링된 Recipe List를 전달
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
-                searchView.clearFocus(); // 검색 후 포커스 해제
+                filterRecipes();
+                searchView.clearFocus(); // 키보드 닫기
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterRecipes(newText);
+                filterRecipes();
                 return true;
             }
         });
@@ -211,15 +192,58 @@ public class DietActivity extends AppCompatActivity {
                 searchView.clearFocus();
             }
         });
+
+        // 레시피 데이터 초기 로드
+        loadRecipes();
     }
 
-    private void searchRecipes(String query) {
+    private void loadRecipes() {
+        recipeList = dbManager.getRecipesByQuery("");
+        adapter.filter(recipeList);
+    }
+
+    private void filterRecipes() {
+        String query = searchView.getQuery().toString();
         List<Recipe> filteredRecipes = dbManager.getRecipesByQuery(query);
+
+        if (selectedCategory != null && !selectedCategory.equals("전체")) {
+            filteredRecipes = filterByCategory(filteredRecipes, selectedCategory);
+        }
+
+        if (selectedCookMethod != null && !selectedCookMethod.equals("조리")) {
+            filteredRecipes = filterByCookMethod(filteredRecipes, selectedCookMethod);
+        }
+
+
+
         adapter.filter(filteredRecipes);
     }
 
-    private void filterRecipes(String query) {
-        searchRecipes(query);
-        searchView.setVisibility(View.VISIBLE); // 검색 중에는 검색창 보이기
+    private List<Recipe> filterByCookMethod(List<Recipe> recipes, String cookMethod) {
+        if (cookMethod.equals("조리")) {
+            return recipes;
+        } else {
+            List<Recipe> filteredRecipes = new ArrayList<>();
+            for (Recipe recipe : recipes) {
+                if (recipe.getCookingMethod() != null && recipe.getCookingMethod().equals(cookMethod)) {
+                    filteredRecipes.add(recipe);
+                }
+            }
+            return filteredRecipes;
+        }
+    }
+
+    private List<Recipe> filterByCategory(List<Recipe> recipes, String category) {
+        if (category.equals("전체")) {
+            return recipes;
+        } else {
+            List<Recipe> filteredRecipes = new ArrayList<>();
+            for (Recipe recipe : recipes) {
+                if (recipe.getDishType() != null && recipe.getDishType().equals(category)) {
+                    filteredRecipes.add(recipe);
+                }
+            }
+            return filteredRecipes;
+        }
     }
 }

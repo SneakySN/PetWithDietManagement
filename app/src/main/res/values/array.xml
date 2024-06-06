@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="meal_times">
-        <item>아침</item>
-        <item>점심</item>
-        <item>저녁</item>
+    <string-array name="cook_method">
+        <item>조리</item>
+        <item>찌기</item>
+        <item>굽기</item>
+        <item>끓이기</item>
+        <item>볶기</item>
+        <item>튀기기</item>
+        <item>기타</item>
     </string-array>
 
     <string-array name="sort_options">
@@ -23,9 +27,10 @@
 
 
     <string-array name="food_categories">
+        <item>전체</item>
         <item>한식</item>
         <item>양식</item>
-        <item>일식</item>
+        <item>기타</item>
     </string-array>
 
 
