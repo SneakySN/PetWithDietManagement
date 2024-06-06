@@ -10,7 +10,7 @@
         android:id="@+id/top_menu"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginBottom="663dp"
+        android:layout_alignParentTop="true"
         android:background="@drawable/linear_layout_bottom_border"
         android:gravity="center"
         android:elevation="12dp"
@@ -30,7 +30,8 @@
             style="@style/SearchViewStyle"
             app:queryHint="음식 검색"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"/>
+            android:layout_marginEnd="5dp"
+            android:visibility="gone"/>
 
         <ImageButton
             android:id="@+id/ic_search"
@@ -48,118 +49,38 @@
     <!-- 식사 시간 선택 (스피너) -->
     <Spinner
         android:id="@+id/meal_time_spinner"
-        android:layout_width="65dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_menu"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="8dp"
         android:entries="@array/meal_times"
         android:spinnerMode="dropdown"
-        android:background="@drawable/spinner_background"
-        />
+        android:background="@drawable/spinner_background" />
 
-    <!-- 카테고리 이미지 버튼 -->
-    <LinearLayout
-        android:id="@+id/category_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/meal_time_spinner"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="10dp">
+    <!-- 카테고리 선택 (스피너) -->
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_menu"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/meal_time_spinner"
+        android:entries="@array/food_categories"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/spinner_background" />
 
-        <ImageButton
-            android:id="@+id/ic_korean_food"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:elevation="80dp"
-            android:translationZ="4dp"
-            android:scaleType="fitCenter"
-            android:background="?android:selectableItemBackground"
-            android:contentDescription="korean_food_description"
-            android:src="@drawable/korean_food" />
-
-        <ImageButton
-            android:id="@+id/ic_western_food"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:background="?android:selectableItemBackground"
-            android:contentDescription="western_food_description"
-            android:src="@drawable/western_food" />
-
-        <ImageButton
-            android:id="@+id/ic_japanese_food"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:background="?android:selectableItemBackground"
-            android:contentDescription="japanese_food_description"
-            android:src="@drawable/japanese_food" />
-
-        <ImageButton
-            android:id="@+id/ic_more"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:background="?android:selectableItemBackground"
-            android:contentDescription="more_button_description"
-            android:src="@drawable/more" />
-    </LinearLayout>
-
-    <!-- 메뉴 추천 -->
-    <LinearLayout
-        android:id="@+id/recommend_section"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/category_buttons"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="20dp"
-        android:background="@android:color/white">
-
-        <!-- Placeholder for recommendation menu -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Recommend Placeholder"
-            android:gravity="center"
-            />
-    </LinearLayout>
-
-    <!-- 건강 팁 -->
-    <LinearLayout
-        android:id="@+id/tip_section"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@id/recommend_section"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="20dp"
-        >
-
-        <!-- Placeholder for health tips -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Health tips Placeholder"
-            android:gravity="center"
-            />
-    </LinearLayout>
-
-    <!-- 검색 결과를 표시할 RecyclerView 추가 -->
+    <!-- 검색 결과를 표시할 RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipe_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tip_section"
-        android:layout_marginTop="16dp"/>
+        android:layout_height="0dp"
+        android:layout_below="@id/category_spinner"
+        android:layout_above="@id/bottom_menu"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:background="#E8EAF6"/>
 
     <!-- 바텀 네비게이션 바 -->
     <LinearLayout

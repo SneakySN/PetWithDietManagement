@@ -1,13 +1,13 @@
 package com.example.petwithdietmanagement;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -15,9 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petwithdietmanagement.data.Recipe;
-import com.example.petwithdietmanagement.database.RecipeDBHelper;
 import com.example.petwithdietmanagement.database.RecipeDBManager;
-import com.example.petwithdietmanagement.RecipeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +27,8 @@ public class DietActivity extends AppCompatActivity {
     private List<Recipe> recipeList;
     private RecipeAdapter adapter;
     private RecyclerView recipeRecyclerView;
+    private Spinner mealTimeSpinner, categorySpinner;
+    private String selectedMealTime, selectedCategory;
 
     @Override
     public void onBackPressed() {
@@ -46,6 +46,36 @@ public class DietActivity extends AppCompatActivity {
         recipeRecyclerView = findViewById(R.id.recipe_recycler_view);
         recipeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        mealTimeSpinner = findViewById(R.id.meal_time_spinner);
+        categorySpinner = findViewById(R.id.category_spinner);
+
+        // 스피너 선택 리스너 설정
+        mealTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedMealTime = parent.getItemAtPosition(position).toString();
+                filterRecipes(searchView.getQuery().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedMealTime = null;
+            }
+        });
+
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedCategory = parent.getItemAtPosition(position).toString();
+                filterRecipes(searchView.getQuery().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedCategory = null;
+            }
+        });
+
         // 검색 버튼
         ImageButton searchButton = findViewById(R.id.ic_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -62,14 +92,43 @@ public class DietActivity extends AppCompatActivity {
         adapter = new RecipeAdapter(recipeList);
         recipeRecyclerView.setAdapter(adapter);
 
+        // 아이템 클릭 리스너 설정
+        adapter.setOnItemClickListener(new RecipeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Recipe recipe) {
+                searchView.setQuery(recipe.getRecipeName(), false);
+                Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
+                intent.putExtra("Recipe", searchView.getQuery()); // 필터링된 Recipe List를 전달
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchRecipes(query);
-                Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
-                intent.putParcelableArrayListExtra("Recipes", new ArrayList<>(adapter.getFilteredList())); // 필터링된 Recipe List를 전달
-                startActivity(intent);
-                overridePendingTransition(0, 0);
+                ArrayList<Recipe> filteredRecipes = new ArrayList<>(adapter.getFilteredList());
+                String RecipeName = null;
+                // 검색어와 일치하는 레시피가 있는지 확인
+                boolean isRecipeFound = false;
+                for (Recipe recipe : filteredRecipes) {
+                    if (query.equals(recipe.getRecipeName())) {
+                        isRecipeFound = true;
+                        RecipeName = recipe.getRecipeName();
+                        break;
+                    }
+                }
+
+                // 일치하는 레시피가 있으면 포커스 해제
+                if (isRecipeFound) {
+                    Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
+                    intent.putExtra("Recipe", RecipeName); // 필터링된 Recipe List를 전달
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                searchView.clearFocus(); // 검색 후 포커스 해제
                 return true;
             }
 
@@ -77,6 +136,24 @@ public class DietActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 filterRecipes(newText);
                 return true;
+            }
+        });
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && searchView.getQuery().length() == 0) {
+                    searchView.clearFocus();
+                }
+            }
+        });
+
+        // RecyclerView의 빈 공간을 누르면 포커스 해제
+        recipeRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                searchView.clearFocus();
+                return false;
             }
         });
 
@@ -126,43 +203,7 @@ public class DietActivity extends AppCompatActivity {
             }
         });
 
-        // 한식 버튼
-        ImageButton koreanFoodButton = findViewById(R.id.ic_korean_food);
-        koreanFoodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
-                intent.putExtra("tag", "0"); // 식단 상세 페이지에 tag값 전달
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            }
-        });
-
-        // 일식 버튼
-        ImageButton japaneseFoodButton = findViewById(R.id.ic_japanese_food);
-        japaneseFoodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
-                intent.putExtra("tag", "1"); // 식단 상세 페이지에 tag값 전달
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            }
-        });
-
-        // 양식 버튼
-        ImageButton westernFoodButton = findViewById(R.id.ic_western_food);
-        westernFoodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class); // 펫 메뉴 페이지로 이동
-                intent.putExtra("tag", "2"); // 식단 상세 페이지에 tag값 전달
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            }
-        });
-
-        // SearchView 이외의 다른 공간을 누르면 키보드를 숨깁니다.
+        // SearchView 이외의 다른 공간을 누르면 키보드를 숨기고 검색창을 숨깁니다.
         RelativeLayout mainLayout = findViewById(R.id.main_layout); // main_layout의 ID를 XML과 일치시킵니다
         mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,21 +214,12 @@ public class DietActivity extends AppCompatActivity {
     }
 
     private void searchRecipes(String query) {
-        Cursor cursor = dbManager.getRecipesByName(query);
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        if (cursor.moveToFirst()) {
-            do {
-                Recipe recipe = new Recipe();
-                recipe.setRecipeName(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_RECIPE_NAME)));
-                // 필요한 다른 필드를 설정할 수 있습니다.
-                filteredRecipes.add(recipe);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
+        List<Recipe> filteredRecipes = dbManager.getRecipesByQuery(query);
         adapter.filter(filteredRecipes);
     }
 
     private void filterRecipes(String query) {
         searchRecipes(query);
+        searchView.setVisibility(View.VISIBLE); // 검색 중에는 검색창 보이기
     }
 }
