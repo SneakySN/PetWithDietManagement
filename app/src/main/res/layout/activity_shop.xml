@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -123,278 +122,36 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_margin="0dp"
                     android:id="@+id/tabHat">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="150dp"
-                        android:layout_height="180dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/heilo"
-                            android:layout_width="match_parent"
-                            android:layout_height="140dp"
-                            app:layout_constraintBottom_toTopOf="@+id/testText1"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/heilo_sample"/>
-
-                        <TextView
-                            android:id="@+id/testText1"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:background="@drawable/rounded_corners"
-                            android:gravity="center"
-                            android:text="800"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/heilo" />
-
-                        <ImageView
-                            android:id="@+id/imageView1"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="110dp"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/testText1"
-                            app:layout_constraintTop_toBottomOf="@+id/heilo"
-                            android:src ="@drawable/coin" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="150dp"
-                        android:layout_height="180dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/pinWheel"
-                            android:layout_width="match_parent"
-                            android:layout_height="140dp"
-                            app:layout_constraintBottom_toTopOf="@+id/testText2"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/pinwheel_sample" />
-
-                        <TextView
-                            android:id="@+id/testText2"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:background="@drawable/rounded_corners"
-                            android:gravity="center"
-                            android:text="1,000"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/pinWheel" />
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="110dp"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/testText2"
-                            app:layout_constraintTop_toBottomOf="@+id/pinWheel"
-                            android:src ="@drawable/coin" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
 
                 <!--배경 아이템 관련 레이아웃-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_margin="0dp"
                     android:id="@+id/tabBackground">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="150dp"
-                        android:layout_height="180dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/starNightBg"
-                            android:layout_width="match_parent"
-                            android:layout_height="140dp"
-                            app:layout_constraintBottom_toTopOf="@+id/testText3"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/star_night_background" />
-
-                        <TextView
-                            android:id="@+id/testText3"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:background="@drawable/rounded_corners"
-                            android:gravity="center"
-                            android:text="2,000"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/starNightBg" />
-
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="110dp"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/testText3"
-                            app:layout_constraintTop_toBottomOf="@+id/starNightBg"
-                            android:src ="@drawable/coin" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="150dp"
-                        android:layout_height="180dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1">
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </LinearLayout>
 
-                <!--바닥 아이템 관련 레이아웃-->
+                <!--명찰 아이템 관련 레이아웃-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_margin="0dp"
                     android:id="@+id/tabBadge">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="150dp"
-                        android:layout_height="180dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/testImg4"
-                            android:layout_width="match_parent"
-                            android:layout_height="140dp"
-                            app:layout_constraintBottom_toTopOf="@+id/testText4"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/advanced_badge" />
-
-                        <TextView
-                            android:id="@+id/testText4"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:background="@drawable/rounded_corners"
-                            android:gravity="center"
-                            android:text="1,200"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg4" />
-
-                        <ImageView
-                            android:id="@+id/imageView4"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="110dp"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/testText4"
-                            app:layout_constraintTop_toBottomOf="@+id/testImg4"
-                            android:src ="@drawable/coin" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="150dp"
-                        android:layout_height="180dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1">
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </LinearLayout>
 
                 <!--카펫 아이템 관련 레이아웃-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_margin="0dp"
                     android:id="@+id/tabCarpet">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="150dp"
-                        android:layout_height="180dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/orange_carpet"
-                            android:layout_width="match_parent"
-                            android:layout_height="140dp"
-                            app:layout_constraintBottom_toTopOf="@+id/testText5"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/orange_carpet" />
-
-                        <TextView
-                            android:id="@+id/testText5"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:background="@drawable/rounded_corners"
-                            android:gravity="center"
-                            android:text="1,200"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/orange_carpet" />
-
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="110dp"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/testText5"
-                            app:layout_constraintTop_toBottomOf="@+id/orange_carpet"
-                            android:src ="@drawable/coin" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="150dp"
-                        android:layout_height="180dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1">
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

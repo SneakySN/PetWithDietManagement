@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 상단 경계 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FDFDFD"/>
+        </shape>
+    </item>
+
+    <!-- 하단 경계 -->
+    <item android:top="2dp" android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#D79934"/>
+            <size android:height="2dp"/>
+        </shape>
+    </item>
+
+    <!-- 중간 내용 -->
+    <item android:top="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFE9B5"/>
+            <size android:height="2dp"/>
+        </shape>
+    </item>
+</layer-list>

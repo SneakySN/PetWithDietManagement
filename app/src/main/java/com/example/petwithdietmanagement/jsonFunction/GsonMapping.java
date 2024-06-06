@@ -1,10 +1,10 @@
 package com.example.petwithdietmanagement.jsonFunction;
 
 import com.example.petwithdietmanagement.data.Calendar;
-import com.example.petwithdietmanagement.data.Pets;
+import com.example.petwithdietmanagement.data.Pet;
 import com.example.petwithdietmanagement.data.Recipe;
 import com.example.petwithdietmanagement.data.Item;
-import com.example.petwithdietmanagement.data.Users;
+import com.example.petwithdietmanagement.data.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,14 +18,14 @@ public class GsonMapping {
         return gson.fromJson(json, new TypeToken<Map<String,Recipe>>(){}.getType());
     }
 
-    public Users getUsers(InputStreamReader json) {
+    public User getUsers(InputStreamReader json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, Users.class);
+        return gson.fromJson(json, User.class);
     }
 
-    public Pets getPets(InputStreamReader json) {
+    public Pet getPets(InputStreamReader json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, Pets.class);
+        return gson.fromJson(json, Pet.class);
     }
 
     public Calendar getCalendar(InputStreamReader json) {
