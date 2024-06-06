@@ -121,6 +121,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/floor"
             app:layout_constraintEnd_toEndOf="@+id/carpet"
             app:layout_constraintHorizontal_bias="0.0"
+
             />
 
         <!-- 캐릭터 배경 이미지 -->
@@ -318,7 +319,7 @@
         <!--명찰 이미지-->
         <ImageView
             android:id="@+id/badge"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/floor"
             app:layout_constraintEnd_toEndOf="@+id/floor"
@@ -326,7 +327,7 @@
             app:layout_constraintStart_toStartOf="@+id/floor"
             app:layout_constraintTop_toTopOf="@+id/floor"
             app:layout_constraintVertical_bias="0.61"
-            app:srcCompat="@drawable/normal_badge" />
+            app:srcCompat="@drawable/advanced_badge" />
 
         <!-- 이름 텍스트-->
         <TextView
@@ -524,7 +525,7 @@
                             android:layout_height="120dp"
                             android:scaleType="fitCenter"
                             android:background="?android:selectableItemBackground"
-                            android:src="@drawable/badge"/>
+                            android:src="@drawable/advanced_badge"/>
 
                         <!-- 명창 아이템을 나열할 RecyclerView -->
                         <androidx.recyclerview.widget.RecyclerView

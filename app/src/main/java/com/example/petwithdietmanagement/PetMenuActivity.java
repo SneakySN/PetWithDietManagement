@@ -372,7 +372,7 @@ public class PetMenuActivity extends AppCompatActivity {
 
         // 점프 애니메이션 설정
         petImageView.setImageResource(R.drawable.pet_jump_animation);
-        petJumpAnimation = (AnimationDrawable) petImageView.getDrawable();
+        AnimationDrawable petJumpAnimation = (AnimationDrawable) petImageView.getDrawable();
         petJumpAnimation.start();
 
         // 점프 애니메이션 끝난 후 원래 애니메이션 시퀀스로 돌아가기

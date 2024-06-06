@@ -299,7 +299,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/badge" />
+                            android:src="@drawable/advanced_badge" />
 
                         <TextView
                             android:id="@+id/testText4"
