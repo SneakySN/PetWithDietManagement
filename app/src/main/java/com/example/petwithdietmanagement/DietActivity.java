@@ -3,7 +3,6 @@ package com.example.petwithdietmanagement;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -68,7 +67,7 @@ public class DietActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 searchRecipes(query);
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
-                intent.putParcelableArrayListExtra("Recipes", (ArrayList<? extends Parcelable>) adapter.getFilteredList()); // 필터링된 Recipe List를 전달
+                intent.putParcelableArrayListExtra("Recipes", new ArrayList<>(adapter.getFilteredList())); // 필터링된 Recipe List를 전달
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 return true;
