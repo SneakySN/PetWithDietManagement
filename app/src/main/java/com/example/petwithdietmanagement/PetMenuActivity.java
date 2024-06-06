@@ -22,6 +22,7 @@ import android.widget.TabHost;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petwithdietmanagement.CalendarActivity;
@@ -31,6 +32,9 @@ import com.example.petwithdietmanagement.MyPageActivity;
 import com.example.petwithdietmanagement.PetMenuActivity;
 import com.example.petwithdietmanagement.MainActivity;
 import com.example.petwithdietmanagement.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PetMenuActivity extends AppCompatActivity {
     private ImageView petImageView;
@@ -217,8 +221,54 @@ public class PetMenuActivity extends AppCompatActivity {
         tabHost.addTab(spec);
     }
 
+    private void setupRecyclerViews() {
+        setupRecyclerView(R.id.recyclerHat, getHatItems());
+        setupRecyclerView(R.id.recyclerBackground, getBackgroundItems());
+        setupRecyclerView(R.id.recyclerBadge, getBadgeItems());
+        setupRecyclerView(R.id.recyclerCarpet, getCarpetItems());
+    }
 
-    // 바깥 영역 터치시 slideUpLayout 숨기기
+    private void setupRecyclerView(int recyclerViewId, List<String> items) {
+        RecyclerView recyclerView = findViewById(recyclerViewId);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new SlideUpAdapter(items));
+    }
+
+    private List<String> getHatItems() {
+        List<String> items = new ArrayList<>();
+        items.add("Hat 1");
+        items.add("Hat 2");
+        // Add more items
+        return items;
+    }
+
+    private List<String> getBackgroundItems() {
+        List<String> items = new ArrayList<>();
+        items.add("Background 1");
+        items.add("Background 2");
+        // Add more items
+        return items;
+    }
+
+    private List<String> getBadgeItems() {
+        List<String> items = new ArrayList<>();
+        items.add("Badge 1");
+        items.add("Badge 2");
+        // Add more items
+        return items;
+    }
+
+    private List<String> getCarpetItems() {
+        List<String> items = new ArrayList<>();
+        items.add("Carpet 1");
+        items.add("Carpet 2");
+        // Add more items
+        return items;
+    }
+
+
+
+        // 바깥 영역 터치시 slideUpLayout 숨기기
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -322,7 +372,7 @@ public class PetMenuActivity extends AppCompatActivity {
 
         // 점프 애니메이션 설정
         petImageView.setImageResource(R.drawable.pet_jump_animation);
-        petJumpAnimation = (AnimationDrawable) petImageView.getDrawable();
+        AnimationDrawable petJumpAnimation = (AnimationDrawable) petImageView.getDrawable();
         petJumpAnimation.start();
 
         // 점프 애니메이션 끝난 후 원래 애니메이션 시퀀스로 돌아가기
