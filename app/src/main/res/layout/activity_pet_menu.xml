@@ -64,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="@+id/floor"
             app:layout_constraintStart_toStartOf="@+id/floor"
             app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:srcCompat="@drawable/orange_carpet" />
+            app:srcCompat="@drawable/carpet" />
 
         <!-- 말풍선 -->
         <ImageView
@@ -109,6 +109,31 @@
             app:layout_constraintEnd_toEndOf="@+id/carpet"
             app:layout_constraintHorizontal_bias="0.0"
             app:srcCompat="@drawable/slime01" />
+
+
+        <!-- 캐릭터 모자 이미지 -->
+        <ImageView
+            android:id="@+id/hat_image"
+            android:layout_width="290dp"
+            android:layout_height="261dp"
+            android:layout_marginBottom="100dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/floor"
+            app:layout_constraintEnd_toEndOf="@+id/carpet"
+            app:layout_constraintHorizontal_bias="0.0"
+            />
+
+        <!-- 캐릭터 배경 이미지 -->
+        <ImageView
+            android:id="@+id/background_image"
+            android:layout_width="290dp"
+            android:layout_height="261dp"
+            android:layout_marginBottom="100dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/floor"
+            app:layout_constraintEnd_toEndOf="@+id/carpet"
+            app:layout_constraintHorizontal_bias="0.0"
+            />
 
 
         <!--카메라, 돈 표시를 포함하는 LinearLayout-->
@@ -301,7 +326,7 @@
             app:layout_constraintStart_toStartOf="@+id/floor"
             app:layout_constraintTop_toTopOf="@+id/floor"
             app:layout_constraintVertical_bias="0.61"
-            app:srcCompat="@drawable/badge" />
+            app:srcCompat="@drawable/normal_badge" />
 
         <!-- 이름 텍스트-->
         <TextView
@@ -422,7 +447,9 @@
                     android:elevation="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#F6d58a" >
+                    android:background="#F6d58a">
+
+
                 </TabWidget>
 
                 <FrameLayout
@@ -431,37 +458,106 @@
                     android:layout_height="0dp"
                     android:layout_weight="1">
 
-                    <!-- 모자 아이템을 나열할 RecyclerView -->
-                    <androidx.recyclerview.widget.RecyclerView
+                    <LinearLayout
                         android:id="@+id/tabHat"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:padding="16dp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <!-- 배경 아이템을 나열할 RecyclerView -->
-                    <androidx.recyclerview.widget.RecyclerView
+                        <ImageButton
+                            android:id="@+id/UsePinwheel"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:scaleType="fitCenter"
+                            android:background="?android:selectableItemBackground"
+                            android:src="@drawable/pinwheel_sample"/>
+
+                        <!-- 모자 아이템을 나열할 RecyclerView -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerHat"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:padding="16dp">
+                        </androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+
+
+                    <LinearLayout
                         android:id="@+id/tabBackground"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:padding="16dp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <!-- 명창 아이템을 나열할 RecyclerView -->
-                    <androidx.recyclerview.widget.RecyclerView
+                        <ImageButton
+                            android:id="@+id/UseStarNight"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:scaleType="fitCenter"
+                            android:background="?android:selectableItemBackground"
+                            android:src="@drawable/star_night_background"/>
+
+                        <!-- 배경 아이템을 나열할 RecyclerView -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:padding="16dp"
+
+                        />
+                    </LinearLayout>
+
+
+                    <LinearLayout
                         android:id="@+id/tabBadge"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:padding="16dp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <!-- 카펫 아이템을 나열할 RecyclerView -->
-                    <androidx.recyclerview.widget.RecyclerView
+                        <ImageButton
+                            android:id="@+id/UseBadge"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:scaleType="fitCenter"
+                            android:background="?android:selectableItemBackground"
+                            android:src="@drawable/badge"/>
+
+                        <!-- 명창 아이템을 나열할 RecyclerView -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerBadge"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:padding="16dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/tabCarpet"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:padding="16dp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageButton
+                            android:id="@+id/UseOrangeCarpet"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:scaleType="fitCenter"
+                            android:background="?android:selectableItemBackground"
+                            android:src="@drawable/orange_carpet"/>
+
+                        <!-- 카펫 아이템을 나열할 RecyclerView -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerCarpet"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:padding="16dp" />
+                    </LinearLayout>
                 </FrameLayout>
             </LinearLayout>
         </TabHost>
