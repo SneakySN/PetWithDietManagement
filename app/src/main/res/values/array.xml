@@ -17,14 +17,13 @@
     </string-array>
 
     <string-array name="nutrient_array">
+        <item>영양소</item>
         <item>칼로리</item>
         <item>단백질</item>
         <item>지방</item>
         <item>탄수화물</item>
         <item>나트륨</item>
     </string-array>
-
-
 
     <string-array name="food_categories">
         <item>전체</item>
