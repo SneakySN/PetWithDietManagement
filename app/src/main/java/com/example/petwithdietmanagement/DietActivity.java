@@ -135,7 +135,7 @@ public class DietActivity extends AppCompatActivity {
             public void onItemClick(Recipe recipe) {
                 searchView.setQuery(recipe.getRecipeName(), false);
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
-                intent.putExtra("Recipe",recipe ); // 필터링된 Recipe List를 전달
+                intent.putExtra("Recipe",recipe.getId() ); // 필터링된 Recipe List를 전달
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }

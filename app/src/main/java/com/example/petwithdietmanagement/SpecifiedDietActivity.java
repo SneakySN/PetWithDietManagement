@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.example.petwithdietmanagement.data.Recipe;
 import com.example.petwithdietmanagement.database.RecipeDBManager;
 
+import org.json.JSONException;
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -32,6 +34,8 @@ public class SpecifiedDietActivity extends AppCompatActivity {
     private TextView dietIngredients;
     private TextView dietNutrients;
     private TextView dietSteps;
+    private RecipeDBManager dbManager;
+
 
     @Override
     public void onBackPressed() {
@@ -55,7 +59,13 @@ public class SpecifiedDietActivity extends AppCompatActivity {
 
         // Get the intent that started this activity
         Intent intent = getIntent();
-        Recipe recipe = intent.getParcelableExtra("Recipe");
+        int recipeId = intent.getIntExtra("RecipeId", -1); // -1은 기본값 (에러 처리를 위해)
+        Recipe recipe= null;
+        try {
+            recipe = dbManager.getRecipeById(recipeId);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
         if (recipe != null) {
             dietTitle.setText(recipe.getRecipeName());
@@ -69,6 +79,7 @@ public class SpecifiedDietActivity extends AppCompatActivity {
             dietIngredients.setText("Ingredients:\n" + recipe.getIngredients());
             dietNutrients.setText("Nutrients:\n" + getNutrientsString(recipe.getNutrients()));
             List<String> manuals=recipe.getManualSteps();
+            /*
             String step="";
             List<Character> charList = new ArrayList<>();
             for (char ch = 'a'; ch <= 'z'; ch++) {
@@ -82,8 +93,8 @@ public class SpecifiedDietActivity extends AppCompatActivity {
                 }
 
                 step = step + replacedString+"\n";
-            }
-            dietSteps.setText("steps:\n"+step);
+            }*/
+            dietSteps.setText(manuals.get(3));
         }
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
