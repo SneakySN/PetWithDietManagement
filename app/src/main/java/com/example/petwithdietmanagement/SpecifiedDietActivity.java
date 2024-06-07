@@ -75,7 +75,21 @@ public class SpecifiedDietActivity extends AppCompatActivity {
             dietNutrients.setText("Nutrients:\n" + getNutrientsString(recipe.getNutrients()));
 
             List<String> manuals = recipe.getManualSteps();
-            dietSteps.setText(manuals.get(3));
+            String step="";
+            List<Character> charList = new ArrayList<>();
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                charList.add(ch);
+            }
+            for (String manual:manuals) {
+                String replacedString = manual.replace('"', Character.MIN_VALUE);
+                replacedString = replacedString.replaceAll("\n", "");
+                for (Character alphabet:charList) {
+                    replacedString = replacedString.replace(alphabet, Character.MIN_VALUE);
+                }
+
+                step = step + replacedString+"\n";
+            }
+            dietSteps.setText("steps:\n"+step);
             Log.d("SpecifiedDietActivity", "Loaded recipe: " + recipe.getRecipeName() + ", Steps: " + manuals);
         } else {
             Log.e("SpecifiedDietActivity", "Recipe is null");
