@@ -466,14 +466,6 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <ImageButton
-                            android:id="@+id/UsePinwheel"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:scaleType="fitCenter"
-                            android:background="?android:selectableItemBackground"
-                            android:src="@drawable/pinwheel_sample"/>
-
                         <!-- 모자 아이템을 나열할 RecyclerView -->
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerHat"
@@ -484,7 +476,6 @@
                         </androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>
 
-
                     <LinearLayout
                         android:id="@+id/tabBackground"
                         android:layout_width="match_parent"
@@ -492,23 +483,13 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <ImageButton
-                            android:id="@+id/UseStarNight"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:scaleType="fitCenter"
-                            android:background="?android:selectableItemBackground"
-                            android:src="@drawable/star_night_background"/>
-
                         <!-- 배경 아이템을 나열할 RecyclerView -->
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerBackground"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:padding="16dp"
-
-                        />
+                            android:padding="16dp" />
                     </LinearLayout>
 
 
@@ -518,14 +499,6 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:padding="16dp">
-
-                        <ImageButton
-                            android:id="@+id/UseBadge"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:scaleType="fitCenter"
-                            android:background="?android:selectableItemBackground"
-                            android:src="@drawable/advanced_badge"/>
 
                         <!-- 명창 아이템을 나열할 RecyclerView -->
                         <androidx.recyclerview.widget.RecyclerView
@@ -542,14 +515,6 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:padding="16dp">
-
-                        <ImageButton
-                            android:id="@+id/UseOrangeCarpet"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:scaleType="fitCenter"
-                            android:background="?android:selectableItemBackground"
-                            android:src="@drawable/orange_carpet"/>
 
                         <!-- 카펫 아이템을 나열할 RecyclerView -->
                         <androidx.recyclerview.widget.RecyclerView

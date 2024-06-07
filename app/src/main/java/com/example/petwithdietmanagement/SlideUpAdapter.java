@@ -3,30 +3,33 @@ package com.example.petwithdietmanagement;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.bumptech.glide.Glide;
+import com.example.petwithdietmanagement.data.Item;
 import java.util.List;
 
 public class SlideUpAdapter extends RecyclerView.Adapter<SlideUpAdapter.ViewHolder> {
-    private List<String> items;
+    private List<Item> items;
 
-    public SlideUpAdapter(List<String> items) {
+    public SlideUpAdapter(List<Item> items) {
         this.items = items;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(items.get(position));
+        Item item = items.get(position);
+        holder.itemName.setText(item.getItemName());
+        Glide.with(holder.itemView.getContext()).load(item.getItemImage()).into(holder.itemImage);
     }
 
     @Override
@@ -35,11 +38,13 @@ public class SlideUpAdapter extends RecyclerView.Adapter<SlideUpAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        ImageView itemImage;
+        TextView itemName;
 
-        public ViewHolder(View view) {
-            super(view);
-            textView = view.findViewById(android.R.id.text1);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            itemImage = itemView.findViewById(R.id.item_image);
+            itemName = itemView.findViewById(R.id.item_name);
         }
     }
 }

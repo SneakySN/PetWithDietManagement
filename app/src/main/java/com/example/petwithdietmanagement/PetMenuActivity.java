@@ -20,7 +20,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.petwithdietmanagement.data.Item;
 import com.example.petwithdietmanagement.data.User;
+import com.example.petwithdietmanagement.database.ItemDBManager;
 import com.example.petwithdietmanagement.database.UserDBManager;
 
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ public class PetMenuActivity extends AppCompatActivity {
     private boolean isCameraMode = false;
     private LinearLayout slideUpLayout;
     private UserDBManager userDBManager;
+    private ItemDBManager itemDBManager;
 
 
     @Override
@@ -61,6 +64,7 @@ public class PetMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pet_menu); // XML 레이아웃 이름을 입력하세요
 
         userDBManager = new UserDBManager(this);
+        itemDBManager = new ItemDBManager(this);
 
         petImageView = findViewById(R.id.character_image);
         handler = new Handler(Looper.getMainLooper());
@@ -115,6 +119,7 @@ public class PetMenuActivity extends AppCompatActivity {
         decorating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setupRecyclerViews();
                 showSlideUpLayout();
             }
         });
@@ -187,6 +192,7 @@ public class PetMenuActivity extends AppCompatActivity {
         });
 
         initializeTabs();
+        setupRecyclerViews();
 
         // User 정보를 가져와서 currentMoney TextView에 설정
         setUserGold();
@@ -229,13 +235,40 @@ public class PetMenuActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerViews() {
-        setupRecyclerView(R.id.recyclerHat, getHatItems());
-        setupRecyclerView(R.id.recyclerBackground, getBackgroundItems());
-        setupRecyclerView(R.id.recyclerBadge, getBadgeItems());
-        setupRecyclerView(R.id.recyclerCarpet, getCarpetItems());
+        String userId = "user123"; // 실제 유저 ID를 여기에 사용
+        List<Integer> userItemIds = userDBManager.getUserItemIds(userId);
+
+        List<Item> hatItems = new ArrayList<>();
+        List<Item> backgroundItems = new ArrayList<>();
+        List<Item> badgeItems = new ArrayList<>();
+        List<Item> carpetItems = new ArrayList<>();
+
+        for (int itemId : userItemIds) {
+            Item item = itemDBManager.getItemById(itemId);
+            if (item != null) {
+                switch (item.getItemType()) {
+                    case "Hat":
+                        hatItems.add(item);
+                        break;
+                    case "Background":
+                        backgroundItems.add(item);
+                        break;
+                    case "Badge":
+                        badgeItems.add(item);
+                        break;
+                    case "Carpet":
+                        carpetItems.add(item);
+                        break;
+                }
+            }
+        }
+        setupRecyclerView(R.id.recyclerHat, hatItems);
+        setupRecyclerView(R.id.recyclerBackground, backgroundItems);
+        setupRecyclerView(R.id.recyclerBadge, badgeItems);
+        setupRecyclerView(R.id.recyclerCarpet, carpetItems);
     }
 
-    private void setupRecyclerView(int recyclerViewId, List<String> items) {
+    private void setupRecyclerView(int recyclerViewId, List<Item> items) {
         RecyclerView recyclerView = findViewById(recyclerViewId);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new SlideUpAdapter(items));

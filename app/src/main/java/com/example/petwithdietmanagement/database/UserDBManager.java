@@ -112,6 +112,18 @@ public class UserDBManager {
         return items;
     }
 
+    public List<Integer> getUserItemIds(String userId) {
+        List<Integer> itemIds = new ArrayList<>();
+        String query = "SELECT " + UserDBHelper.COLUMN_ITEM_ID + " FROM " + UserDBHelper.TABLE_USER_ITEMS + " WHERE " + UserDBHelper.COLUMN_USER_ID + " = ?";
+        Cursor cursor = database.rawQuery(query, new String[]{userId});
+
+        while (cursor.moveToNext()) {
+            itemIds.add(cursor.getInt(cursor.getColumnIndexOrThrow(UserDBHelper.COLUMN_ITEM_ID)));
+        }
+        cursor.close();
+        return itemIds;
+    }
+
     // Update user
     public void updateUser(User user) {
         ContentValues values = new ContentValues();
