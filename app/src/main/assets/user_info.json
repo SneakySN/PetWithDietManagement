@@ -1,32 +1,21 @@
 {
-    "users": [
-        {
-            "user_id": 1,
-            "name": "John Doe",
-            "username": "johndoe",
-            "password": "password123",
-            "profile_picture": "https://example.com/images/johndoe.jpg",
-            "goals": "Target weight 70kg",
-            "daily_info": "2024-05-15",
-            "health_info": {
-                "weight": 70,
-                "height": 175,
-                "bmi": 22.9,
-                "blood_pressure": "120/80"
-            },
-            "gold": 1500,
-            "items": [
-                {
-                    "type": "backgrounds",
-                    "id": 1,
-                    "equipped": true
-                },
-                {
-                    "type": "floors",
-                    "id": 2,
-                    "equipped": false
-                }
-            ]
-        }
-    ]
+    "user": {
+        "name": "John Doe",
+        "userId": "user123",
+        "password": "password123",
+        "profile_picture": "profile_pic",
+        "goals": "Lose weight",
+        "health_info": {
+            "weight": 70,
+            "height": 175,
+            "blood_pressure": 120
+        },
+        "gold": 6000,
+        "items": [
+            {
+                "id": 2,
+                "equipped": 0
+            }
+        ]
+    }
 }

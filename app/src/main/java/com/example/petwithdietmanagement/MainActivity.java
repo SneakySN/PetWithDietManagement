@@ -168,9 +168,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 // DB 관련 파트
+
         dbManager = new RecipeDBManager(this); // recipeDB를 활용하기 위한 변수 선언
 
-        // 데이터베이스가 비어 있는지 확인
+        // recipe 데이터베이스가 비어 있는지 확인
         if (dbManager.isDatabaseEmpty()) {
             // JSON 파일 읽기
             String jsonString = JsonUtils.loadJSONFromAsset(this, "recipeList.json");
@@ -192,12 +193,12 @@ public class MainActivity extends AppCompatActivity {
 
     // 예제: ID를 입력해 레시피의 데이터를 가져오기
         /*try {
-            Recipe recipe = dbManager.getRecipeById(14);
+            Recipe recipe = dbManager.getRecipeById(dbManager.getRecipeIdByName("L..A갈비구이"));
             Recipe.Nutrients nutrients = recipe.getNutrients();
             Log.d("MainActivity", "메뉴 이름: " + recipe.getRecipeName());
             Log.d("MainActivity", "칼로리: " + nutrients.getCalories());
             Log.d("MainActivity", "메뉴얼 이미지들: " + recipe.getManualImages());
-            Log.d("MainActivity", "메뉴얼 스텝들: " + recipe.getManualSteps());
+            Log.d("MainActivity", "메뉴얼 스텝들: " + recipe.getManualSteps().get(2));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }*/
@@ -212,8 +213,21 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         missionDBM = new MissionDBManager(this); // missionDB를 활용하기 위한 변수 선언
-    //missionDB에 데이터 넣기
-        //missionDBM.insertMission("Dehydration Villan","Drink at least 1 liter of water.","water_intake",1,"liters",100);
+
+        // mission 데이터베이스가 비어 있는지 확인 후 mission.json 파일의 내용 저장
+        if (missionDBM.isDatabaseEmpty()) {
+            // JSON 파일 읽기
+            String jsonString = JsonUtils.loadJSONFromAsset(this, "mission.json");
+            if (jsonString != null) {
+                try {
+                    missionDBM.insertMissionDataFromJson(jsonString);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("MainActivity", "Failed to load JSON file.");
+            }
+        }
 
     //missionDB의 특정 값 가져오기
         /*Mission mission = missionDBM.getMissionById(1);
@@ -228,8 +242,21 @@ public class MainActivity extends AppCompatActivity {
         //missionDBM.deleteMission(1);
 
         itemDBM = new ItemDBManager(this); // itemDB를 활용하기 위한 변수 선언
-    //itemDB에 데이터 넣기
-        //itemDBM.insertItemData("Hat","heilo",500,"heilo_sample","천사같은 펫에게 어울리는 최고의 모자이다.");
+
+    // item 데이터베이스가 비어 있는지 확인 후 item.json 파일의 내용 저장
+        if (itemDBM.isDatabaseEmpty()) {
+            // JSON 파일 읽기
+            String jsonString = JsonUtils.loadJSONFromAsset(this,"item.json");
+            if (jsonString != null) {
+                try {
+                    itemDBM.insertItemDataFromJson(jsonString);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("MainActivity", "Failed to load JSON file.");
+            }
+        }
 
     //itemDB의 특정 값 가져오기
         /*Item item = itemDBM.getItemById(1);
@@ -244,49 +271,29 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity", "Filtered Item: " + item.getItemName() + ", Type: " + item.getItemType());
         }*/
     //itemDB의 특정 값 수정하기
-        Item item = itemDBM.getItemById(1);
+        /*Item item = itemDBM.getItemById(1);
         item.setPurchased(0);
-        itemDBM.updateItem(item);
+        itemDBM.updateItem(item);*/
 
     //itemDB의 특정 데이터 삭제하기
         //itemDBM.deleteItem(1);
 
         userDBManager = new UserDBManager(this);
 
-    //userDB에 데이터 넣기
-        /*// Creating a user
-        User user = new User();
-        user.setUserId("user123");
-        user.setName("John Doe");
-        user.setPassword("password123");
-        user.setProfile_picture("profile_pic");
-        user.setGoals("Lose weight");
-
-        // Setting health information
-        HealthInfo healthInfo = new HealthInfo();
-        healthInfo.setWeight(70);
-        healthInfo.setHeight(175);
-        healthInfo.setBlood_pressure(120);
-        user.setHealth_info(healthInfo);
-
-        user.setGold(10000);
-
-        // Creating and setting items for the user
-        List<Items> items = new ArrayList<>();
-        Items item1 = new Items();
-        item1.setId(1);
-        item1.setEquipped(1); // 1 indicates true
-        items.add(item1);
-
-        Items item2 = new Items();
-        item2.setId(3);
-        item2.setEquipped(0); // 0 indicates false
-        items.add(item2);
-
-        user.setItems(items);
-
-        // Inserting the user into the database
-        userDBManager.insertUser(user);*/
+    // user 데이터베이스가 비어 있는지 확인 후 user_info.json 파일의 내용 저장
+        if (userDBManager.isDatabaseEmpty()) {
+            // JSON 파일 읽기
+            String jsonString = JsonUtils.loadJSONFromAsset(this, "user_info.json");
+            if (jsonString != null) {
+                try {
+                    userDBManager.insertUserData(jsonString);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("MainActivity", "Failed to load JSON file.");
+            }
+        }
 
     //userDB에서 데이터 불러오기
         /*User user = userDBManager.getUserById("user123");

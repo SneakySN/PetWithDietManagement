@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.petwithdietmanagement.data.Item;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,19 +23,26 @@ public class ItemDBManager {
         database = dbHelper.getWritableDatabase();
     }
 
-    // 아이템 데이터를 삽입하는 메소드
-    public void insertItemData(String itemType, String itemName, int itemPrice, String itemImage, String itemRealImage, String description, int purchased) {
-        ContentValues values = new ContentValues();
-        values.put(ItemDBHelper.COLUMN_ITEM_ID, getNextItemId());
-        values.put(ItemDBHelper.COLUMN_ITEM_TYPE, itemType);
-        values.put(ItemDBHelper.COLUMN_ITEM_NAME, itemName);
-        values.put(ItemDBHelper.COLUMN_ITEM_PRICE, itemPrice);
-        values.put(ItemDBHelper.COLUMN_ITEM_IMAGE, itemImage);
-        values.put(ItemDBHelper.COLUMN_ITEM_REAL_IMAGE, itemRealImage); // New column
-        values.put(ItemDBHelper.COLUMN_DESCRIPTION, description);
-        values.put(ItemDBHelper.COLUMN_PURCHASED, purchased);
+    // JSON 파일에서 아이템 데이터를 삽입하는 메소드
+    public void insertItemDataFromJson(String jsonString) throws JSONException {
+        JSONObject jsonObject = new JSONObject(jsonString);
+        JSONArray itemsArray = jsonObject.getJSONArray("items");
 
-        database.insert(ItemDBHelper.TABLE_ITEMS, null, values);
+        for (int i = 0; i < itemsArray.length(); i++) {
+            JSONObject itemObject = itemsArray.getJSONObject(i);
+
+            ContentValues values = new ContentValues();
+            values.put(ItemDBHelper.COLUMN_ITEM_ID, itemObject.getInt("itemId"));
+            values.put(ItemDBHelper.COLUMN_ITEM_TYPE, itemObject.getString("itemType"));
+            values.put(ItemDBHelper.COLUMN_ITEM_NAME, itemObject.getString("itemName"));
+            values.put(ItemDBHelper.COLUMN_ITEM_PRICE, itemObject.getInt("itemPrice"));
+            values.put(ItemDBHelper.COLUMN_ITEM_IMAGE, itemObject.getString("itemImage"));
+            values.put(ItemDBHelper.COLUMN_ITEM_REAL_IMAGE, itemObject.getString("itemRealImage"));
+            values.put(ItemDBHelper.COLUMN_DESCRIPTION, itemObject.getString("description"));
+            values.put(ItemDBHelper.COLUMN_PURCHASED, itemObject.getInt("purchased"));
+
+            database.insert(ItemDBHelper.TABLE_ITEMS, null, values);
+        }
     }
 
     // 다음 아이템 ID를 가져오는 메소드
@@ -134,6 +145,20 @@ public class ItemDBManager {
         String[] whereArgs = { String.valueOf(id) };
 
         database.delete(ItemDBHelper.TABLE_ITEMS, whereClause, whereArgs);
+    }
+
+    // 아이템 테이블이 비어 있는지 확인하는 메소드
+    public boolean isDatabaseEmpty() {
+        String query = "SELECT COUNT(*) FROM " + ItemDBHelper.TABLE_ITEMS;
+        Cursor cursor = database.rawQuery(query, null);
+        boolean isEmpty = false;
+
+        if (cursor.moveToFirst()) {
+            isEmpty = cursor.getInt(0) == 0;
+        }
+
+        cursor.close();
+        return isEmpty;
     }
 
     public void close() {

@@ -1,38 +1,25 @@
 package com.example.petwithdietmanagement;
 
-import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.petwithdietmanagement.CalendarActivity;
-import com.example.petwithdietmanagement.DietActivity;
-import com.example.petwithdietmanagement.MenuPageActivity;
-import com.example.petwithdietmanagement.MyPageActivity;
-import com.example.petwithdietmanagement.PetMenuActivity;
-import com.example.petwithdietmanagement.MainActivity;
-import com.example.petwithdietmanagement.R;
 import com.example.petwithdietmanagement.data.User;
 import com.example.petwithdietmanagement.database.UserDBManager;
 
@@ -193,9 +180,9 @@ public class PetMenuActivity extends AppCompatActivity {
         missionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // CustomDialog 인스턴스 생성 및 표시
-                CustomDialog customDialog = new CustomDialog(PetMenuActivity.this);
-                customDialog.show();
+                // MissionDialog 인스턴스 생성 및 표시
+                MissionDialog missionDialog = new MissionDialog(PetMenuActivity.this);
+                missionDialog.show();
             }
         });
 

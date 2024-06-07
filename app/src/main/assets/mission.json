@@ -1,62 +1,49 @@
 {
     "missions": [
         {
-            "mission_id": 1,
+            "id": 1,
             "name": "Hydration Hero",
             "description": "Drink at least 1 liter of water.",
-            "goal": {
-                "type": "water_intake",
-                "target": 1, 
-                "unit": "liters"
-            },
-            "reward": 100 
+            "type": "water_intake",
+            "target": 1,
+            "unit": "liters",
+            "reward": 100
         },
         {
-            "mission_id": 2,
+            "id": 2,
             "name": "Step Master",
             "description": "Walk at least 3000 steps.",
-            "goal": {
-                "type": "steps",
-                "target": 3000,
-                "unit": "steps"
-            },
-            "reward": 150 
+            "type": "steps",
+            "target": 3000,
+            "unit": "steps",
+            "reward": 150
         },
         {
-            "mission_id": 3,
+            "id": 3,
             "name": "Fruit Feast",
             "description": "Eat 3 servings of fruit.",
-            "goal": {
-                "type": "food_intake",
-                "target": 3,
-                "unit": "servings",
-                "food_type": "fruit"
-            },
-            "reward": 200 
+            "type": "food_intake",
+            "target": 3,
+            "unit": "servings",
+            "reward": 200
         },
         {
-            "mission_id": 4,
+            "id": 4,
             "name": "Veggie Victory",
             "description": "Eat 2 servings of vegetables.",
-            "goal": {
-                "type": "food_intake",
-                "target": 2,
-                "unit": "servings",
-                "food_type": "vegetable"
-            },
-            "reward": 200 
+            "type": "food_intake",
+            "target": 2,
+            "unit": "servings",
+            "reward": 200
         },
         {
-            "mission_id": 5,
+            "id": 5,
             "name": "Protein Power",
             "description": "Consume 50 grams of protein.",
-            "goal": {
-                "type": "nutrient_intake",
-                "target": 50,
-                "unit": "grams",
-                "nutrient": "protein"
-            },
-            "reward": 250 
+            "type": "nutrient_intake",
+            "target": 50,
+            "unit": "grams",
+            "reward": 250
         }
     ]
 }

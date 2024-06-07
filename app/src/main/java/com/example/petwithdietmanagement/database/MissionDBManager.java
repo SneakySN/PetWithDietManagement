@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.petwithdietmanagement.data.Mission;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +24,24 @@ public class MissionDBManager {
     }
 
     // 미션 데이터 삽입 메소드
-    public void insertMission(String missionName, String description, String missionType, Integer missionTarget, String missionUnit, Integer reward) {
-        ContentValues values = new ContentValues();
-        values.put(MissionDBHelper.COLUMN_MISSION_ID, getNextMissionId());
-        values.put(MissionDBHelper.COLUMN_MISSION_NAME, missionName);
-        values.put(MissionDBHelper.COLUMN_DESCRIPTION, description);
-        values.put(MissionDBHelper.COLUMN_MISSION_TYPE, missionType);
-        values.put(MissionDBHelper.COLUMN_MISSION_TARGET, missionTarget);
-        values.put(MissionDBHelper.COLUMN_MISSION_UNIT, missionUnit);
-        values.put(MissionDBHelper.COLUMN_REWARD, reward);
+    public void insertMissionDataFromJson(String jsonString) throws JSONException {
+        JSONObject jsonObject = new JSONObject(jsonString);
+        JSONArray missionsArray = jsonObject.getJSONArray("missions");
 
-        database.insert(MissionDBHelper.TABLE_MISSIONS, null, values);
+        for (int i = 0; i < missionsArray.length(); i++) {
+            JSONObject missionObject = missionsArray.getJSONObject(i);
+
+            ContentValues values = new ContentValues();
+            values.put(MissionDBHelper.COLUMN_MISSION_ID, missionObject.getInt("id"));
+            values.put(MissionDBHelper.COLUMN_MISSION_NAME, missionObject.getString("name"));
+            values.put(MissionDBHelper.COLUMN_DESCRIPTION, missionObject.getString("description"));
+            values.put(MissionDBHelper.COLUMN_MISSION_TYPE, missionObject.getString("type"));
+            values.put(MissionDBHelper.COLUMN_MISSION_TARGET, missionObject.getInt("target"));
+            values.put(MissionDBHelper.COLUMN_MISSION_UNIT, missionObject.getString("unit"));
+            values.put(MissionDBHelper.COLUMN_REWARD, missionObject.getInt("reward"));
+
+            database.insert(MissionDBHelper.TABLE_MISSIONS, null, values);
+        }
     }
 
     // 다음 미션 ID를 가져오는 메소드
@@ -110,6 +121,20 @@ public class MissionDBManager {
         String[] whereArgs = { String.valueOf(missionId) };
 
         database.delete(MissionDBHelper.TABLE_MISSIONS, whereClause, whereArgs);
+    }
+
+    // MissionDBManager 클래스에 데이터베이스가 비어 있는지 확인하는 메소드 추가
+    public boolean isDatabaseEmpty() {
+        String query = "SELECT COUNT(*) FROM " + MissionDBHelper.TABLE_MISSIONS;
+        Cursor cursor = database.rawQuery(query, null);
+        boolean isEmpty = false;
+
+        if (cursor.moveToFirst()) {
+            isEmpty = cursor.getInt(0) == 0;
+        }
+
+        cursor.close();
+        return isEmpty;
     }
 
     // 데이터베이스 닫기

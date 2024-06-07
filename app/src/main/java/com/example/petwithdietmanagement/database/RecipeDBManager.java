@@ -239,6 +239,11 @@ public class RecipeDBManager {
         return recipeList;
     }
 
+    // 데이터베이스 삭제 메소드
+    public void deleteAllRecipes() {
+        database.delete(RecipeDBHelper.TABLE_RECIPES, null, null);
+    }
+
     public void close() {
         dbHelper.close();
     }
