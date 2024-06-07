@@ -4,21 +4,19 @@ import java.util.List;
 
 public class User {
     private String name;
-    private String username;
+    private String userId;
     private String password;
     private String profile_picture;
     private String goals;
-    private String daily_info;
     private HealthInfo health_info;
     private int gold;
-    private List<Item> items;
+    private List<Items> items;
 
     // HealthInfo class
     public static class HealthInfo {
         private int weight;
         private int height;
-        private double bmi;
-        private String blood_pressure;
+        private int blood_pressure;
 
         // Getters
         public int getWeight() {
@@ -29,32 +27,43 @@ public class User {
             return height;
         }
 
-        public double getBmi() {
-            return bmi;
+        public int getBlood_pressure() {
+            return blood_pressure;
         }
 
-        public String getBlood_pressure() {
-            return blood_pressure;
+        // Setters
+        public void setWeight(int weight) {
+            this.weight = weight;
+        }
+
+        public void setHeight(int height) {
+            this.height = height;
+        }
+
+        public void setBlood_pressure(int blood_pressure) {
+            this.blood_pressure = blood_pressure;
         }
     }
 
     // Item class
-    public static class Item {
-        private String type;
+    public static class Items {
         private int id;
-        private boolean equipped;
-
-        // Getters
-        public String getType() {
-            return type;
-        }
+        private int equipped;
 
         public int getId() {
             return id;
         }
 
-        public boolean isEquipped() {
+        public int isEquipped() {
             return equipped;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setEquipped(int equipped) {
+            this.equipped = equipped;
         }
     }
 
@@ -63,8 +72,8 @@ public class User {
         return name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserId() {
+        return userId;
     }
 
     public String getPassword() {
@@ -79,10 +88,6 @@ public class User {
         return goals;
     }
 
-    public String getDaily_info() {
-        return daily_info;
-    }
-
     public HealthInfo getHealth_info() {
         return health_info;
     }
@@ -91,7 +96,40 @@ public class User {
         return gold;
     }
 
-    public List<Item> getItems() {
+    public List<Items> getItems() {
         return items;
+    }
+
+    // Setters for User class fields
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setProfile_picture(String profile_picture) {
+        this.profile_picture = profile_picture;
+    }
+
+    public void setGoals(String goals) {
+        this.goals = goals;
+    }
+
+    public void setHealth_info(HealthInfo health_info) {
+        this.health_info = health_info;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public void setItems(List<Items> items) {
+        this.items = items;
     }
 }

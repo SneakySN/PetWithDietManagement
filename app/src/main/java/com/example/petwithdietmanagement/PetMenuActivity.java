@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -32,6 +33,8 @@ import com.example.petwithdietmanagement.MyPageActivity;
 import com.example.petwithdietmanagement.PetMenuActivity;
 import com.example.petwithdietmanagement.MainActivity;
 import com.example.petwithdietmanagement.R;
+import com.example.petwithdietmanagement.data.User;
+import com.example.petwithdietmanagement.database.UserDBManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +59,7 @@ public class PetMenuActivity extends AppCompatActivity {
     private ConstraintLayout firstLayout;
     private boolean isCameraMode = false;
     private LinearLayout slideUpLayout;
+    private UserDBManager userDBManager;
 
 
     @Override
@@ -68,6 +72,8 @@ public class PetMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_menu); // XML 레이아웃 이름을 입력하세요
+
+        userDBManager = new UserDBManager(this);
 
         petImageView = findViewById(R.id.character_image);
         handler = new Handler(Looper.getMainLooper());
@@ -194,6 +200,20 @@ public class PetMenuActivity extends AppCompatActivity {
         });
 
         initializeTabs();
+
+        // User 정보를 가져와서 currentMoney TextView에 설정
+        setUserGold();
+    }
+
+    private void setUserGold() {
+        // User ID는 적절히 설정해주세요
+        String userId = "user123"; // 예: 로그인 시 저장된 사용자 ID를 사용
+        User user = userDBManager.getUserById(userId);
+
+        if (user != null) {
+            TextView currentMoneyTextView = findViewById(R.id.currentMoney);
+            currentMoneyTextView.setText(String.valueOf(user.getGold()));
+        }
     }
 
     private void initializeTabs() {
@@ -266,7 +286,11 @@ public class PetMenuActivity extends AppCompatActivity {
         return items;
     }
 
-
+    @Override // 액티비티가 화면에 보이기 시작할 때 실행되는 코드
+    protected void onStart() {
+        super.onStart();
+        setUserGold();
+    }
 
         // 바깥 영역 터치시 slideUpLayout 숨기기
     @Override

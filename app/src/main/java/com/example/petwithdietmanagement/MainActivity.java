@@ -21,6 +21,10 @@ import com.example.petwithdietmanagement.database.ItemDBManager;
 import com.example.petwithdietmanagement.database.MissionDBManager;
 import com.example.petwithdietmanagement.database.RecipeDBHelper;
 import com.example.petwithdietmanagement.database.RecipeDBManager;
+import com.example.petwithdietmanagement.database.UserDBManager;
+import com.example.petwithdietmanagement.data.User;
+import com.example.petwithdietmanagement.data.User.HealthInfo;
+import com.example.petwithdietmanagement.data.User.Items;
 import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
 
 import org.json.JSONArray;
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private RecipeDBManager dbManager;
     private MissionDBManager missionDBM;
     private ItemDBManager itemDBM;
+    private UserDBManager userDBManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -239,13 +244,64 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity", "Filtered Item: " + item.getItemName() + ", Type: " + item.getItemType());
         }*/
     //itemDB의 특정 값 수정하기
-        /*Item item = itemDBM.getItemById(1);
-        item.setItemRealImage("heilo_real");
-        itemDBM.updateItem(item);*/
+        Item item = itemDBM.getItemById(1);
+        item.setPurchased(0);
+        itemDBM.updateItem(item);
 
     //itemDB의 특정 데이터 삭제하기
         //itemDBM.deleteItem(1);
 
+        userDBManager = new UserDBManager(this);
+
+    //userDB에 데이터 넣기
+        /*// Creating a user
+        User user = new User();
+        user.setUserId("user123");
+        user.setName("John Doe");
+        user.setPassword("password123");
+        user.setProfile_picture("profile_pic");
+        user.setGoals("Lose weight");
+
+        // Setting health information
+        HealthInfo healthInfo = new HealthInfo();
+        healthInfo.setWeight(70);
+        healthInfo.setHeight(175);
+        healthInfo.setBlood_pressure(120);
+        user.setHealth_info(healthInfo);
+
+        user.setGold(10000);
+
+        // Creating and setting items for the user
+        List<Items> items = new ArrayList<>();
+        Items item1 = new Items();
+        item1.setId(1);
+        item1.setEquipped(1); // 1 indicates true
+        items.add(item1);
+
+        Items item2 = new Items();
+        item2.setId(3);
+        item2.setEquipped(0); // 0 indicates false
+        items.add(item2);
+
+        user.setItems(items);
+
+        // Inserting the user into the database
+        userDBManager.insertUser(user);*/
+
+    //userDB에서 데이터 불러오기
+        /*User user = userDBManager.getUserById("user123");
+
+        if (user != null) {
+            List<Items> items = user.getItems();
+            for (User.Items item : items) {
+                Log.d("UserItem", "Item ID: " + item.getId() + ", Equipped: " + (item.isEquipped() == 1));
+            }
+        } else {
+            Log.d("UserItem", "User not found.");
+        }*/
+
+    //userDB에서 user가 가진 아이템들 삭제(잠시 함수를 public으로 할 것)
+        //userDBManager.deleteUserItems("user123");
     }
 
     @Override
