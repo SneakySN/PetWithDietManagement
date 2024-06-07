@@ -198,11 +198,12 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
     // 예제: 특정 개수의 필터링되고 정렬된 레시피들 가져오기 (true: 오름차순, false: 내림차순), (cookingMethod: 끓이기, 찌기, 굽기, 볶기, 튀기기, 기타), (dishType: 한식, 양식, 기타)
-        /*try {
-            JSONArray recipes = dbManager.getRecipes(RecipeDBHelper.COLUMN_CALORIES, false, 10,"볶기","양식");
-            Log.d("MainActivity", "Recipes: " + recipes.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
+        /*List<Recipe> recipes = dbManager.getRecipes("", true, 5, "볶기", "양식");
+
+        for (Recipe recipe : recipes) {
+            // 각 recipe 객체에 접근하여 원하는 데이터를 사용
+            Log.d("Recipe", "Name: " + recipe.getRecipeName());
+            Log.d("Recipe", "Calories: " + recipe.getNutrients().getCalories());
         }*/
 
         missionDBM = new MissionDBManager(this); // missionDB를 활용하기 위한 변수 선언
@@ -239,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
         }*/
     //itemDB의 특정 값 수정하기
         /*Item item = itemDBM.getItemById(1);
-        item.setItemPrice(15300);
+        item.setItemRealImage("heilo_real");
         itemDBM.updateItem(item);*/
 
     //itemDB의 특정 데이터 삭제하기

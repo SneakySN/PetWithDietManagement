@@ -9,6 +9,7 @@ public class Item {
     private String itemName;
     private int itemPrice;
     private String itemImage;
+    private String itemRealImage;
     private String description;
     private int purchased;
 
@@ -53,6 +54,14 @@ public class Item {
         this.itemImage = itemImage;
     }
 
+    public String getItemRealImage() {
+        return itemRealImage;
+    }
+
+    public void setItemRealImage(String itemRealImage) {
+        this.itemRealImage = itemRealImage;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -61,7 +70,11 @@ public class Item {
         this.description = description;
     }
 
-    public int isPurchased() { return purchased; }
+    public int isPurchased() {
+        return purchased;
+    }
 
-    public void setPurchased(int purchased) { this.purchased = purchased; }
+    public void setPurchased(int purchased) {
+        this.purchased = purchased;
+    }
 }

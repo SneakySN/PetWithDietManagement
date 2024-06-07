@@ -20,13 +20,14 @@ public class ItemDBManager {
     }
 
     // 아이템 데이터를 삽입하는 메소드
-    public void insertItemData(String itemType, String itemName, int itemPrice, String itemImage, String description, int purchased) {
+    public void insertItemData(String itemType, String itemName, int itemPrice, String itemImage, String itemRealImage, String description, int purchased) {
         ContentValues values = new ContentValues();
         values.put(ItemDBHelper.COLUMN_ITEM_ID, getNextItemId());
         values.put(ItemDBHelper.COLUMN_ITEM_TYPE, itemType);
         values.put(ItemDBHelper.COLUMN_ITEM_NAME, itemName);
         values.put(ItemDBHelper.COLUMN_ITEM_PRICE, itemPrice);
         values.put(ItemDBHelper.COLUMN_ITEM_IMAGE, itemImage);
+        values.put(ItemDBHelper.COLUMN_ITEM_REAL_IMAGE, itemRealImage); // New column
         values.put(ItemDBHelper.COLUMN_DESCRIPTION, description);
         values.put(ItemDBHelper.COLUMN_PURCHASED, purchased);
 
@@ -64,6 +65,7 @@ public class ItemDBManager {
             item.setItemName(cursor.getString(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_ITEM_NAME)));
             item.setItemPrice(cursor.getInt(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_ITEM_PRICE)));
             item.setItemImage(cursor.getString(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_ITEM_IMAGE)));
+            item.setItemRealImage(cursor.getString(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_ITEM_REAL_IMAGE))); // New column
             item.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_DESCRIPTION)));
             item.setPurchased(cursor.getInt(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_PURCHASED)));
 
@@ -80,6 +82,7 @@ public class ItemDBManager {
         values.put(ItemDBHelper.COLUMN_ITEM_NAME, item.getItemName());
         values.put(ItemDBHelper.COLUMN_ITEM_PRICE, item.getItemPrice());
         values.put(ItemDBHelper.COLUMN_ITEM_IMAGE, item.getItemImage());
+        values.put(ItemDBHelper.COLUMN_ITEM_REAL_IMAGE, item.getItemRealImage()); // New column
         values.put(ItemDBHelper.COLUMN_DESCRIPTION, item.getDescription());
         values.put(ItemDBHelper.COLUMN_PURCHASED, item.isPurchased());
 
@@ -102,6 +105,7 @@ public class ItemDBManager {
             item.setItemName(cursor.getString(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_ITEM_NAME)));
             item.setItemPrice(cursor.getInt(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_ITEM_PRICE)));
             item.setItemImage(cursor.getString(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_ITEM_IMAGE)));
+            item.setItemRealImage(cursor.getString(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_ITEM_REAL_IMAGE))); // New column
             item.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_DESCRIPTION)));
             item.setPurchased(cursor.getInt(cursor.getColumnIndexOrThrow(ItemDBHelper.COLUMN_PURCHASED)));
         }

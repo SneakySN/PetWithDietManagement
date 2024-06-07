@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ItemDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "items.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     public static final String TABLE_ITEMS = "items";
     public static final String TEMP_TABLE_ITEMS = "items_temp";
     public static final String COLUMN_ITEM_ID = "item_id";
@@ -14,6 +14,7 @@ public class ItemDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ITEM_NAME = "item_name";
     public static final String COLUMN_ITEM_PRICE = "item_price";
     public static final String COLUMN_ITEM_IMAGE = "item_image";
+    public static final String COLUMN_ITEM_REAL_IMAGE = "item_real_image";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_PURCHASED = "purchased";
     public ItemDBHelper(Context context) {
@@ -32,13 +33,14 @@ public class ItemDBHelper extends SQLiteOpenHelper {
                 + COLUMN_ITEM_NAME + " TEXT,"
                 + COLUMN_ITEM_PRICE + " INTEGER,"
                 + COLUMN_ITEM_IMAGE + " TEXT,"
+                + COLUMN_ITEM_REAL_IMAGE + " TEXT,"
                 + COLUMN_DESCRIPTION + " TEXT,"
                 + COLUMN_PURCHASED + " INTEGER" + ")";
         db.execSQL(CREATE_ITEMS_TABLE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 3) {
+        if (oldVersion < 4) {
             // 1. 새 테이블 생성
             createTable(db, TEMP_TABLE_ITEMS);
 

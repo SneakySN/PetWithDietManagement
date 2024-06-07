@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecipeDBManager {
@@ -58,8 +59,14 @@ public class RecipeDBManager {
     }
 
     // 정렬된 기준과 선택된 필터링(cookingMethod, dishType)으로 주어진 수 만큼의 레시피 배열을 반환받는 함수
-    public JSONArray getRecipes(String orderByColumn, boolean ascending, int limit, String cookingMethod, String dishType) throws JSONException {
-        JSONArray resultArray = new JSONArray();
+    public List<Recipe> getRecipes(String orderByColumn, boolean ascending, int limit, String cookingMethod, String dishType) {
+        List<Recipe> recipes = new ArrayList<>();
+
+        // 기본 정렬 열 설정
+        if (orderByColumn == null || orderByColumn.isEmpty()) {
+            orderByColumn = RecipeDBHelper.COLUMN_RECIPE_NAME; // 기본적으로 이름 순으로 정렬
+        }
+
         String order = ascending ? "ASC" : "DESC";
         String orderBy = orderByColumn + " " + order;
 
@@ -84,25 +91,33 @@ public class RecipeDBManager {
         Cursor cursor = database.query(RecipeDBHelper.TABLE_RECIPES, null, selection, selectionArgs, null, null, orderBy, String.valueOf(limit));
 
         while (cursor.moveToNext()) {
-            JSONObject recipe = new JSONObject();
-            recipe.put(RecipeDBHelper.COLUMN_RECIPE_NAME, cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_RECIPE_NAME)));
-            recipe.put(RecipeDBHelper.COLUMN_COOKING_METHOD, cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_COOKING_METHOD)));
-            recipe.put(RecipeDBHelper.COLUMN_INGREDIENTS, cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_INGREDIENTS)));
-            recipe.put(RecipeDBHelper.COLUMN_CALORIES, cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_CALORIES)));
-            recipe.put(RecipeDBHelper.COLUMN_PROTEIN, cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_PROTEIN)));
-            recipe.put(RecipeDBHelper.COLUMN_FAT, cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_FAT)));
-            recipe.put(RecipeDBHelper.COLUMN_CARBOHYDRATE, cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_CARBOHYDRATE)));
-            recipe.put(RecipeDBHelper.COLUMN_SODIUM, cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_SODIUM)));
-            recipe.put(RecipeDBHelper.COLUMN_DISH_TYPE, cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_DISH_TYPE)));
-            recipe.put(RecipeDBHelper.COLUMN_PREVIEW_IMAGE, cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_PREVIEW_IMAGE)));
-            recipe.put(RecipeDBHelper.COLUMN_INGREDIENT_PREVIEW_IMAGE, cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_INGREDIENT_PREVIEW_IMAGE)));
-            recipe.put(RecipeDBHelper.COLUMN_MANUAL_STEPS, new JSONArray(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_STEPS))));
-            recipe.put(RecipeDBHelper.COLUMN_MANUAL_IMAGES, new JSONArray(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_IMAGES))));
+            Recipe recipe = new Recipe();
+            recipe.setRecipeName(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_RECIPE_NAME)));
+            recipe.setCookingMethod(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_COOKING_METHOD)));
+            recipe.setIngredients(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_INGREDIENTS)));
 
-            resultArray.put(recipe);
+            Recipe.Nutrients nutrients = new Recipe.Nutrients();
+            nutrients.setCalories(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_CALORIES)));
+            nutrients.setProtein(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_PROTEIN)));
+            nutrients.setFat(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_FAT)));
+            nutrients.setCarbohydrate(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_CARBOHYDRATE)));
+            nutrients.setSodium(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_SODIUM)));
+            recipe.setNutrients(nutrients);
+
+            recipe.setDishType(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_DISH_TYPE)));
+
+            Recipe.Images images = new Recipe.Images();
+            images.setPreviewImage(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_PREVIEW_IMAGE)));
+            images.setIngredientPreviewImage(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_INGREDIENT_PREVIEW_IMAGE)));
+            recipe.setImages(images);
+
+            recipe.setManualSteps(Arrays.asList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_STEPS)).split(",")));
+            recipe.setManualImages(Arrays.asList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_IMAGES)).split(",")));
+
+            recipes.add(recipe);
         }
         cursor.close();
-        return resultArray;
+        return recipes;
     }
 
     public boolean isDatabaseEmpty() {
