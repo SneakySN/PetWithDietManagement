@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.view.MotionEvent;
 import android.widget.ImageButton;
@@ -34,7 +35,6 @@ public class SpecifiedDietActivity extends AppCompatActivity {
     private TextView dietIngredients;
     private TextView dietNutrients;
     private TextView dietSteps;
-    private RecipeDBManager dbManager;
 
 
     @Override
@@ -57,15 +57,10 @@ public class SpecifiedDietActivity extends AppCompatActivity {
         dietNutrients = findViewById(R.id.dietNutrients);
         dietSteps = findViewById(R.id.dietSteps);
 
-        // Get the intent that started this activity
+
+        // 인텐트에서 Recipe 객체 받기
         Intent intent = getIntent();
-        int recipeId = intent.getIntExtra("RecipeId", -1); // -1은 기본값 (에러 처리를 위해)
-        Recipe recipe= null;
-        try {
-            recipe = dbManager.getRecipeById(recipeId);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        Recipe recipe = intent.getParcelableExtra("Recipe");
 
         if (recipe != null) {
             dietTitle.setText(recipe.getRecipeName());
@@ -73,28 +68,17 @@ public class SpecifiedDietActivity extends AppCompatActivity {
 
             Glide.with(this)
                     .load(imageUrl)
-                    .placeholder(R.drawable.camera) // 이미지를 로드하는 동안 표시할 이미지
-                    .error(R.drawable.camera) // 이미지 로드 실패 시 표시할 이미지
+                    .placeholder(R.drawable.camera)
+                    .error(R.drawable.camera)
                     .into(dietImage);
             dietIngredients.setText("Ingredients:\n" + recipe.getIngredients());
             dietNutrients.setText("Nutrients:\n" + getNutrientsString(recipe.getNutrients()));
-            List<String> manuals=recipe.getManualSteps();
-            /*
-            String step="";
-            List<Character> charList = new ArrayList<>();
-            for (char ch = 'a'; ch <= 'z'; ch++) {
-                charList.add(ch);
-            }
-            for (String manual:manuals) {
-                String replacedString = manual.replace('"', Character.MIN_VALUE);
-                replacedString = replacedString.replaceAll("\n", "");
-                for (Character alphabet:charList) {
-                    replacedString = replacedString.replace(alphabet, Character.MIN_VALUE);
-                }
 
-                step = step + replacedString+"\n";
-            }*/
+            List<String> manuals = recipe.getManualSteps();
             dietSteps.setText(manuals.get(3));
+            Log.d("SpecifiedDietActivity", "Loaded recipe: " + recipe.getRecipeName() + ", Steps: " + manuals);
+        } else {
+            Log.e("SpecifiedDietActivity", "Recipe is null");
         }
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {

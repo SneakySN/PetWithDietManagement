@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.petwithdietmanagement.data.Recipe;
 import com.example.petwithdietmanagement.database.RecipeDBManager;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -78,7 +80,11 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedCookMethod = parent.getItemAtPosition(position).toString();
-                filterRecipes();
+                try {
+                    filterRecipes();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
@@ -91,7 +97,11 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedCategory = parent.getItemAtPosition(position).toString();
-                filterRecipes();
+                try {
+                    filterRecipes();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
@@ -104,7 +114,11 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedNutrient = parent.getItemAtPosition(position).toString();
-                filterRecipes();
+                try {
+                    filterRecipes();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
@@ -133,9 +147,9 @@ public class DietActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new RecipeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Recipe recipe) {
-                searchView.setQuery(recipe.getRecipeName(), false);
+                Log.d("DietActivity", "Selected recipe: " + recipe.getRecipeName() + ", Steps: " + recipe.getManualSteps());
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
-                intent.putExtra("Recipe",recipe.getId() ); // 필터링된 Recipe List를 전달
+                intent.putExtra("Recipe", recipe); // Recipe 객체를 전달
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }
@@ -144,14 +158,22 @@ public class DietActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                filterRecipes();
+                try {
+                    filterRecipes();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
                 searchView.clearFocus(); // 키보드 닫기
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterRecipes();
+                try {
+                    filterRecipes();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
                 return true;
             }
         });
@@ -242,7 +264,7 @@ public class DietActivity extends AppCompatActivity {
         }
     }
 
-    private void filterRecipes() {
+    private void filterRecipes() throws JSONException {
         String query = searchView.getQuery().toString();
         List<Recipe> filteredRecipes = new ArrayList<>();
         int condition=0;

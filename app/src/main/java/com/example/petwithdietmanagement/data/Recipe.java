@@ -3,20 +3,21 @@ package com.example.petwithdietmanagement.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe implements Parcelable {
     private int id;
-    private String recipe_name;
-    private String cooking_method;
+    private String recipeName;
+    private String cookingMethod;
     private String ingredients;
     private Nutrients nutrients;
-    private String cooking_time;
-    private String serving_weight;
-    private String dish_type;
+    private String cookingTime;
+    private String servingWeight;
+    private String dishType;
     private Images images;
-    private List<String> manual_steps;
-    private List<String> manual_images;
+    private List<String> manualSteps;
+    private List<String> manualImages;
 
     // 영양소 정보를 위한 중첩 클래스
     public static class Nutrients implements Parcelable {
@@ -150,15 +151,15 @@ public class Recipe implements Parcelable {
     }
 
     public static class Images implements Parcelable {
-        private String preview_image;
-        private static String ingredient_preview_image;
+        private String previewImage;
+        private String ingredientPreviewImage;
 
         public Images() {
         }
 
         protected Images(Parcel in) {
-            preview_image = in.readString();
-            ingredient_preview_image = in.readString();
+            previewImage = in.readString();
+            ingredientPreviewImage = in.readString();
         }
 
         public static final Creator<Images> CREATOR = new Creator<Images>() {
@@ -175,8 +176,8 @@ public class Recipe implements Parcelable {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(preview_image);
-            dest.writeString(ingredient_preview_image);
+            dest.writeString(previewImage);
+            dest.writeString(ingredientPreviewImage);
         }
 
         @Override
@@ -185,19 +186,19 @@ public class Recipe implements Parcelable {
         }
 
         public String getPreviewImage() {
-            return preview_image;
+            return previewImage;
         }
 
         public void setPreviewImage(String previewImage) {
-            this.preview_image = previewImage;
+            this.previewImage = previewImage;
         }
 
-        public static String getIngredientPreviewImage() {
-            return ingredient_preview_image;
+        public String getIngredientPreviewImage() {
+            return ingredientPreviewImage;
         }
 
         public void setIngredientPreviewImage(String ingredientPreviewImage) {
-            ingredient_preview_image = ingredientPreviewImage;
+            this.ingredientPreviewImage = ingredientPreviewImage;
         }
     }
 
@@ -206,16 +207,16 @@ public class Recipe implements Parcelable {
 
     protected Recipe(Parcel in) {
         id = in.readInt();
-        recipe_name = in.readString();
-        cooking_method = in.readString();
+        recipeName = in.readString();
+        cookingMethod = in.readString();
         ingredients = in.readString();
         nutrients = in.readParcelable(Nutrients.class.getClassLoader());
-        cooking_time = in.readString();
-        serving_weight = in.readString();
-        dish_type = in.readString();
+        cookingTime = in.readString();
+        servingWeight = in.readString();
+        dishType = in.readString();
         images = in.readParcelable(Images.class.getClassLoader());
-        manual_steps = in.createStringArrayList();
-        manual_images = in.createStringArrayList();
+        manualSteps = in.createStringArrayList();
+        manualImages = in.createStringArrayList();
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -233,16 +234,16 @@ public class Recipe implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeString(recipe_name);
-        dest.writeString(cooking_method);
+        dest.writeString(recipeName);
+        dest.writeString(cookingMethod);
         dest.writeString(ingredients);
         dest.writeParcelable(nutrients, flags);
-        dest.writeString(cooking_time);
-        dest.writeString(serving_weight);
-        dest.writeString(dish_type);
+        dest.writeString(cookingTime);
+        dest.writeString(servingWeight);
+        dest.writeString(dishType);
         dest.writeParcelable(images, flags);
-        dest.writeStringList(manual_steps);
-        dest.writeStringList(manual_images);
+        dest.writeStringList(manualSteps);
+        dest.writeStringList(manualImages);
     }
 
     @Override
@@ -259,19 +260,19 @@ public class Recipe implements Parcelable {
     }
 
     public String getRecipeName() {
-        return recipe_name;
+        return recipeName;
     }
 
     public void setRecipeName(String name) {
-        this.recipe_name = name;
+        this.recipeName = name;
     }
 
     public String getCookingMethod() {
-        return cooking_method;
+        return cookingMethod;
     }
 
     public void setCookingMethod(String cookingMethod) {
-        this.cooking_method = cookingMethod;
+        this.cookingMethod = cookingMethod;
     }
 
     public String getIngredients() {
@@ -291,19 +292,19 @@ public class Recipe implements Parcelable {
     }
 
     public String getCookingTime() {
-        return cooking_time;
+        return cookingTime;
     }
 
     public String getServingWeight() {
-        return serving_weight;
+        return servingWeight;
     }
 
     public String getDishType() {
-        return dish_type;
+        return dishType;
     }
 
     public void setDishType(String dishType) {
-        this.dish_type = dishType;
+        this.dishType = dishType;
     }
 
     public Images getImages() {
@@ -315,18 +316,18 @@ public class Recipe implements Parcelable {
     }
 
     public List<String> getManualSteps() {
-        return manual_steps;
+        return manualSteps;
     }
 
     public void setManualSteps(List<String> manualSteps) {
-        this.manual_steps = manualSteps;
+        this.manualSteps = manualSteps;
     }
 
     public List<String> getManualImages() {
-        return manual_images;
+        return manualImages;
     }
 
     public void setManualImages(List<String> manualImages) {
-        this.manual_images = manualImages;
+        this.manualImages = manualImages;
     }
 }

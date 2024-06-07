@@ -192,16 +192,17 @@ public class MainActivity extends AppCompatActivity {
         //dbManager.getRecipeIdByName("브로콜리 컬리플라워 샐러드와 두유 요거트 소스");
 
     // 예제: ID를 입력해 레시피의 데이터를 가져오기
-        /*try {
+        try {
             Recipe recipe = dbManager.getRecipeById(dbManager.getRecipeIdByName("L..A갈비구이"));
             Recipe.Nutrients nutrients = recipe.getNutrients();
             Log.d("MainActivity", "메뉴 이름: " + recipe.getRecipeName());
             Log.d("MainActivity", "칼로리: " + nutrients.getCalories());
             Log.d("MainActivity", "메뉴얼 이미지들: " + recipe.getManualImages());
             Log.d("MainActivity", "메뉴얼 스텝들: " + recipe.getManualSteps().get(2));
+            Log.d("TestTest", recipe.getManualSteps().get(3));
         } catch (JSONException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
     // 예제: 특정 개수의 필터링되고 정렬된 레시피들 가져오기 (true: 오름차순, false: 내림차순), (cookingMethod: 끓이기, 찌기, 굽기, 볶기, 튀기기, 기타), (dishType: 한식, 양식, 기타)
         /*List<Recipe> recipes = dbManager.getRecipes("", true, 5, "볶기", "양식");

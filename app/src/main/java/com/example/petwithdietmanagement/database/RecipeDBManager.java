@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RecipeDBManager {
@@ -58,13 +57,11 @@ public class RecipeDBManager {
         }
     }
 
-    // 정렬된 기준과 선택된 필터링(cookingMethod, dishType)으로 주어진 수 만큼의 레시피 배열을 반환받는 함수
-    public List<Recipe> getRecipes(String orderByColumn, boolean ascending, int limit, String cookingMethod, String dishType) {
+    public List<Recipe> getRecipes(String orderByColumn, boolean ascending, int limit, String cookingMethod, String dishType) throws JSONException {
         List<Recipe> recipes = new ArrayList<>();
 
-        // 기본 정렬 열 설정
         if (orderByColumn == null || orderByColumn.isEmpty()) {
-            orderByColumn = RecipeDBHelper.COLUMN_RECIPE_NAME; // 기본적으로 이름 순으로 정렬
+            orderByColumn = RecipeDBHelper.COLUMN_RECIPE_NAME;
         }
 
         String order = ascending ? "ASC" : "DESC";
@@ -111,8 +108,8 @@ public class RecipeDBManager {
             images.setIngredientPreviewImage(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_INGREDIENT_PREVIEW_IMAGE)));
             recipe.setImages(images);
 
-            recipe.setManualSteps(Arrays.asList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_STEPS)).split(",")));
-            recipe.setManualImages(Arrays.asList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_IMAGES)).split(",")));
+            recipe.setManualSteps(jsonArrayToList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_STEPS))));
+            recipe.setManualImages(jsonArrayToList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_IMAGES))));
 
             recipes.add(recipe);
         }
@@ -133,19 +130,16 @@ public class RecipeDBManager {
         return isEmpty;
     }
 
-    // 특정 레시피의 특정 컬럼 데이터를 수정하는 메소드
     public void updateRecipeField(String recipeName, String column, String newValue) {
         ContentValues values = new ContentValues();
         values.put(column, newValue);
 
-        // 업데이트 조건
         String whereClause = RecipeDBHelper.COLUMN_RECIPE_NAME + "=?";
         String[] whereArgs = {recipeName};
 
         database.update(RecipeDBHelper.TABLE_RECIPES, values, whereClause, whereArgs);
     }
 
-    // id만을 인자로 받아 Recipe 클래스를 반환하는 메소드
     public Recipe getRecipeById(int id) throws JSONException {
         Recipe recipe = null;
         String query = "SELECT * FROM " + RecipeDBHelper.TABLE_RECIPES + " WHERE " + RecipeDBHelper.COLUMN_ID + " = ?";
@@ -157,6 +151,7 @@ public class RecipeDBManager {
             recipe.setRecipeName(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_RECIPE_NAME)));
             recipe.setCookingMethod(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_COOKING_METHOD)));
             recipe.setIngredients(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_INGREDIENTS)));
+
             Recipe.Nutrients nutrients = new Recipe.Nutrients();
             nutrients.setCalories(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_CALORIES)));
             nutrients.setProtein(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_PROTEIN)));
@@ -164,33 +159,31 @@ public class RecipeDBManager {
             nutrients.setCarbohydrate(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_CARBOHYDRATE)));
             nutrients.setSodium(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_SODIUM)));
             recipe.setNutrients(nutrients);
+
             recipe.setDishType(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_DISH_TYPE)));
+
             Recipe.Images images = new Recipe.Images();
             images.setPreviewImage(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_PREVIEW_IMAGE)));
             images.setIngredientPreviewImage(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_INGREDIENT_PREVIEW_IMAGE)));
             recipe.setImages(images);
-            try {
-                recipe.setManualSteps(jsonArrayToList(new JSONArray(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_STEPS)))));
-                recipe.setManualImages(jsonArrayToList(new JSONArray(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_IMAGES)))));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+            recipe.setManualSteps(jsonArrayToList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_STEPS))));
+            recipe.setManualImages(jsonArrayToList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_IMAGES))));
         }
 
         cursor.close();
         return recipe;
     }
 
-    //ManualSteps과 ManualImages를 list로 변환시키는 함수
-    private List<String> jsonArrayToList(JSONArray jsonArray) throws JSONException {
+    private List<String> jsonArrayToList(String jsonArrayString) throws JSONException {
         List<String> list = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray(jsonArrayString);
         for (int i = 0; i < jsonArray.length(); i++) {
             list.add(jsonArray.getString(i));
         }
         return list;
     }
 
-    // 레시피 이름을 인자로 받아 해당 레시피의 ID를 반환하는 메소드
     public int getRecipeIdByName(String recipeName) {
         int id = -1;
         String query = "SELECT " + RecipeDBHelper.COLUMN_ID + " FROM " + RecipeDBHelper.TABLE_RECIPES + " WHERE " + RecipeDBHelper.COLUMN_RECIPE_NAME + " = ?";
@@ -204,8 +197,7 @@ public class RecipeDBManager {
         return id;
     }
 
-    // Recipe 객체 리스트를 반환하는 메소드 추가
-    public List<Recipe> getRecipesByQuery(String query) {
+    public List<Recipe> getRecipesByQuery(String query) throws JSONException {
         List<Recipe> recipeList = new ArrayList<>();
         Cursor cursor = getRecipesByName(query);
         if (cursor.moveToFirst()) {
@@ -215,6 +207,7 @@ public class RecipeDBManager {
                 recipe.setRecipeName(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_RECIPE_NAME)));
                 recipe.setCookingMethod(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_COOKING_METHOD)));
                 recipe.setIngredients(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_INGREDIENTS)));
+
                 Recipe.Nutrients nutrients = new Recipe.Nutrients();
                 nutrients.setCalories(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_CALORIES)));
                 nutrients.setProtein(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_PROTEIN)));
@@ -222,16 +215,15 @@ public class RecipeDBManager {
                 nutrients.setCarbohydrate(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_CARBOHYDRATE)));
                 nutrients.setSodium(cursor.getDouble(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_SODIUM)));
                 recipe.setNutrients(nutrients);
+
                 Recipe.Images images = new Recipe.Images();
                 images.setPreviewImage(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_PREVIEW_IMAGE)));
                 images.setIngredientPreviewImage(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_INGREDIENT_PREVIEW_IMAGE)));
                 recipe.setImages(images);
-                try {
-                    recipe.setManualSteps(jsonArrayToList(new JSONArray(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_STEPS)))));
-                    recipe.setManualImages(jsonArrayToList(new JSONArray(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_IMAGES)))));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+                recipe.setManualSteps(jsonArrayToList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_STEPS))));
+                recipe.setManualImages(jsonArrayToList(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDBHelper.COLUMN_MANUAL_IMAGES))));
+
                 recipeList.add(recipe);
             } while (cursor.moveToNext());
         }
@@ -239,7 +231,6 @@ public class RecipeDBManager {
         return recipeList;
     }
 
-    // 데이터베이스 삭제 메소드
     public void deleteAllRecipes() {
         database.delete(RecipeDBHelper.TABLE_RECIPES, null, null);
     }
