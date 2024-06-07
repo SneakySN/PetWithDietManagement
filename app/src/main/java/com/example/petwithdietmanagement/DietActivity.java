@@ -2,6 +2,7 @@ package com.example.petwithdietmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,7 @@ import com.example.petwithdietmanagement.database.RecipeDBManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DietActivity extends AppCompatActivity {
 
@@ -29,9 +31,9 @@ public class DietActivity extends AppCompatActivity {
     private RecipeAdapter adapter;
     private RecyclerView recipeRecyclerView;
     private Spinner cookMethodSpinner, categorySpinner, nutrientSpinner;
-    private String selectedCookMethod = "전체";
+    private String selectedCookMethod = "조리";
     private String selectedCategory = "전체";
-    private String selectedNutrient = "전체";
+    private String selectedNutrient = "영양소";
 
     @Override
     public void onBackPressed() {
@@ -53,7 +55,6 @@ public class DietActivity extends AppCompatActivity {
         categorySpinner = findViewById(R.id.category_spinner);
         nutrientSpinner = findViewById(R.id.nutrient_spinner);
 
-
         // Set the custom adapter for mealTimeSpinner
         ArrayAdapter<CharSequence> cookMethodAdapter = ArrayAdapter.createFromResource(this,
                 R.array.cook_method, R.layout.spinner_item_center);
@@ -66,12 +67,11 @@ public class DietActivity extends AppCompatActivity {
         categoryAdapter.setDropDownViewResource(R.layout.spinner_item_center);
         categorySpinner.setAdapter(categoryAdapter);
 
-        // Set the custom adapter for categorySpinner
+        // Set the custom adapter for nutrientSpinner
         ArrayAdapter<CharSequence> nutrientAdapter = ArrayAdapter.createFromResource(this,
                 R.array.nutrient_array, R.layout.spinner_item_center);
         nutrientAdapter.setDropDownViewResource(R.layout.spinner_item_center);
         nutrientSpinner.setAdapter(nutrientAdapter);
-
 
         // 스피너 선택 리스너 설정
         cookMethodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -109,7 +109,7 @@ public class DietActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedNutrient = "전체";
+                selectedNutrient = "영양소";
             }
         });
 
@@ -133,9 +133,10 @@ public class DietActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new RecipeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Recipe recipe) {
+
                 searchView.setQuery(recipe.getRecipeName(), false);
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
-                intent.putExtra("Recipe", recipe.getRecipeName()); // 필터링된 Recipe List를 전달
+                intent.putExtra("Recipe", dbManager.getRecipeIdByName(recipe.getRecipeName())); // 필터링된 Recipe List를 전달
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }
@@ -234,59 +235,76 @@ public class DietActivity extends AppCompatActivity {
     }
 
     private void loadRecipes() {
-        recipeList = dbManager.getRecipesByQuery("");
-        adapter.filter(recipeList);
+        try {
+            recipeList = dbManager.getRecipesByQuery("");
+            adapter.filter(recipeList);
+        } catch (Exception e) {
+            Log.e("DietActivity", "Error loading recipes", e);
+        }
     }
 
     private void filterRecipes() {
         String query = searchView.getQuery().toString();
-        List<Recipe> filteredRecipes=new ArrayList<>();
+        List<Recipe> filteredRecipes = new ArrayList<>();
+        int condition=0;
+        switch (selectedNutrient) {
+            case "칼로리":
+                selectedNutrient = "calories";
+                break;
+            case "단백질":
+                selectedNutrient = "protein";
+                break;
+            case "지방":
+                selectedNutrient = "fat";
+                break;
+            case "탄수화물":
+                selectedNutrient = "carbohydrate";
+                break;
+            case "나트륨":
+                selectedNutrient = "sodium";
+                break;
+        }
         // 초기 필터링: 조리 방법과 카테고리로 필터링된 레시피 리스트 가져오기
-        if (selectedCategory != "조리 방법"&&selectedCookMethod != "전체") {
-            filteredRecipes = dbManager.getRecipes(null, true, 20, selectedCookMethod, selectedCategory);
-        } else if (selectedCookMethod == "전체") {
-            filteredRecipes = dbManager.getRecipes(null, true, 20, null, selectedCategory);
-        } else if(selectedCategory == "조리 방법"){
+        if (!Objects.equals(selectedCookMethod, "조리") ){
+            condition+=1;
+        }
+
+        if(!Objects.equals(selectedCategory, "전체")){
+            condition+=2;
+        }
+
+        if(!Objects.equals(selectedNutrient, "영양소")){
+            condition+=4;
+        }
+
+        if(condition==0) {
+            filteredRecipes = dbManager.getRecipes(null, true, 20, null, null);
+        }
+        if(condition==1){
             filteredRecipes = dbManager.getRecipes(null, true, 20, selectedCookMethod, null);
+        } else if(condition==2){
+            filteredRecipes = dbManager.getRecipes(null, true, 20, null, selectedCategory);
+        } else if(condition==3){
+            filteredRecipes = dbManager.getRecipes(null, true, 20, selectedCookMethod, selectedCategory);
+        } else if(condition==4){
+            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 20, null, null);
+        } else if(condition==5){
+            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 20, selectedCookMethod, null);
+        } else if(condition==6){
+            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 20, null, selectedCategory);
+        } else if(condition==7){
+            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 20, selectedCookMethod, selectedCategory);
         }
 
-
-
-        // 이름으로 추가 필터링
-        if (!query.isEmpty()) {
-            filteredRecipes = filterByName(filteredRecipes, query);
-        }
-
-        adapter.filter(filteredRecipes);
-    }
-
-    private List<Recipe> filterByCookMethod(List<Recipe> recipes, String cookMethod) {
-        if (cookMethod.equals("조리")) {
-            return recipes;
-        } else {
-            List<Recipe> filteredRecipes = new ArrayList<>();
-            for (Recipe recipe : recipes) {
-                if (recipe.getCookingMethod() != null && recipe.getCookingMethod().equals(cookMethod)) {
-                    filteredRecipes.add(recipe);
-                }
+            // 이름으로 추가 필터링
+            if (!query.isEmpty()) {
+                filteredRecipes = filterByName(filteredRecipes, query);
             }
-            return filteredRecipes;
-        }
+
+            adapter.filter(filteredRecipes);
+
     }
 
-    private List<Recipe> filterByCategory(List<Recipe> recipes, String category) {
-        if (category.equals("전체")) {
-            return recipes;
-        } else {
-            List<Recipe> filteredRecipes = new ArrayList<>();
-            for (Recipe recipe : recipes) {
-                if (recipe.getDishType() != null && recipe.getDishType().equals(category)) {
-                    filteredRecipes.add(recipe);
-                }
-            }
-            return filteredRecipes;
-        }
-    }
     private List<Recipe> filterByName(List<Recipe> recipes, String name) {
         List<Recipe> filteredRecipes = new ArrayList<>();
         for (Recipe recipe : recipes) {
@@ -297,4 +315,34 @@ public class DietActivity extends AppCompatActivity {
         return filteredRecipes;
     }
 
+    private List<Recipe> filterByNutrient(List<Recipe> recipes, String nutrient) {
+        List<Recipe> filteredRecipes = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            Recipe.Nutrients nutrients = recipe.getNutrients();
+            if (nutrients != null) {
+                double value = 0;
+                switch (nutrient) {
+                    case "칼로리":
+                        value = nutrients.getCalories();
+                        break;
+                    case "단백질":
+                        value = nutrients.getProtein();
+                        break;
+                    case "지방":
+                        value = nutrients.getFat();
+                        break;
+                    case "탄수화물":
+                        value = nutrients.getCarbohydrate();
+                        break;
+                    case "나트륨":
+                        value = nutrients.getSodium();
+                        break;
+                }
+                if (value > 0) {
+                    filteredRecipes.add(recipe);
+                }
+            }
+        }
+        return filteredRecipes;
+    }
 }

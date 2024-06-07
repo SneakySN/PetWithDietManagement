@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="cook_method">
-        <item>조리 방법</item>
+        <item>조리</item>
         <item>찌기</item>
         <item>굽기</item>
         <item>끓이기</item>
@@ -17,6 +17,7 @@
     </string-array>
 
     <string-array name="nutrient_array">
+        <item>영양소</item>
         <item>칼로리</item>
         <item>단백질</item>
         <item>지방</item>
