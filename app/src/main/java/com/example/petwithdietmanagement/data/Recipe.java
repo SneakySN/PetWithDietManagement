@@ -151,7 +151,7 @@ public class Recipe implements Parcelable {
 
     public static class Images implements Parcelable {
         private String preview_image;
-        private String ingredient_preview_image;
+        private static String ingredient_preview_image;
 
         public Images() {
         }
@@ -192,12 +192,12 @@ public class Recipe implements Parcelable {
             this.preview_image = previewImage;
         }
 
-        public String getIngredientPreviewImage() {
+        public static String getIngredientPreviewImage() {
             return ingredient_preview_image;
         }
 
         public void setIngredientPreviewImage(String ingredientPreviewImage) {
-            this.ingredient_preview_image = ingredientPreviewImage;
+            ingredient_preview_image = ingredientPreviewImage;
         }
     }
 
