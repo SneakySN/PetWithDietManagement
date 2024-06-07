@@ -60,7 +60,7 @@ public class DietActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedCookMethod = "전체";
+                selectedCookMethod = "조리";
             }
         });
 
@@ -204,17 +204,22 @@ public class DietActivity extends AppCompatActivity {
 
     private void filterRecipes() {
         String query = searchView.getQuery().toString();
-        List<Recipe> filteredRecipes = dbManager.getRecipesByQuery(query);
-
-        if (selectedCategory != null && !selectedCategory.equals("전체")) {
-            filteredRecipes = filterByCategory(filteredRecipes, selectedCategory);
+        List<Recipe> filteredRecipes=new ArrayList<>();
+        // 초기 필터링: 조리 방법과 카테고리로 필터링된 레시피 리스트 가져오기
+        if (selectedCategory != "조리 방법"&&selectedCookMethod != "전체") {
+            filteredRecipes = dbManager.getRecipes(null, true, 20, selectedCookMethod, selectedCategory);
+        } else if (selectedCookMethod == "전체") {
+            filteredRecipes = dbManager.getRecipes(null, true, 20, null, selectedCategory);
+        } else if(selectedCategory == "조리 방법"){
+            filteredRecipes = dbManager.getRecipes(null, true, 20, selectedCookMethod, null);
         }
 
-        if (selectedCookMethod != null && !selectedCookMethod.equals("조리")) {
-            filteredRecipes = filterByCookMethod(filteredRecipes, selectedCookMethod);
+
+
+        // 이름으로 추가 필터링
+        if (!query.isEmpty()) {
+            filteredRecipes = filterByName(filteredRecipes, query);
         }
-
-
 
         adapter.filter(filteredRecipes);
     }
@@ -246,4 +251,14 @@ public class DietActivity extends AppCompatActivity {
             return filteredRecipes;
         }
     }
+    private List<Recipe> filterByName(List<Recipe> recipes, String name) {
+        List<Recipe> filteredRecipes = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            if (recipe.getRecipeName() != null && recipe.getRecipeName().toLowerCase().contains(name.toLowerCase())) {
+                filteredRecipes.add(recipe);
+            }
+        }
+        return filteredRecipes;
+    }
+
 }

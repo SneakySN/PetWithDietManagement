@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="cook_method">
-        <item>조리</item>
+        <item>조리 방법</item>
         <item>찌기</item>
         <item>굽기</item>
         <item>끓이기</item>
