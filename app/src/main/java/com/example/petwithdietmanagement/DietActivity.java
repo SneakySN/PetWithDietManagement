@@ -133,10 +133,9 @@ public class DietActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new RecipeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Recipe recipe) {
-
                 searchView.setQuery(recipe.getRecipeName(), false);
                 Intent intent = new Intent(DietActivity.this, SpecifiedDietActivity.class);
-                intent.putExtra("Recipe", dbManager.getRecipeIdByName(recipe.getRecipeName())); // 필터링된 Recipe List를 전달
+                intent.putExtra("Recipe",recipe ); // 필터링된 Recipe List를 전달
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }
@@ -278,30 +277,30 @@ public class DietActivity extends AppCompatActivity {
         }
 
         if(condition==0) {
-            filteredRecipes = dbManager.getRecipes(null, true, 20, null, null);
+            filteredRecipes = dbManager.getRecipes(null, true, 1000, null, null);
         }
         if(condition==1){
-            filteredRecipes = dbManager.getRecipes(null, true, 20, selectedCookMethod, null);
+            filteredRecipes = dbManager.getRecipes(null, true, 1000, selectedCookMethod, null);
         } else if(condition==2){
-            filteredRecipes = dbManager.getRecipes(null, true, 20, null, selectedCategory);
+            filteredRecipes = dbManager.getRecipes(null, true, 1000, null, selectedCategory);
         } else if(condition==3){
-            filteredRecipes = dbManager.getRecipes(null, true, 20, selectedCookMethod, selectedCategory);
+            filteredRecipes = dbManager.getRecipes(null, true, 1000, selectedCookMethod, selectedCategory);
         } else if(condition==4){
-            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 20, null, null);
+            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 1000, null, null);
         } else if(condition==5){
-            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 20, selectedCookMethod, null);
+            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 1000, selectedCookMethod, null);
         } else if(condition==6){
-            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 20, null, selectedCategory);
+            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 1000, null, selectedCategory);
         } else if(condition==7){
-            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 20, selectedCookMethod, selectedCategory);
+            filteredRecipes = dbManager.getRecipes(selectedNutrient, true, 1000, selectedCookMethod, selectedCategory);
         }
 
-            // 이름으로 추가 필터링
-            if (!query.isEmpty()) {
-                filteredRecipes = filterByName(filteredRecipes, query);
-            }
+        // 이름으로 추가 필터링
+        if (!query.isEmpty()) {
+            filteredRecipes = filterByName(filteredRecipes, query);
+        }
 
-            adapter.filter(filteredRecipes);
+        adapter.filter(filteredRecipes);
 
     }
 
