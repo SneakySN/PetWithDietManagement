@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -27,9 +28,10 @@ public class DietActivity extends AppCompatActivity {
     private List<Recipe> recipeList;
     private RecipeAdapter adapter;
     private RecyclerView recipeRecyclerView;
-    private Spinner cookMethodSpinner, categorySpinner;
+    private Spinner cookMethodSpinner, categorySpinner, nutrientSpinner;
     private String selectedCookMethod = "전체";
     private String selectedCategory = "전체";
+    private String selectedNutrient = "전체";
 
     @Override
     public void onBackPressed() {
@@ -49,6 +51,27 @@ public class DietActivity extends AppCompatActivity {
 
         cookMethodSpinner = findViewById(R.id.cook_method_spinner);
         categorySpinner = findViewById(R.id.category_spinner);
+        nutrientSpinner = findViewById(R.id.nutrient_spinner);
+
+
+        // Set the custom adapter for mealTimeSpinner
+        ArrayAdapter<CharSequence> cookMethodAdapter = ArrayAdapter.createFromResource(this,
+                R.array.cook_method, R.layout.spinner_item_center);
+        cookMethodAdapter.setDropDownViewResource(R.layout.spinner_item_center);
+        cookMethodSpinner.setAdapter(cookMethodAdapter);
+
+        // Set the custom adapter for categorySpinner
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
+                R.array.food_categories, R.layout.spinner_item_center);
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_item_center);
+        categorySpinner.setAdapter(categoryAdapter);
+
+        // Set the custom adapter for categorySpinner
+        ArrayAdapter<CharSequence> nutrientAdapter = ArrayAdapter.createFromResource(this,
+                R.array.nutrient_array, R.layout.spinner_item_center);
+        nutrientAdapter.setDropDownViewResource(R.layout.spinner_item_center);
+        nutrientSpinner.setAdapter(nutrientAdapter);
+
 
         // 스피너 선택 리스너 설정
         cookMethodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -74,6 +97,19 @@ public class DietActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedCategory = "전체";
+            }
+        });
+
+        nutrientSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedNutrient = parent.getItemAtPosition(position).toString();
+                filterRecipes();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedNutrient = "전체";
             }
         });
 
