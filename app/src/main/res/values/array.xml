@@ -25,6 +25,14 @@
         <item>나트륨</item>
     </string-array>
 
+    <string-array name="nutrient_array2">
+        <item>칼로리</item>
+        <item>단백질</item>
+        <item>지방</item>
+        <item>탄수화물</item>
+        <item>나트륨</item>
+    </string-array>
+
     <string-array name="food_categories">
         <item>전체</item>
         <item>한식</item>
@@ -32,5 +40,10 @@
         <item>기타</item>
     </string-array>
 
+    <string-array name="meal_time_array">
+        <item>아침</item>
+        <item>점심</item>
+        <item>저녁</item>
+    </string-array>
 
 </resources>

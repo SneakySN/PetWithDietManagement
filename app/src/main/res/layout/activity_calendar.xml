@@ -61,7 +61,7 @@
         android:layout_height="48dp"
         android:layout_below="@id/calendar_view"
         android:layout_marginTop="16dp"
-        android:entries="@array/nutrient_array" />
+        android:entries="@array/nutrient_array2" />
 
     <!-- 그래프 섹션 -->
     <LinearLayout

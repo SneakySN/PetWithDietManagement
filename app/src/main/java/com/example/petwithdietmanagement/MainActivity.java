@@ -184,13 +184,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", "Failed to load JSON file.");
             }
         }
-    // 예제: "새우 두부 계란찜" 레시피의 칼로리 값을 "220"로 수정
+        // 예제: "새우 두부 계란찜" 레시피의 칼로리 값을 "220"로 수정
         //dbManager.updateRecipeField("새우 두부 계란찜", RecipeDBHelper.COLUMN_CALORIES, "220");
 
-    // 예제: 레시피 명을 입력해 레시피의 ID 값 가져오기
+        // 예제: 레시피 명을 입력해 레시피의 ID 값 가져오기
         //dbManager.getRecipeIdByName("브로콜리 컬리플라워 샐러드와 두유 요거트 소스");
 
-    // 예제: ID를 입력해 레시피의 데이터를 가져오기
+        // 예제: ID를 입력해 레시피의 데이터를 가져오기
         /*try {
             Recipe recipe = dbManager.getRecipeById(dbManager.getRecipeIdByName("L..A갈비구이"));
             Recipe.Nutrients nutrients = recipe.getNutrients();
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }*/
 
-    // 예제: 특정 개수의 필터링되고 정렬된 레시피들 가져오기 (true: 오름차순, false: 내림차순), (cookingMethod: 끓이기, 찌기, 굽기, 볶기, 튀기기, 기타), (dishType: 한식, 양식, 기타)
+        // 예제: 특정 개수의 필터링되고 정렬된 레시피들 가져오기 (true: 오름차순, false: 내림차순), (cookingMethod: 끓이기, 찌기, 굽기, 볶기, 튀기기, 기타), (dishType: 한식, 양식, 기타)
         /*List<Recipe> recipes = dbManager.getRecipes("", true, 5, "볶기", "양식");
 
         for (Recipe recipe : recipes) {
@@ -229,21 +229,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    //missionDB의 특정 값 가져오기
+        //missionDB의 특정 값 가져오기
         /*Mission mission = missionDBM.getMissionById(1);
         Log.d("MainActivity", "미션 내용: " + mission.getDescription());*/
 
-    //missionDB의 특정 값 수정하기
+        //missionDB의 특정 값 수정하기
         /*Mission mission = missionDBM.getMissionById(1);
         mission.setReward(15300);
         missionDBM.updateMission(mission);*/
 
-    //missionDB의 특정 데이터 삭제하기
+        //missionDB의 특정 데이터 삭제하기
         //missionDBM.deleteMission(1);
 
         itemDBM = new ItemDBManager(this); // itemDB를 활용하기 위한 변수 선언
 
-    // item 데이터베이스가 비어 있는지 확인 후 item.json 파일의 내용 저장
+        // item 데이터베이스가 비어 있는지 확인 후 item.json 파일의 내용 저장
         if (itemDBM.isDatabaseEmpty()) {
             // JSON 파일 읽기
             String jsonString = JsonUtils.loadJSONFromAsset(this,"item.json");
@@ -258,30 +258,30 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    //itemDB의 특정 값 가져오기
+        //itemDB의 특정 값 가져오기
         /*Item item = itemDBM.getItemById(1);
         Log.d("MainActivity", "아이템 내용: " + item.getDescription());*/
 
-    // 아이템 명을 입력해 아이템의 ID 값 가져오기
+        // 아이템 명을 입력해 아이템의 ID 값 가져오기
         //Log.d("MainActivity", "아이템 ID: " + itemDBM.getItemIdByName("orange_carpet"));
 
-    //특정 아이템 타입의 아이템들만 가져오기
+        //특정 아이템 타입의 아이템들만 가져오기
         /*List<Item> filteredItems = itemDBM.getItemsByType("Hat");
         for (Item item : filteredItems) {
             Log.d("MainActivity", "Filtered Item: " + item.getItemName() + ", Type: " + item.getItemType());
         }*/
-    //itemDB의 특정 값 수정하기
+        //itemDB의 특정 값 수정하기
         /*Item item = itemDBM.getItemById(1);
         item.setPurchased(0);
         itemDBM.updateItem(item);
         */
 
-    //itemDB의 특정 데이터 삭제하기
+        //itemDB의 특정 데이터 삭제하기
         //itemDBM.deleteItem(1);
 
         userDBManager = new UserDBManager(this);
 
-    // user 데이터베이스가 비어 있는지 확인 후 user_info.json 파일의 내용 저장
+        // user 데이터베이스가 비어 있는지 확인 후 user_info.json 파일의 내용 저장
         if (userDBManager.isDatabaseEmpty()) {
             // JSON 파일 읽기
             String jsonString = JsonUtils.loadJSONFromAsset(this, "user_info.json");
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    //userDB에서 데이터 불러오기
+        //userDB에서 데이터 불러오기
         /*User user = userDBManager.getUserById("user123");
 
         if (user != null) {
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("UserItem", "User not found.");
         }*/
 
-    //userDB에서 user가 가진 아이템들 삭제(잠시 함수를 public으로 할 것)
+        //userDB에서 user가 가진 아이템들 삭제(잠시 함수를 public으로 할 것)
         //userDBManager.deleteUserItems("user123");
     }
 
