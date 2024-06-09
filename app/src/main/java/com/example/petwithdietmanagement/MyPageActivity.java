@@ -39,16 +39,5 @@ public class MyPageActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
             }
         });
-
-        // 메뉴 버튼
-        ImageButton menuButton = findViewById(R.id.ic_menu);
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyPageActivity.this, MenuPageActivity.class); // 메뉴 페이지로 이동
-                startActivity(intent);
-                overridePendingTransition(0,0);
-            }
-        });
     }
 }

@@ -60,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/top_menu"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:entries="@array/cook_method"
@@ -72,7 +73,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/top_menu"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:layout_toEndOf="@id/cook_method_spinner"
@@ -86,8 +88,9 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/top_menu"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:layout_toEndOf="@id/cook_method_spinner"
             android:entries="@array/food_categories"
@@ -110,7 +113,7 @@
     <LinearLayout
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#FFA726"
         android:orientation="horizontal"
@@ -123,6 +126,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
             android:contentDescription="home_button_description"
@@ -134,6 +138,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
             android:contentDescription="diet_button_description"
@@ -145,6 +150,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
             android:contentDescription="calendar_button_description"
@@ -156,10 +162,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
             android:contentDescription="pet_button_description"
             android:src="@drawable/pet_button_selector" />
+
+        <!-- 마이페이지 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_myPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="mypage_button_description"
+            android:src="@drawable/mypage_button_selector" />
     </LinearLayout>
 
 </RelativeLayout>

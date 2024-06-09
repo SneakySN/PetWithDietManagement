@@ -1,326 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- 페이지 전체를 스크롤뷰에 포함-->
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff2e9">
 
-    <!--그리드 레이아웃으로 표현-->
-    <GridLayout
+    <!-- ScrollView를 감싸는 부모 레이아웃 -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff2e9">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-            <!--메뉴 버튼-->
-            <ImageButton
-                android:id="@+id/ic_menu"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:scaleType="fitCenter"
-                android:background="?android:selectableItemBackground"
-                android:contentDescription="string/menu_button_description"
-                android:src="@drawable/setting" />
+            <!--그리드 레이아웃으로 표현-->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff2e9">
 
-            <!--제일 위의 타이틀-->
-            <TextView
-                android:id="@+id/title_myInfo"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="나의 정보"
-                android:textAlignment="center"
-                android:layout_weight="2"
-                android:textSize="34sp" />
-            <!--back 버튼-->
-            <ImageButton
-                android:id="@+id/ic_backBtn"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="?android:selectableItemBackground"
-                android:scaleType="fitCenter"
-                android:text="back"
-                app:srcCompat="@drawable/back" />
-
-        </LinearLayout>
-
-    <!--프로필 사진-->
-    <ImageView
-        android:id="@+id/img_profile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <!--프로필 사진 변경 위한 버튼-->
-    <ImageButton
-        android:id="@+id/ic_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="70dp"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <!--일종의 소개글 역할인 목표-->
-    <TextView
-        android:id="@+id/title_goal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="20dp"
-        android:text="&lt;나의 목표&gt;"
-        android:textSize="20sp" />
-
-    <!--목표 수정을 위한 버튼-->
-    <ImageButton
-        android:id="@+id/ic_editGoal"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="20dp"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-
-    <!--목표 예시를 위한 텍스트뷰-->
-    <TextView
-        android:id="@+id/goal1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="45dp"
-        android:text="XXKg까지 체중 감량" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:background="@drawable/linear_layout_bottom_border"
+                    android:orientation="horizontal">
 
 
-    <!--식사메뉴 및 탄단지 테이블은 수평적인 공간에 있기 때문에 리니어 레이아웃 사용-->
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp" />
+
+
+                    <!--제일 위의 타이틀-->
+                    <TextView
+                        android:id="@+id/title_m"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="나의 정보"
+                        android:textColor="#fff2d0"
+                        android:textSize="30sp" />
+
+                    <!--back 버튼-->
+                    <ImageButton
+                        android:id="@+id/ic_backBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginEnd="11dp"
+                        android:background="?android:selectableItemBackground"
+                        android:scaleType="fitCenter"
+                        android:text="back"
+                        app:srcCompat="@drawable/back_white" />
+
+                </LinearLayout>
+
+                <!--프로필 사진-->
+                <ImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <!--프로필 사진 변경 위한 버튼-->
+                <ImageButton
+                    android:id="@+id/ic_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginTop="70dp"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <!--일종의 소개글 역할인 목표-->
+                <TextView
+                    android:id="@+id/title_goal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_marginLeft="140dp"
+                    android:layout_marginTop="20dp"
+                    android:text="&lt;나의 목표&gt;"
+                    android:textSize="20sp" />
+
+                <!--목표 수정을 위한 버튼-->
+                <ImageButton
+                    android:id="@+id/ic_editGoal"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginTop="20dp"
+                    app:srcCompat="@android:drawable/ic_menu_edit" />
+
+                <!--목표 예시를 위한 텍스트뷰-->
+                <TextView
+                    android:id="@+id/goal1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_marginLeft="160dp"
+                    android:layout_marginTop="45dp"
+                    android:text="XXKg까지 체중 감량" />
+
+                <!--그래프 기간 설정 텍스트 및 확대 축소 기능 알리는 텍스트-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_row="3"
+                    android:layout_column="0"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <!--글자 클릭을 통해 그래프 기간 설정 가능-->
+                    <TextView
+                        android:id="@+id/period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:text="일간 / 주간 / 월간"
+                        android:textAlignment="textStart"
+                        android:textSize="20sp" />
+
+                    <!--확대 및 축소가 가능함을 알리는, 기능 없는 글자-->
+                    <TextView
+                        android:id="@+id/zoomInAndOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="&lt;----확대 및 축소---&gt;"
+                        android:textAlignment="textEnd"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <!--그래프가 그려질 공간-->
+                <ImageView
+                    android:id="@+id/KcalGraph"
+                    android:layout_width="match_parent"
+                    android:layout_height="265dp"
+                    android:layout_row="3"
+                    android:layout_column="0"
+                    android:layout_marginTop="50dp"
+                    app:srcCompat="@android:drawable/screen_background_light" />
+
+                <!--기타 건강 정보를 적어두는 공간-->
+                <TextView
+                    android:id="@+id/title_HealthInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="4"
+                    android:layout_column="0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="기타 건강 정보"
+                    android:textSize="22sp" />
+
+                <!--건강 정보 수정 버튼-->
+                <ImageButton
+                    android:id="@+id/ic_editHealthInfo"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_row="4"
+                    android:layout_column="0"
+                    android:layout_marginLeft="145dp"
+                    android:layout_marginTop="10dp"
+                    app:srcCompat="@android:drawable/ic_menu_edit" />
+
+                <!--예시로 적어둔 혈압 정보-->
+                <TextView
+                    android:id="@+id/healthInfo1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="5"
+                    android:layout_column="0"
+                    android:layout_marginLeft="10dp"
+                    android:text="혈압: 수축기 115mmHg, 이완기 76mmHg"
+                    android:textSize="18sp" />
+
+
+            </GridLayout>
+        </ScrollView>
+    </RelativeLayout>
+    <!-- 바텀 네비게이션 바 -->
     <LinearLayout
+        android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_row="2"
-        android:layout_column="0"
-        android:orientation="horizontal">
+        android:layout_alignParentBottom="true"
+        android:background="#FFA726"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="0dp">
 
-        <!--아침 타이틀 글씨-->
-        <TextView
-            android:id="@+id/title_breakfast"
-            android:layout_width="wrap_content"
+        <!-- 홈 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_home"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="아침"
-            android:textAlignment="center" />
+            android:adjustViewBounds="true"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="home_button_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_button_selector" />
 
-        <!--점심 타이틀 글씨-->
-        <TextView
-            android:id="@+id/title_lunch"
-            android:layout_width="wrap_content"
+        <!-- 음식 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_diet"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="점심"
-            android:textAlignment="center" />
+            android:adjustViewBounds="true"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="diet_button_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/diet_button_selector" />
 
-        <!--저녁 타이틀 글씨-->
-        <TextView
-            android:id="@+id/title_dinner"
-            android:layout_width="wrap_content"
+        <!-- 캘린더 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_calendar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="저녁"
-            android:textAlignment="center" />
+            android:adjustViewBounds="true"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="calendar_button_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/calendar_button_selector" />
 
-        <!--탄수, 단백, 지방 표시 타이틀 글씨-->
-        <TextView
-            android:id="@+id/title_nutrient"
-            android:layout_width="wrap_content"
+        <!-- 펫 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_petMenu"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="탄 단 지"
-            android:textAlignment="center" />
+            android:adjustViewBounds="true"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="pet_button_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pet_button_selector" />
+
+        <!-- 마이페이지 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_myPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="mypage_button_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mypage_button_selector" />
     </LinearLayout>
-
-    <!--다시 한번 리니어 레이아웃 통해 식사 사진 등 표사-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_row="2"
-        android:layout_column="0"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal">
-
-        <!--아침 메뉴 사진-->
-        <ImageView
-            android:id="@+id/img_breakfast"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_weight="1" />
-
-        <!--점심 메뉴 사진-->
-        <ImageView
-            android:id="@+id/img_lunch"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_weight="1" />
-
-        <!--저녁 메뉴 사진-->
-        <ImageView
-            android:id="@+id/img_dinner"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_weight="1" />
-
-        <!--끼니를 통해 얻은 탄수, 단백, 지방 표 보여줌-->
-        <ImageView
-            android:id="@+id/table_cpf"
-            android:layout_width="64dp"
-            android:layout_height="96dp"
-            android:layout_weight="1.5" />
-    </LinearLayout>
-
-    <!--사진 밑에 표시되는 메뉴 이름과 칼로리-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_row="2"
-        android:layout_column="0"
-        android:layout_marginTop="90dp"
-        android:orientation="horizontal">
-
-        <!--아침 메뉴명 및 칼로리-->
-        <TextView
-            android:id="@+id/breakfast_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="아침식사명\n520Kcal"
-            android:textAlignment="center" />
-
-        <!--점심 메뉴명 및 칼로리-->
-        <TextView
-            android:id="@+id/name_lunch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="점심식사명\n663Kcal"
-            android:textAlignment="center" />
-
-        <!--저녁 메뉴명 및 칼로리-->
-        <TextView
-            android:id="@+id/dinner_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="저녁식사명\n340Kcal"
-            android:textAlignment="center" />
-
-        <!--탄단지 표 밑 공간. 공란으로 두려 했으나 기타 다른 것 추가 가능-->
-        <TextView
-            android:id="@+id/cpf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:text=""
-            android:textAlignment="center" />
-    </LinearLayout>
-
-
-    <!--그래프 기간 설정 텍스트 및 확대 축소 기능 알리는 텍스트-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-
-        <!--글자 클릭을 통해 그래프 기간 설정 가능-->
-        <TextView
-            android:id="@+id/period"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_weight="1"
-            android:text="일간 / 주간 / 월간"
-            android:textAlignment="textStart"
-            android:textSize="20sp" />
-
-        <!--확대 및 축소가 가능함을 알리는, 기능 없는 글자-->
-        <TextView
-            android:id="@+id/zoomInAndOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="&lt;----확대 및 축소---&gt;"
-            android:textAlignment="textEnd"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-        <!--그래프가 그려질 공간-->
-        <ImageView
-            android:id="@+id/KcalGraph"
-            android:layout_width="match_parent"
-            android:layout_height="265dp"
-            android:layout_row="3"
-            android:layout_column="0"
-            android:layout_marginTop="50dp"
-            app:srcCompat="@android:drawable/screen_background_light" />
-
-    <!--기타 건강 정보를 적어두는 공간-->
-    <TextView
-        android:id="@+id/title_HealthInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="4"
-        android:layout_column="0"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="기타 건강 정보"
-        android:textSize="22sp" />
-
-    <!--건강 정보 수정 버튼-->
-    <ImageButton
-        android:id="@+id/ic_editHealthInfo"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_row="4"
-        android:layout_column="0"
-        android:layout_marginLeft="145dp"
-        android:layout_marginTop="10dp"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-
-    <!--예시로 적어둔 혈압 정보-->
-    <TextView
-        android:id="@+id/healthInfo1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="5"
-        android:layout_column="0"
-        android:layout_marginLeft="10dp"
-        android:text="혈압: 수축기 115mmHg, 이완기 76mmHg"
-        android:textSize="18sp" />
-
-
-
-    </GridLayout>
-</ScrollView>
+</RelativeLayout>

@@ -11,7 +11,7 @@
         android:orientation="horizontal"
         android:background="@drawable/linear_layout_bottom_border"
         android:elevation="12dp">
-    <!-- 오른쪽 상단에 위치하는 마이페이지 버튼 -->
+    <!-- 내 이미지 표시 -->
         <ImageView
             android:id="@+id/myImage"
             android:layout_width="51dp"
@@ -33,7 +33,7 @@
             />
 
         <ImageButton
-            android:id="@+id/ic_myPage"
+            android:id="@+id/ic_menu"
             android:layout_width="36dp"
             android:layout_height="match_parent"
             android:src="@drawable/dots"
@@ -162,7 +162,7 @@
     <LinearLayout
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#FFA726"
         android:orientation="horizontal"
@@ -175,6 +175,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
             android:contentDescription="home_button_description"
@@ -186,6 +187,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
             android:contentDescription="diet_button_description"
@@ -197,6 +199,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
             android:contentDescription="calendar_button_description"
@@ -208,10 +211,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="?android:selectableItemBackground"
             android:contentDescription="pet_button_description"
             android:src="@drawable/pet_button_selector" />
+
+        <!-- 마이페이지 아이콘 -->
+        <ImageButton
+            android:id="@+id/ic_myPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="mypage_button_description"
+            android:src="@drawable/mypage_button_selector" />
     </LinearLayout>
 
 </RelativeLayout>

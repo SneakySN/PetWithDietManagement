@@ -349,10 +349,10 @@
         <LinearLayout
             android:id="@+id/bottom_menu"
             android:layout_width="match_parent"
-            android:layout_height="68dp"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/character_image"
+            app:layout_constraintBottom_toBottomOf="@+id/floor"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="32.5dp"
             android:background="#FFA726"
@@ -366,6 +366,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="home_button_description"
@@ -377,6 +378,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="diet_button_description"
@@ -388,6 +390,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="calendar_button_description"
@@ -399,10 +402,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="pet_button_description"
                 android:src="@drawable/pet_button_selector" />
+
+            <!-- 마이페이지 아이콘 -->
+            <ImageButton
+                android:id="@+id/ic_myPage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="mypage_button_description"
+                android:src="@drawable/mypage_button_selector" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
