@@ -5,31 +5,26 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.petwithdietmanagement.data.Item;
 import com.example.petwithdietmanagement.data.User;
 import com.example.petwithdietmanagement.database.ItemDBManager;
 import com.example.petwithdietmanagement.database.UserDBManager;
+import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PetMenuActivity extends AppCompatActivity {
-    private ImageView petImageView;
+    private ImageView petImageView, hatImageView, backgroundImageView, carpetImageView, badgeImageView;
     private Handler handler;
     private Runnable imageSwitcher;
     private AnimationDrawable petJumpAnimation;
@@ -47,10 +42,8 @@ public class PetMenuActivity extends AppCompatActivity {
     private ImageView cameraButton;
     private ConstraintLayout firstLayout;
     private boolean isCameraMode = false;
-    private LinearLayout slideUpLayout;
     private UserDBManager userDBManager;
     private ItemDBManager itemDBManager;
-
 
     @Override
     public void onBackPressed() {
@@ -58,20 +51,25 @@ public class PetMenuActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(0, 0);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_menu); // XML 레이아웃 이름을 입력하세요
 
-        userDBManager = new UserDBManager(this);
-        itemDBManager = new ItemDBManager(this);
+        itemDBManager = new ItemDBManager(this); // ItemDBManager 인스턴스 생성
+        userDBManager = new UserDBManager(this); // UserDBManager 인스턴스 생성
 
         petImageView = findViewById(R.id.character_image);
+        hatImageView = findViewById(R.id.hat_image);
+        backgroundImageView = findViewById(R.id.background_image);
+        carpetImageView = findViewById(R.id.carpet);
+        badgeImageView = findViewById(R.id.badge);
         handler = new Handler(Looper.getMainLooper());
         imageSwitcher = new Runnable() {
             @Override
             public void run() {
-                if (!isJumping){
+                if (!isJumping) {
                     petImageView.setImageResource(petImages[currentIndex]);
                     currentIndex = (currentIndex + 1) % petImages.length;
                     handler.postDelayed(this, 750);
@@ -104,7 +102,6 @@ public class PetMenuActivity extends AppCompatActivity {
         cameratext = findViewById(R.id.cameratext);
         bottom_menu = findViewById(R.id.bottom_menu);
         firstLayout = findViewById(R.id.firstLayout);
-        slideUpLayout = findViewById(R.id.slideUpLayout);
 
         // 카메라 버튼 클릭 이벤트
         cameraButton = findViewById(R.id.camera);
@@ -119,8 +116,7 @@ public class PetMenuActivity extends AppCompatActivity {
         decorating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setupRecyclerViews();
-                showSlideUpLayout();
+                showSlideUpFragment();
             }
         });
 
@@ -131,7 +127,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, MainActivity.class); // 홈으로 이동
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -142,7 +138,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, DietActivity.class); // 음식 페이지로 이동
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -153,7 +149,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -164,9 +160,9 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -177,7 +173,7 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetMenuActivity.this, ShopActivity.class); // 상점 페이지로 이동
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -191,11 +187,11 @@ public class PetMenuActivity extends AppCompatActivity {
             }
         });
 
-        initializeTabs();
-        setupRecyclerViews();
-
         // User 정보를 가져와서 currentMoney TextView에 설정
         setUserGold();
+
+        // 장착된 아이템을 화면에 설정
+        setEquippedItems();
     }
 
     private void setUserGold() {
@@ -209,156 +205,52 @@ public class PetMenuActivity extends AppCompatActivity {
         }
     }
 
-    private void initializeTabs() {
-        TabHost tabHost = findViewById(android.R.id.tabhost);
-        tabHost.setup();
-
-        TabHost.TabSpec spec = tabHost.newTabSpec("Hat");
-        spec.setContent(R.id.tabHat);
-        spec.setIndicator("모자");
-        tabHost.addTab(spec);
-
-        spec = tabHost.newTabSpec("Background");
-        spec.setContent(R.id.tabBackground);
-        spec.setIndicator("배경");
-        tabHost.addTab(spec);
-
-        spec = tabHost.newTabSpec("Badge");
-        spec.setContent(R.id.tabBadge);
-        spec.setIndicator("명찰");
-        tabHost.addTab(spec);
-
-        spec = tabHost.newTabSpec("Carpet");
-        spec.setContent(R.id.tabCarpet);
-        spec.setIndicator("카펫");
-        tabHost.addTab(spec);
-    }
-
-    private void setupRecyclerViews() {
-        String userId = "user123"; // 실제 유저 ID를 여기에 사용
-        List<Integer> userItemIds = userDBManager.getUserItemIds(userId);
-
-        List<Item> hatItems = new ArrayList<>();
-        List<Item> backgroundItems = new ArrayList<>();
-        List<Item> badgeItems = new ArrayList<>();
-        List<Item> carpetItems = new ArrayList<>();
-
-        for (int itemId : userItemIds) {
-            Item item = itemDBManager.getItemById(itemId);
-            if (item != null) {
-                switch (item.getItemType()) {
-                    case "Hat":
-                        hatItems.add(item);
-                        break;
-                    case "Background":
-                        backgroundItems.add(item);
-                        break;
-                    case "Badge":
-                        badgeItems.add(item);
-                        break;
-                    case "Carpet":
-                        carpetItems.add(item);
-                        break;
-                }
-            }
-        }
-        setupRecyclerView(R.id.recyclerHat, hatItems);
-        setupRecyclerView(R.id.recyclerBackground, backgroundItems);
-        setupRecyclerView(R.id.recyclerBadge, badgeItems);
-        setupRecyclerView(R.id.recyclerCarpet, carpetItems);
-    }
-
-    private void setupRecyclerView(int recyclerViewId, List<Item> items) {
-        RecyclerView recyclerView = findViewById(recyclerViewId);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new SlideUpAdapter(items));
-    }
-
-    private List<String> getHatItems() {
-        List<String> items = new ArrayList<>();
-        items.add("Hat 1");
-        items.add("Hat 2");
-        // Add more items
-        return items;
-    }
-
-    private List<String> getBackgroundItems() {
-        List<String> items = new ArrayList<>();
-        items.add("Background 1");
-        items.add("Background 2");
-        // Add more items
-        return items;
-    }
-
-    private List<String> getBadgeItems() {
-        List<String> items = new ArrayList<>();
-        items.add("Badge 1");
-        items.add("Badge 2");
-        // Add more items
-        return items;
-    }
-
-    private List<String> getCarpetItems() {
-        List<String> items = new ArrayList<>();
-        items.add("Carpet 1");
-        items.add("Carpet 2");
-        // Add more items
-        return items;
-    }
-
-    @Override // 액티비티가 화면에 보이기 시작할 때 실행되는 코드
+    @Override
     protected void onStart() {
         super.onStart();
         setUserGold();
     }
 
-        // 바깥 영역 터치시 slideUpLayout 숨기기
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            if (slideUpLayout.getVisibility() == View.VISIBLE) {
-                // slideUpLayout 영역 바깥을 터치한 경우
-                if (!isPointInsideView(ev.getRawX(), ev.getRawY(), slideUpLayout)) {
-                    hideSlideUpLayout();
-                    return true;
-                }
+    private void setEquippedItems() {
+        String userId = "user123";
+
+        setEquippedItemForType(userId, "Hat", hatImageView, 0);
+        setEquippedItemForType(userId, "Background", backgroundImageView, 0);
+        setEquippedItemForType(userId, "Badge", badgeImageView, R.drawable.advanced_badge);
+        setEquippedItemForType(userId, "Carpet", carpetImageView, R.drawable.carpet);
+    }
+
+    private void setEquippedItemForType(String userId, String itemType, ImageView imageView, int defaultImageResId) {
+        // userDBManager를 통해 user_items 테이블에서 장착된 item_id 가져오기
+        List<Integer> equippedItemIds = userDBManager.getEquippedItemIds(userId);
+
+        if (equippedItemIds.isEmpty()) {
+            imageView.setImageResource(defaultImageResId);
+            return;
+        }
+
+        // itemDBManager를 통해 items 테이블에서 item_id에 해당하는 아이템 정보 가져오기
+        Item equippedItem = null;
+        for (int itemId : equippedItemIds) {
+            Item item = itemDBManager.getItemById(itemId);
+            if (item != null && item.getItemType().equals(itemType)) {
+                equippedItem = item;
+                break;
             }
         }
-        return super.dispatchTouchEvent(ev);
-    }
 
-    private boolean isPointInsideView(float x, float y, View view) {
-        int[] location = new int[2];
-        view.getLocationOnScreen(location);
-        int viewX = location[0];
-        int viewY = location[1];
-
-        // View의 사각형 영역 안에 포인트가 있는지 확인
-        return (x > viewX && x < (viewX + view.getWidth()) && y > viewY && y < (viewY + view.getHeight()));
-    }
-
-    private void showSlideUpLayout() {
-        slideUpLayout.setVisibility(View.VISIBLE);
-        Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up_animation);
-        slideUp.setDuration(0);
-        slideUpLayout.startAnimation(slideUp);
-
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
-        layoutParams.bottomMargin = 1000;
-        firstLayout.setLayoutParams(layoutParams);
-        bottom_menu.setVisibility(View.GONE);
-    }
-
-    private void hideSlideUpLayout() {
-        Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down_animation);
-        slideUpLayout.startAnimation(slideDown);
-        slideDown.setDuration(0);
-        slideUpLayout.setVisibility(View.GONE);
-
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) firstLayout.getLayoutParams();
-        layoutParams.bottomMargin = 0;
-        firstLayout.setLayoutParams(layoutParams);
-        bottom_menu.setVisibility(View.VISIBLE);
+        // 해당 아이템을 ImageView에 설정
+        if (equippedItem != null) {
+            int imageResId;
+            if (itemType.equals("Hat")) {
+                imageResId = getResources().getIdentifier(equippedItem.getItemRealImage(), "drawable", getPackageName());
+            } else {
+                imageResId = getResources().getIdentifier(equippedItem.getItemImage(), "drawable", getPackageName());
+            }
+            Glide.with(this).load(imageResId).into(imageView);
+        } else {
+            imageView.setImageResource(defaultImageResId);
+        }
     }
 
     private void toggleCameraMode() {
@@ -442,5 +334,12 @@ public class PetMenuActivity extends AppCompatActivity {
             duration += animationDrawable.getDuration(i);
         }
         return duration;
+    }
+
+    // showSlideUpFragment 메서드 추가
+    private void showSlideUpFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        SlideUpFragment slideUpFragment = new SlideUpFragment();
+        slideUpFragment.show(fragmentManager, slideUpFragment.getTag());
     }
 }

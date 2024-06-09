@@ -125,6 +125,24 @@ public class ItemDBManager {
         return item;
     }
 
+    public List<Item> getAllItems() {
+        List<Item> items = new ArrayList<>();
+        String query = "SELECT * FROM items";
+        Cursor cursor = database.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            Item item = new Item();
+            item.setItemId(cursor.getInt(cursor.getColumnIndexOrThrow("item_id")));
+            item.setItemName(cursor.getString(cursor.getColumnIndexOrThrow("item_name")));
+            item.setItemType(cursor.getString(cursor.getColumnIndexOrThrow("item_type")));
+            item.setItemImage(cursor.getString(cursor.getColumnIndexOrThrow("item_image")));
+            item.setItemRealImage(cursor.getString(cursor.getColumnIndexOrThrow("item_real_image")));
+            items.add(item);
+        }
+        cursor.close();
+        return items;
+    }
+
     // 아이템 이름을 인자로 받아 해당 아이템의 ID를 반환하는 메소드
     public int getItemIdByName(String itemName) {
         int id = -1;

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.petwithdietmanagement.data.Item;
 import com.example.petwithdietmanagement.data.User;
 import com.example.petwithdietmanagement.data.User.Items;
 import com.example.petwithdietmanagement.data.User.HealthInfo;
@@ -15,13 +16,16 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class UserDBManager {
     private UserDBHelper dbHelper;
     private SQLiteDatabase database;
+    private ItemDBManager itemDBManager;
 
     public UserDBManager(Context context) {
         dbHelper = new UserDBHelper(context);
         database = dbHelper.getWritableDatabase();
+        itemDBManager = new ItemDBManager(context); // Context를 사용하여 ItemDBManager 초기화
     }
 
     // Insert user data from JSON string
@@ -97,7 +101,7 @@ public class UserDBManager {
     }
 
     // Get items by user ID
-    private List<Items> getItemsByUserId(String userId) {
+    public List<Items> getItemsByUserId(String userId) {
         List<Items> items = new ArrayList<>();
         String query = "SELECT * FROM " + UserDBHelper.TABLE_USER_ITEMS + " WHERE " + UserDBHelper.COLUMN_USER_ID + " = ?";
         Cursor cursor = database.rawQuery(query, new String[]{userId});
@@ -195,5 +199,50 @@ public class UserDBManager {
 
     public void close() {
         dbHelper.close();
+    }
+
+    // Update equipped status
+    public void updateEquipped(String userId, int newItemId, boolean isDeselected) {
+        // 새 아이템의 타입을 가져오기
+        Item newItem = newItemId > 0 ? itemDBManager.getItemById(newItemId) : null;
+        String itemType = newItem != null ? newItem.getItemType() : null;
+
+        // 현재 착용 중인 동일 타입 아이템의 equipped 값을 0으로 업데이트
+        if (!isDeselected && itemType != null) {
+            List<Item> allItems = itemDBManager.getAllItems();
+            List<Integer> itemIdsOfType = new ArrayList<>();
+
+            for (Item item : allItems) {
+                if (item.getItemType().equals(itemType)) {
+                    itemIdsOfType.add(item.getItemId());
+                }
+            }
+
+            String itemIdsString = itemIdsOfType.toString().replace("[", "").replace("]", "");
+            String updateCurrentEquippedQuery = "UPDATE user_items SET equipped = 0 WHERE user_id = ? AND item_id IN (" + itemIdsString + ")";
+            database.execSQL(updateCurrentEquippedQuery, new Object[]{userId});
+        }
+
+        // 새로운 아이템의 equipped 값을 1로 업데이트 (아이템 해제 시에는 실행되지 않음)
+        if (!isDeselected && newItemId > 0) {
+            String updateNewEquippedQuery = "UPDATE user_items SET equipped = 1 WHERE user_id = ? AND item_id = ?";
+            database.execSQL(updateNewEquippedQuery, new Object[]{userId, newItemId});
+        } else if (isDeselected && newItemId > 0) {
+            // 특정 아이템의 equipped 값을 0으로 업데이트
+            String updateDeselectedEquippedQuery = "UPDATE user_items SET equipped = 0 WHERE user_id = ? AND item_id = ?";
+            database.execSQL(updateDeselectedEquippedQuery, new Object[]{userId, newItemId});
+        }
+    }
+
+    public List<Integer> getEquippedItemIds(String userId) {
+        List<Integer> itemIds = new ArrayList<>();
+        String query = "SELECT item_id FROM user_items WHERE user_id = ? AND equipped = 1";
+        Cursor cursor = database.rawQuery(query, new String[]{userId});
+
+        while (cursor.moveToNext()) {
+            itemIds.add(cursor.getInt(cursor.getColumnIndexOrThrow(UserDBHelper.COLUMN_ITEM_ID)));
+        }
+        cursor.close();
+        return itemIds;
     }
 }
