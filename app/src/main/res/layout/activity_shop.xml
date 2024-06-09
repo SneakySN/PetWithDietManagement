@@ -14,12 +14,12 @@
         <!-- 뒤로가기 버튼 -->
         <Button
             android:id="@+id/backButton"
-            android:layout_width="20dp"
-            android:layout_height="50dp"
+            android:layout_width="10dp"
+            android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
-            android:background="@drawable/back"
+            android:background="@drawable/back_white"
             android:layout_weight="1"/>
 
         <!-- 상점 이미지와 텍스트 -->

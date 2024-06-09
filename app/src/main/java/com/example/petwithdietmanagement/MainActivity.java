@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 // DB 관련 파트
-
         dbManager = new RecipeDBManager(this); // recipeDB를 활용하기 위한 변수 선언
 
         // recipe 데이터베이스가 비어 있는지 확인
@@ -274,7 +273,8 @@ public class MainActivity extends AppCompatActivity {
     //itemDB의 특정 값 수정하기
         /*Item item = itemDBM.getItemById(1);
         item.setPurchased(0);
-        itemDBM.updateItem(item);*/
+        itemDBM.updateItem(item);
+        */
 
     //itemDB의 특정 데이터 삭제하기
         //itemDBM.deleteItem(1);

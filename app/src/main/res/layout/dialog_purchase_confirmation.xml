@@ -29,13 +29,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="취소"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginEnd="20dp"
+            android:background="#dddddd"/>
 
         <Button
             android:id="@+id/button_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="구매" />
+            android:text="구매"
+            android:background="#fff6d9"/>
 
     </LinearLayout>
 </LinearLayout>
