@@ -242,6 +242,17 @@ public class DietActivity extends AppCompatActivity {
             }
         });
 
+        // 마이 페이지 버튼
+        ImageButton myPageButton = findViewById(R.id.ic_myPage);
+        myPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DietActivity.this, MyPageActivity.class); // 마이 페이지로 이동
+                startActivity(intent);
+                overridePendingTransition(0,0);
+            }
+        });
+
         // SearchView 이외의 다른 공간을 누르면 키보드를 숨기고 검색창을 숨깁니다.
         RelativeLayout mainLayout = findViewById(R.id.main_layout); // main_layout의 ID를 XML과 일치시킵니다
         mainLayout.setOnClickListener(new View.OnClickListener() {

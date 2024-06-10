@@ -166,6 +166,17 @@ public class PetMenuActivity extends AppCompatActivity {
             }
         });
 
+        // 마이 페이지 버튼
+        ImageButton myPageButton = findViewById(R.id.ic_myPage);
+        myPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PetMenuActivity.this, MyPageActivity.class); // 마이 페이지로 이동
+                startActivity(intent);
+                overridePendingTransition(0,0);
+            }
+        });
+
         // 상점 메뉴 버튼
         ImageView shopButton = findViewById(R.id.shop);
         shopButton.setOnClickListener(new View.OnClickListener() {
