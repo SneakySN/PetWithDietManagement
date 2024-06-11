@@ -14,9 +14,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.petwithdietmanagement.data.Calendar;
+import com.example.petwithdietmanagement.data.Calendar_update;
 import com.example.petwithdietmanagement.data.Item;
 import com.example.petwithdietmanagement.data.Mission;
 import com.example.petwithdietmanagement.data.Recipe;
+import com.example.petwithdietmanagement.database.CalendarDBManager;
 import com.example.petwithdietmanagement.database.ItemDBManager;
 import com.example.petwithdietmanagement.database.MissionDBManager;
 import com.example.petwithdietmanagement.database.RecipeDBHelper;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private MissionDBManager missionDBM;
     private ItemDBManager itemDBM;
     private UserDBManager userDBManager;
+    private CalendarDBManager calendarDBManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -310,6 +313,27 @@ public class MainActivity extends AppCompatActivity {
 
         //userDB에서 user가 가진 아이템들 삭제(잠시 함수를 public으로 할 것)
         //userDBManager.deleteUserItems("user123");
+
+        calendarDBManager = new CalendarDBManager(this);
+        calendarDBManager.deleteCalendarData("user123");
+
+        // calendarDB가 비어 있는지 확인 후 데이터 저장
+        /*if (calendarDBManager.isDatabaseEmpty()) {
+            // 예제 데이터 삽입
+            calendarDBManager.insertCalendarData("user123", "2024-06-06", "아침", 31);
+            calendarDBManager.insertCalendarData("user123", "2024-06-06", "저녁", 45); // 같은 시간대에 다른 음식 추가
+            calendarDBManager.insertCalendarData("user123", "2024-06-08", "점심", 21);
+            calendarDBManager.insertCalendarData("user123", "2024-06-12", "아침", 32);
+        }
+
+        // DB에서 데이터 가져오기 예시
+        List<Calendar_update> calendarData = calendarDBManager.getCalendarData("user123", "2024-06-08");
+        for (Calendar_update calendar : calendarData) {
+            Log.d("CalendarData", "UserId: " + calendar.getUserId() +
+                    ", Date: " + calendar.getDate() +
+                    ", Mealtime: " + calendar.getMealtime() +
+                    ", FoodId: " + calendar.getFoodId());
+        }*/
     }
 
     @Override
