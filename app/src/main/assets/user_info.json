@@ -1,20 +1,19 @@
 {
     "user": {
-        "name": "John Doe",
-        "userId": "user123",
-        "password": "password123",
-        "profile_picture": "profile_pic",
-        "goals": "Lose weight",
+        "name": "Kim Chul Su",
+        "userId": "1",
+        "password": "chulsu123",
+        "profile_picture": "temp_pic",
+        "goals": "Maintain a healthy eating cycle",
         "health_info": {
             "weight": 70,
             "height": 175,
             "blood_pressure": 120
         },
-        "gold": 6000,
+        "gold": 30000,
         "items": [
             {
-                "id": 2,
-                "equipped": 0
+
             }
         ]
     }

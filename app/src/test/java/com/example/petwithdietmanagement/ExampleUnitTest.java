@@ -1,7 +1,6 @@
 package com.example.petwithdietmanagement;
 
 import com.example.petwithdietmanagement.data.Recipe;
-import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
 import com.google.gson.Gson;
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

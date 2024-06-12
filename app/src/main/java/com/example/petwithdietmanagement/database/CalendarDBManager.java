@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.petwithdietmanagement.data.Calendar_update;
+import com.example.petwithdietmanagement.data.Calendar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +52,8 @@ public class CalendarDBManager {
     }
 
     // 인수로 받는 조건에 따라 데이터를 가져오는 메소드
-    public List<Calendar_update> getCalendarData(String userId, String... conditions) {
-        List<Calendar_update> calendarData = new ArrayList<>();
+    public List<Calendar> getCalendarData(String userId, String... conditions) {
+        List<Calendar> calendarData = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM " + CalendarDBHelper.TABLE_CALENDAR + " WHERE " + CalendarDBHelper.COLUMN_USER_ID + " = ?");
         List<String> selectionArgsList = new ArrayList<>();
         selectionArgsList.add(userId);
@@ -72,7 +76,7 @@ public class CalendarDBManager {
 
         if (cursor.moveToFirst()) {
             do {
-                Calendar_update calendar = new Calendar_update();
+                Calendar calendar = new Calendar();
                 calendar.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(CalendarDBHelper.COLUMN_USER_ID)));
                 calendar.setDate(cursor.getString(cursor.getColumnIndexOrThrow(CalendarDBHelper.COLUMN_DATE)));
                 calendar.setMealtime(cursor.getString(cursor.getColumnIndexOrThrow(CalendarDBHelper.COLUMN_MEALTIME)));
@@ -105,6 +109,44 @@ public class CalendarDBManager {
 
         String[] whereArgs = whereArgsList.toArray(new String[0]);
         database.delete(CalendarDBHelper.TABLE_CALENDAR, whereClause.toString(), whereArgs); // 조건에 맞는 데이터를 삭제합니다.
+    }
+
+    // JSON 데이터를 읽어서 calendarDB에 저장하는 함수
+    public void insertCalendarDataFromJson(String jsonString) throws JSONException {
+        JSONObject jsonObject = new JSONObject(jsonString);
+        JSONObject user = jsonObject.getJSONObject("user");
+        String userId = user.getString("user_id");
+        JSONObject foodLog = user.getJSONObject("food_log");
+
+        // 날짜별로 반복
+        for (int i = 0; i < foodLog.names().length(); i++) {
+            String date = foodLog.names().getString(i);
+            JSONObject meals = foodLog.getJSONObject(date);
+
+            // 아침 식사 기록
+            if (meals.has("breakfast_foodid")) {
+                JSONArray breakfast = meals.getJSONArray("breakfast_foodid");
+                for (int j = 0; j < breakfast.length(); j++) {
+                    insertCalendarData(userId, date, "아침", breakfast.getInt(j));
+                }
+            }
+
+            // 점심 식사 기록
+            if (meals.has("lunch_foodid")) {
+                JSONArray lunch = meals.getJSONArray("lunch_foodid");
+                for (int j = 0; j < lunch.length(); j++) {
+                    insertCalendarData(userId, date, "점심", lunch.getInt(j));
+                }
+            }
+
+            // 저녁 식사 기록
+            if (meals.has("dinner_foodid")) {
+                JSONArray dinner = meals.getJSONArray("dinner_foodid");
+                for (int j = 0; j < dinner.length(); j++) {
+                    insertCalendarData(userId, date, "저녁", dinner.getInt(j));
+                }
+            }
+        }
     }
 
     // 데이터베이스가 비어있는지 확인합니다.

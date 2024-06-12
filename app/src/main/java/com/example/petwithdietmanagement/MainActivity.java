@@ -1,7 +1,6 @@
 package com.example.petwithdietmanagement;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,28 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.example.petwithdietmanagement.data.Calendar;
-import com.example.petwithdietmanagement.data.Calendar_update;
-import com.example.petwithdietmanagement.data.Item;
-import com.example.petwithdietmanagement.data.Mission;
 import com.example.petwithdietmanagement.data.Recipe;
 import com.example.petwithdietmanagement.database.CalendarDBManager;
 import com.example.petwithdietmanagement.database.ItemDBManager;
 import com.example.petwithdietmanagement.database.MissionDBManager;
-import com.example.petwithdietmanagement.database.RecipeDBHelper;
 import com.example.petwithdietmanagement.database.RecipeDBManager;
 import com.example.petwithdietmanagement.database.UserDBManager;
-import com.example.petwithdietmanagement.data.User;
-import com.example.petwithdietmanagement.data.User.HealthInfo;
-import com.example.petwithdietmanagement.data.User.Items;
-import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.slime03,
             R.drawable.slime02
     };
-    private RecipeDBManager dbManager;
+    private RecipeDBManager recipeDbManager;
     private MissionDBManager missionDBM;
     private ItemDBManager itemDBM;
     private UserDBManager userDBManager;
@@ -68,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recipeDbManager = new RecipeDBManager(this); // recipeDB를 활용하기 위한 변수 선언
+        missionDBM = new MissionDBManager(this); // missionDB를 활용하기 위한 변수 선언
+        itemDBM = new ItemDBManager(this); // itemDB를 활용하기 위한 변수 선언
+        userDBManager = new UserDBManager(this);
+        calendarDBManager = new CalendarDBManager(this);
 
         petImageView = findViewById(R.id.ic_pet);
         carbsInfoTextView = findViewById(R.id.carbs_info);
@@ -152,9 +146,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // JSON 데이터 로드
-        loadRecipeData();
-
         // 뷰페이저 설정
         adapter = new MealPagerAdapter(layouts);
         viewPager.setAdapter(adapter);
@@ -171,15 +162,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 // DB 관련 파트
-        dbManager = new RecipeDBManager(this); // recipeDB를 활용하기 위한 변수 선언
-
         // recipe 데이터베이스가 비어 있는지 확인
-        if (dbManager.isDatabaseEmpty()) {
+        if (recipeDbManager.isDatabaseEmpty()) {
             // JSON 파일 읽기
             String jsonString = JsonUtils.loadJSONFromAsset(this, "recipeList.json");
             if (jsonString != null) {
                 try {
-                    dbManager.insertRecipeData(jsonString);
+                    recipeDbManager.insertRecipeData(jsonString);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -215,8 +204,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Recipe", "Calories: " + recipe.getNutrients().getCalories());
         }*/
 
-        missionDBM = new MissionDBManager(this); // missionDB를 활용하기 위한 변수 선언
-
         // mission 데이터베이스가 비어 있는지 확인 후 mission.json 파일의 내용 저장
         if (missionDBM.isDatabaseEmpty()) {
             // JSON 파일 읽기
@@ -243,8 +230,6 @@ public class MainActivity extends AppCompatActivity {
 
         //missionDB의 특정 데이터 삭제하기
         //missionDBM.deleteMission(1);
-
-        itemDBM = new ItemDBManager(this); // itemDB를 활용하기 위한 변수 선언
 
         // item 데이터베이스가 비어 있는지 확인 후 item.json 파일의 내용 저장
         if (itemDBM.isDatabaseEmpty()) {
@@ -282,8 +267,6 @@ public class MainActivity extends AppCompatActivity {
         //itemDB의 특정 데이터 삭제하기
         //itemDBM.deleteItem(1);
 
-        userDBManager = new UserDBManager(this);
-
         // user 데이터베이스가 비어 있는지 확인 후 user_info.json 파일의 내용 저장
         if (userDBManager.isDatabaseEmpty()) {
             // JSON 파일 읽기
@@ -311,24 +294,26 @@ public class MainActivity extends AppCompatActivity {
             Log.d("UserItem", "User not found.");
         }*/
 
-        //userDB에서 user가 가진 아이템들 삭제(잠시 함수를 public으로 할 것)
-        //userDBManager.deleteUserItems("user123");
+        //userDB에서 user 삭제
+        //userDBManager.deleteUser("1");
 
-        calendarDBManager = new CalendarDBManager(this);
-        calendarDBManager.deleteCalendarData("user123");
-
-        // calendarDB가 비어 있는지 확인 후 데이터 저장
+        // JSON 파일에서 데이터를 읽어와서 calendarDB에 저장
         /*if (calendarDBManager.isDatabaseEmpty()) {
-            // 예제 데이터 삽입
-            calendarDBManager.insertCalendarData("user123", "2024-06-06", "아침", 31);
-            calendarDBManager.insertCalendarData("user123", "2024-06-06", "저녁", 45); // 같은 시간대에 다른 음식 추가
-            calendarDBManager.insertCalendarData("user123", "2024-06-08", "점심", 21);
-            calendarDBManager.insertCalendarData("user123", "2024-06-12", "아침", 32);
-        }
+            String jsonString = JsonUtils.loadJSONFromAsset(this, "calendar_update.json");
+            if (jsonString != null) {
+                try {
+                    calendarDBManager.insertCalendarDataFromJson(jsonString);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("MainActivity", "Failed to load JSON file.");
+            }
+        }*/
 
         // DB에서 데이터 가져오기 예시
-        List<Calendar_update> calendarData = calendarDBManager.getCalendarData("user123", "2024-06-08");
-        for (Calendar_update calendar : calendarData) {
+        /*List<Calendar> calendarData = calendarDBManager.getCalendarData("user123", "2024-05-15");
+        for (Calendar calendar : calendarData) {
             Log.d("CalendarData", "UserId: " + calendar.getUserId() +
                     ", Date: " + calendar.getDate() +
                     ", Mealtime: " + calendar.getMealtime() +
@@ -339,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dbManager.close();
+        recipeDbManager.close();
     }
 
     @Override
@@ -383,67 +368,49 @@ public class MainActivity extends AppCompatActivity {
         return duration;
     }
 
-    private void loadRecipeData() {
-        GsonMapping gsonMapping = new GsonMapping();
-        AssetManager assetManager = MainActivity.this.getAssets();
-        try (InputStream inputStream = assetManager.open("recipeList.json");
-             InputStreamReader reader = new InputStreamReader(inputStream)) {
-            recipes = gsonMapping.getRecipes(reader);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error reading the JSON file: " + e.getMessage());
-        }
-    }
-
     private void loadCalendarData() {
-        GsonMapping gsonMapping = new GsonMapping();
-        AssetManager assetManager = MainActivity.this.getAssets();
-        try (InputStream inputStream = assetManager.open("calendar.json");
-             InputStreamReader reader = new InputStreamReader(inputStream)) {
-            Calendar calendarData = gsonMapping.getCalendar(reader);
-            Map<String, Calendar.User> users = calendarData.getUsers();
-            Calendar.User.Meals meals = users.get("1").getFood_log().get(getTodayDate());
+        String userId = "1"; // 적절한 userId로 변경
+        String todayDate = getTodayDate();
 
-            if (meals != null) {
-                List<Recipe.Nutrients> breakfastNutrients = getNutrientValue(meals.getBreakfast_foodid());
-                List<Recipe.Nutrients> lunchNutrients = getNutrientValue(meals.getLunch_foodid());
-                List<Recipe.Nutrients> dinnerNutrients = getNutrientValue(meals.getDinner_foodid());
+        List<Calendar> meals = calendarDBManager.getCalendarData(userId, todayDate);
 
-                float totalCarbs = calculateNutrientSum(breakfastNutrients, "탄수화물")
-                        + calculateNutrientSum(lunchNutrients, "탄수화물")
-                        + calculateNutrientSum(dinnerNutrients, "탄수화물");
-                float totalProtein = calculateNutrientSum(breakfastNutrients, "단백질")
-                        + calculateNutrientSum(lunchNutrients, "단백질")
-                        + calculateNutrientSum(dinnerNutrients, "단백질");
-                float totalFat = calculateNutrientSum(breakfastNutrients, "지방")
-                        + calculateNutrientSum(lunchNutrients, "지방")
-                        + calculateNutrientSum(dinnerNutrients, "지방");
+        if (meals != null && !meals.isEmpty()) {
+            List<Recipe.Nutrients> breakfastNutrients = getNutrientValueByMealtime(meals, "아침");
+            List<Recipe.Nutrients> lunchNutrients = getNutrientValueByMealtime(meals, "점심");
+            List<Recipe.Nutrients> dinnerNutrients = getNutrientValueByMealtime(meals, "저녁");
 
-                carbsInfoTextView.setText(totalCarbs + "g");
-                proteinInfoTextView.setText(totalProtein + "g");
-                fatInfoTextView.setText(totalFat + "g");
+            float totalCarbs = calculateNutrientSum(breakfastNutrients, "탄수화물")
+                    + calculateNutrientSum(lunchNutrients, "탄수화물")
+                    + calculateNutrientSum(dinnerNutrients, "탄수화물");
+            float totalProtein = calculateNutrientSum(breakfastNutrients, "단백질")
+                    + calculateNutrientSum(lunchNutrients, "단백질")
+                    + calculateNutrientSum(dinnerNutrients, "단백질");
+            float totalFat = calculateNutrientSum(breakfastNutrients, "지방")
+                    + calculateNutrientSum(lunchNutrients, "지방")
+                    + calculateNutrientSum(dinnerNutrients, "지방");
 
-                // 각 페이지가 준비되면 updateMealInfo 호출
-                viewPager.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateMealInfo(viewPager.getCurrentItem());
-                    }
-                });
-            } else {
-                // meals가 null인 경우 초기화
-                updateMealInfo(null);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error reading the JSON file: " + e.getMessage());
-            // 오류가 발생한 경우 초기화
+            carbsInfoTextView.setText(totalCarbs + "g");
+            proteinInfoTextView.setText(totalProtein + "g");
+            fatInfoTextView.setText(totalFat + "g");
+
+            // 각 페이지가 준비되면 updateMealInfo 호출
+            viewPager.post(new Runnable() {
+                @Override
+                public void run() {
+                    updateMealInfo(viewPager.getCurrentItem());
+                }
+            });
+        } else {
+            // meals가 null인 경우 초기화
             updateMealInfo(null);
         }
     }
 
     private void updateMealInfo(Integer position) {
-        Calendar.User.Meals meals = getTodayMeals();
+        String userId = "user123"; // 적절한 userId로 변경
+        String todayDate = getTodayDate();
+
+        List<Calendar> meals = calendarDBManager.getCalendarData(userId, todayDate);
 
         for (int i = 0; i < layouts.length; i++) {
             View view = viewPager.findViewWithTag("page_" + i);
@@ -452,15 +419,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (i) {
                     case 0:
                         mealInfoTextView = view.findViewById(R.id.breakfast_info);
-                        mealInfoTextView.setText(meals == null ? "단식했어요" : getMealNames(meals.getBreakfast_foodid()));
+                        mealInfoTextView.setText(meals == null ? "단식했어요" : getMealNames(getFoodIdsByMealtime(meals, "아침")));
                         break;
                     case 1:
                         mealInfoTextView = view.findViewById(R.id.lunch_info);
-                        mealInfoTextView.setText(meals == null ? "단식했어요" : getMealNames(meals.getLunch_foodid()));
+                        mealInfoTextView.setText(meals == null ? "단식했어요" : getMealNames(getFoodIdsByMealtime(meals, "점심")));
                         break;
                     case 2:
                         mealInfoTextView = view.findViewById(R.id.dinner_info);
-                        mealInfoTextView.setText(meals == null ? "단식했어요" : getMealNames(meals.getDinner_foodid()));
+                        mealInfoTextView.setText(meals == null ? "단식했어요" : getMealNames(getFoodIdsByMealtime(meals, "저녁")));
                         break;
                 }
             }
@@ -474,9 +441,13 @@ public class MainActivity extends AppCompatActivity {
 
         StringBuilder mealNames = new StringBuilder();
         for (String foodId : foodIds) {
-            Recipe recipe = recipes.get(foodId);
-            if (recipe != null) {
-                mealNames.append(recipe.getRecipeName()).append(", ");
+            try {
+                Recipe recipe = recipeDbManager.getRecipeById(Integer.parseInt(foodId));
+                if (recipe != null) {
+                    mealNames.append(recipe.getRecipeName()).append(", ");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
         if (mealNames.length() > 0) {
@@ -485,36 +456,35 @@ public class MainActivity extends AppCompatActivity {
         return mealNames.toString();
     }
 
-    private Calendar.User.Meals getTodayMeals() {
-        GsonMapping gsonMapping = new GsonMapping();
-        AssetManager assetManager = MainActivity.this.getAssets();
-        try (InputStream inputStream = assetManager.open("calendar.json");
-             InputStreamReader reader = new InputStreamReader(inputStream)) {
-            Calendar calendarData = gsonMapping.getCalendar(reader);
-            Map<String, Calendar.User> users = calendarData.getUsers();
-            return users.get("1").getFood_log().get(getTodayDate());
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error reading the JSON file: " + e.getMessage());
-            return null;
+    private List<String> getFoodIdsByMealtime(List<Calendar> meals, String mealtime) {
+        List<String> foodIds = new ArrayList<>();
+        for (Calendar meal : meals) {
+            if (meal.getMealtime().equals(mealtime)) {
+                foodIds.add(String.valueOf(meal.getFoodId()));
+            }
         }
+        return foodIds;
     }
-
     private String getTodayDate() {
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         int year = calendar.get(java.util.Calendar.YEAR);
         int month = calendar.get(java.util.Calendar.MONTH) + 1; // 0-indexed
         int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-        //return String.format("%04d-%02d-%02d", year, month, day);
-        return "2024-05-15";
+        return String.format("%04d-%02d-%02d", year, month, day);
     }
 
-    private List<Recipe.Nutrients> getNutrientValue(List<String> foodIds) {
+    private List<Recipe.Nutrients> getNutrientValueByMealtime(List<Calendar> calendarData, String mealtime) {
         List<Recipe.Nutrients> nutrientsList = new ArrayList<>();
-        for (String foodId : foodIds) {
-            Recipe recipe = recipes.get(foodId);
-            if (recipe != null) {
-                nutrientsList.add(recipe.getNutrients());
+        for (Calendar entry : calendarData) {
+            if (entry.getMealtime().equals(mealtime)) {
+                try {
+                    Recipe recipe = recipeDbManager.getRecipeById(entry.getFoodId());
+                    if (recipe != null) {
+                        nutrientsList.add(recipe.getNutrients());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return nutrientsList;
@@ -524,14 +494,20 @@ public class MainActivity extends AppCompatActivity {
         float sum = 0;
         for (Recipe.Nutrients nutrients : nutrientsList) {
             switch (nutrient) {
-                case "탄수화물":
-                    sum += nutrients.getCarbohydrate();
+                case "칼로리":
+                    sum += nutrients.getCalories();
                     break;
                 case "단백질":
                     sum += nutrients.getProtein();
                     break;
                 case "지방":
                     sum += nutrients.getFat();
+                    break;
+                case "탄수화물":
+                    sum += nutrients.getCarbohydrate();
+                    break;
+                case "나트륨":
+                    sum += nutrients.getSodium();
                     break;
             }
         }

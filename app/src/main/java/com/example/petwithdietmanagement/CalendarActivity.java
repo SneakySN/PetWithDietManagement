@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.petwithdietmanagement.data.Calendar_update;
+import com.example.petwithdietmanagement.data.Calendar;
 import com.example.petwithdietmanagement.data.Recipe;
 import com.example.petwithdietmanagement.database.CalendarDBManager;
 import com.example.petwithdietmanagement.database.RecipeDBManager;
@@ -133,7 +133,7 @@ public class CalendarActivity extends AppCompatActivity {
             return;
         }
 
-        List<Calendar_update> calendarData = calendarDbManager.getCalendarData("1", date); // 사용자 ID를 "1"로 가정
+        List<Calendar> calendarData = calendarDbManager.getCalendarData("1", date); // 사용자 ID를 "1"로 가정
         if (calendarData.isEmpty()) {
             barChart.clear();
             barChart.setNoDataText("No chart data available");
@@ -147,7 +147,7 @@ public class CalendarActivity extends AppCompatActivity {
         List<String> lunchFoodIds = new ArrayList<>();
         List<String> dinnerFoodIds = new ArrayList<>();
 
-        for (Calendar_update calendar : calendarData) {
+        for (Calendar calendar : calendarData) {
             switch (calendar.getMealtime()) {
                 case "아침":
                     breakfastFoodIds.add(String.valueOf(calendar.getFoodId()));

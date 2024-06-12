@@ -232,7 +232,9 @@ public class RecipeDBManager {
     }
 
     public void deleteAllRecipes() {
-        database.delete(RecipeDBHelper.TABLE_RECIPES, null, null);
+        // 테이블 삭제 후 재생성
+        database.execSQL("DROP TABLE IF EXISTS " + RecipeDBHelper.TABLE_RECIPES);
+        dbHelper.onCreate(database);
     }
 
     public void close() {

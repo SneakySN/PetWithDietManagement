@@ -1,90 +1,63 @@
 package com.example.petwithdietmanagement.data;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Calendar {
-    private Map<String, User> users = new HashMap<>();
+    private String userId;
+    private String date;
+    private String mealtime;
+    private int foodId;
 
-    public Map<String, User> getUsers() {
-        return users;
+    // 기본 생성자
+    public Calendar() {
     }
 
-    public void setUsers(Map<String, User> users) {
-        this.users = users;
+    // 모든 필드를 인수로 받는 생성자
+    public Calendar(String userId, String date, String mealtime, int foodId) {
+        this.userId = userId;
+        this.date = date;
+        this.mealtime = mealtime;
+        this.foodId = foodId;
     }
 
-    public static class User {
-        private int user_id;
-        private Map<String, Meals> food_log = new HashMap<>();
+    // getter 및 setter 메서드
+    public String getUserId() {
+        return userId;
+    }
 
-        public int getUser_id() {
-            return user_id;
-        }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-        public void setUser_id(int user_id) {
-            this.user_id = user_id;
-        }
+    public String getDate() {
+        return date;
+    }
 
-        public Map<String, Meals> getFood_log() {
-            return food_log;
-        }
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-        public void setFood_log(Map<String, Meals> food_log) {
-            this.food_log = food_log;
-        }
+    public String getMealtime() {
+        return mealtime;
+    }
 
-        public static class Meals {
-            private List<String> breakfast_foodid;
-            private List<String> lunch_foodid;
-            private List<String> dinner_foodid;
+    public void setMealtime(String mealtime) {
+        this.mealtime = mealtime;
+    }
 
-            public List<String> getBreakfast_foodid() {
-                return breakfast_foodid;
-            }
+    public int getFoodId() {
+        return foodId;
+    }
 
-            public void setBreakfast_foodid(List<String> breakfast_foodid) {
-                this.breakfast_foodid = breakfast_foodid;
-            }
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
+    }
 
-            public void addBreakfast_foodid(String breakfast_foodid) {
-                if (this.breakfast_foodid == null) {
-                    this.breakfast_foodid = new ArrayList<>();
-                }
-                this.breakfast_foodid.add(breakfast_foodid);
-            }
-
-            public List<String> getLunch_foodid() {
-                return lunch_foodid;
-            }
-
-            public void setLunch_foodid(List<String> lunch_foodid) {
-                this.lunch_foodid = lunch_foodid;
-            }
-
-            public void addLunch_foodid(String lunch_foodid) {
-                if (this.lunch_foodid == null) {
-                    this.lunch_foodid = new ArrayList<>();
-                }
-                this.lunch_foodid.add(lunch_foodid);
-            }
-
-            public List<String> getDinner_foodid() {
-                return dinner_foodid;
-            }
-
-            public void setDinner_foodid(List<String> dinner_foodid) {
-                this.dinner_foodid = dinner_foodid;
-            }
-
-            public void addDinner_foodid(String dinner_foodid) {
-                if (this.dinner_foodid == null) {
-                    this.dinner_foodid = new ArrayList<>();
-                }
-                this.dinner_foodid.add(dinner_foodid);
-            }
-        }
+    @Override
+    public String toString() {
+        return "Calendar{" +
+                "userId='" + userId + '\'' +
+                ", date='" + date + '\'' +
+                ", mealtime='" + mealtime + '\'' +
+                ", foodId=" + foodId +
+                '}';
     }
 }

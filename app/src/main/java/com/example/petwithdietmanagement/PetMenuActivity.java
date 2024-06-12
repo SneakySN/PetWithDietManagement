@@ -207,7 +207,7 @@ public class PetMenuActivity extends AppCompatActivity {
 
     private void setUserGold() {
         // User ID는 적절히 설정해주세요
-        String userId = "user123"; // 예: 로그인 시 저장된 사용자 ID를 사용
+        String userId = "1"; // 예: 로그인 시 저장된 사용자 ID를 사용
         User user = userDBManager.getUserById(userId);
 
         if (user != null) {
@@ -223,7 +223,7 @@ public class PetMenuActivity extends AppCompatActivity {
     }
 
     private void setEquippedItems() {
-        String userId = "user123";
+        String userId = "1";
 
         setEquippedItemForType(userId, "Hat", hatImageView, 0);
         setEquippedItemForType(userId, "Background", backgroundImageView, 0);

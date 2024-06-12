@@ -1,0 +1,31 @@
+{
+  "user": {
+    "user_id": "user123",
+    "food_log": {
+      "2024-05-15": {
+        "breakfast_foodid": [
+          "28"
+        ],
+        "lunch_foodid": [
+          "32",
+          "33"
+        ],
+        "dinner_foodid": [
+          "36"
+        ]
+      },
+      "2024-05-16": {
+        "breakfast_foodid": [
+          "29"
+        ],
+        "lunch_foodid": [
+          "31",
+          "93"
+        ],
+        "dinner_foodid": [
+          "108"
+        ]
+      }
+    }
+  }
+}
