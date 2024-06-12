@@ -396,9 +396,9 @@ public class MainActivity extends AppCompatActivity {
                     + calculateNutrientSum(lunchNutrients, "지방")
                     + calculateNutrientSum(dinnerNutrients, "지방");
 
-            carbsInfoTextView.setText(totalCarbs + "g");
-            proteinInfoTextView.setText(totalProtein + "g");
-            fatInfoTextView.setText(totalFat + "g");
+            carbsInfoTextView.setText(String.format("%.1f g", totalCarbs));
+            proteinInfoTextView.setText(String.format("%.1f g", totalProtein));
+            fatInfoTextView.setText(String.format("%.1f g", totalFat));
 
             // 각 페이지가 준비되면 updateMealInfo 호출
             viewPager.post(new Runnable() {
