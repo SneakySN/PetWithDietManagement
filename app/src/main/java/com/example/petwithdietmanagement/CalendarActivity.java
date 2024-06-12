@@ -1,7 +1,6 @@
 package com.example.petwithdietmanagement;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +10,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.petwithdietmanagement.data.Calendar;
+import com.example.petwithdietmanagement.data.Calendar_update;
 import com.example.petwithdietmanagement.data.Recipe;
-import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
+import com.example.petwithdietmanagement.database.CalendarDBManager;
+import com.example.petwithdietmanagement.database.RecipeDBManager;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -23,12 +23,12 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import org.json.JSONException;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class CalendarActivity extends AppCompatActivity {
 
@@ -39,157 +39,139 @@ public class CalendarActivity extends AppCompatActivity {
     private Spinner nutrientSpinner;
     private String selectedNutrient = "칼로리"; // Default selection
     private String selectedDate = null;
-    private Calendar.User.Meals selectedMeals = null;
-    private Map<String, Recipe> recipes;
+    private RecipeDBManager recipeDbManager;
+    private CalendarDBManager calendarDbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        // 캘린더 뷰와 그래프 초기화
         calendarView = findViewById(R.id.calendar_view);
         barChart = findViewById(R.id.bar_chart);
         nutrientSpinner = findViewById(R.id.nutrient_spinner);
 
-        // JSON 데이터 로드
-        loadRecipeData();
+        recipeDbManager = new RecipeDBManager(this);
+        calendarDbManager = new CalendarDBManager(this);
 
-        // Spinner 항목 선택 이벤트 설정
         nutrientSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedNutrient = (String) parent.getItemAtPosition(position);
-                // 현재 선택된 날짜에 대해 그래프를 업데이트합니다.
-                updateGraphData(selectedDate, selectedNutrient, selectedMeals);
+                try {
+                    updateGraphData(selectedDate, selectedNutrient);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // 아무것도 선택되지 않았을 때의 동작 (기본 선택)
-            }
-        });
-
-        // 캘린더 날짜 변경 이벤트 설정
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                selectedDate = year + "-" + String.format("%02d", (month + 1)) + "-" + String.format("%02d", dayOfMonth);
-                // Gson 객체 생성 및 JSON 파싱
-                GsonMapping gsonMapping = new GsonMapping();
-                AssetManager assetManager = CalendarActivity.this.getAssets();
-                try (InputStream inputStream = assetManager.open("calendar.json");
-                     InputStreamReader reader = new InputStreamReader(inputStream)) {
-                    Calendar calendarData = gsonMapping.getCalendar(reader);
-                    Map<String, Calendar.User> users = calendarData.getUsers();
-                    selectedMeals = users.get("1").getFood_log().get(selectedDate);
-
-                    updateGraphData(selectedDate, selectedNutrient, selectedMeals);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("Error reading the JSON file: " + e.getMessage());
+                selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                calendarView.setDate(new Date().getTime(), false, true);
+                try {
+                    updateGraphData(selectedDate, selectedNutrient);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });
 
-        // 홈 버튼
-        ImageButton homeButton = findViewById(R.id.ic_home);
-        homeButton.setOnClickListener(new View.OnClickListener() {
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, MainActivity.class); // 홈으로 이동
-                startActivity(intent);
-                overridePendingTransition(0,0);
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                selectedDate = year + "-" + String.format("%02d", (month + 1)) + "-" + String.format("%02d", dayOfMonth);
+                try {
+                    updateGraphData(selectedDate, selectedNutrient);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
-        // 음식 버튼
-        ImageButton dietButton = findViewById(R.id.ic_diet);
-        dietButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, DietActivity.class); // 음식 페이지로 이동
-                startActivity(intent);
-                overridePendingTransition(0,0);
-            }
-        });
+        setupNavigationButtons();
 
-        // 캘린더 버튼
-        ImageButton calendarButton = findViewById(R.id.ic_calendar);
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, CalendarActivity.class); // 캘린더 페이지로 이동
-                startActivity(intent);
-                overridePendingTransition(0,0);
-                finish();
-                overridePendingTransition(0,0);
-            }
-        });
-
-        // 펫 메뉴 버튼
-        ImageButton petMenuButton = findViewById(R.id.ic_petMenu);
-        petMenuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, PetMenuActivity.class); // 펫 메뉴 페이지로 이동
-                startActivity(intent);
-                overridePendingTransition(0,0);
-            }
-        });
-
-        // 마이 페이지 버튼
-        ImageButton myPageButton = findViewById(R.id.ic_myPage);
-        myPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, MyPageActivity.class); // 마이 페이지로 이동
-                startActivity(intent);
-                overridePendingTransition(0,0);
-            }
-        });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        overridePendingTransition(0, 0);
-    }
-
-    private void loadRecipeData() {
-        GsonMapping gsonMapping = new GsonMapping();
-        AssetManager assetManager = CalendarActivity.this.getAssets();
-        try (InputStream inputStream = assetManager.open("recipeList.json");
-             InputStreamReader reader = new InputStreamReader(inputStream)) {
-            recipes = gsonMapping.getRecipes(reader);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error reading the JSON file: " + e.getMessage());
+        // 초기 로드 시 오늘 날짜의 데이터를 표시
+        selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        calendarView.setDate(new Date().getTime(), false, true);
+        try {
+            updateGraphData(selectedDate, selectedNutrient);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private void updateGraphData(String date, String nutrient, Calendar.User.Meals meals) {
+    private void setupNavigationButtons() {
+        ImageButton homeButton = findViewById(R.id.ic_home);
+        homeButton.setOnClickListener(v -> navigateTo(MainActivity.class));
+
+        ImageButton dietButton = findViewById(R.id.ic_diet);
+        dietButton.setOnClickListener(v -> navigateTo(DietActivity.class));
+
+        ImageButton calendarButton = findViewById(R.id.ic_calendar);
+        calendarButton.setOnClickListener(v -> {
+            navigateTo(CalendarActivity.class);
+            finish();
+        });
+
+        ImageButton petMenuButton = findViewById(R.id.ic_petMenu);
+        petMenuButton.setOnClickListener(v -> navigateTo(PetMenuActivity.class));
+
+        ImageButton myPageButton = findViewById(R.id.ic_myPage);
+        myPageButton.setOnClickListener(v -> navigateTo(MyPageActivity.class));
+    }
+
+    private void navigateTo(Class<?> cls) {
+        Intent intent = new Intent(CalendarActivity.this, cls);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
+    private void updateGraphData(String date, String nutrient) throws JSONException {
         if (date == null || nutrient == null) {
-            // 날짜나 영양소가 선택되지 않은 경우 아무것도 하지 않음
+            return;
+        }
+
+        List<Calendar_update> calendarData = calendarDbManager.getCalendarData("1", date); // 사용자 ID를 "1"로 가정
+        if (calendarData.isEmpty()) {
+            barChart.clear();
+            barChart.setNoDataText("No chart data available");
+            barChart.invalidate();
             return;
         }
 
         List<BarEntry> entries = new ArrayList<>();
 
-        if (meals != null) {
-            List<Recipe.Nutrients> breakfastNutrients = getNutrientValue(meals.getBreakfast_foodid());
-            List<Recipe.Nutrients> lunchNutrients = getNutrientValue(meals.getLunch_foodid());
-            List<Recipe.Nutrients> dinnerNutrients = getNutrientValue(meals.getDinner_foodid());
+        List<String> breakfastFoodIds = new ArrayList<>();
+        List<String> lunchFoodIds = new ArrayList<>();
+        List<String> dinnerFoodIds = new ArrayList<>();
 
-            float breakfastSum = calculateNutrientSum(breakfastNutrients, nutrient);
-            float lunchSum = calculateNutrientSum(lunchNutrients, nutrient);
-            float dinnerSum = calculateNutrientSum(dinnerNutrients, nutrient);
-
-            entries.add(new BarEntry(0f, breakfastSum));
-            entries.add(new BarEntry(1f, lunchSum));
-            entries.add(new BarEntry(2f, dinnerSum));
+        for (Calendar_update calendar : calendarData) {
+            switch (calendar.getMealtime()) {
+                case "아침":
+                    breakfastFoodIds.add(String.valueOf(calendar.getFoodId()));
+                    break;
+                case "점심":
+                    lunchFoodIds.add(String.valueOf(calendar.getFoodId()));
+                    break;
+                case "저녁":
+                    dinnerFoodIds.add(String.valueOf(calendar.getFoodId()));
+                    break;
+            }
         }
+
+        List<Recipe.Nutrients> breakfastNutrients = getNutrientValue(breakfastFoodIds);
+        List<Recipe.Nutrients> lunchNutrients = getNutrientValue(lunchFoodIds);
+        List<Recipe.Nutrients> dinnerNutrients = getNutrientValue(dinnerFoodIds);
+
+        float breakfastSum = calculateNutrientSum(breakfastNutrients, nutrient);
+        float lunchSum = calculateNutrientSum(lunchNutrients, nutrient);
+        float dinnerSum = calculateNutrientSum(dinnerNutrients, nutrient);
+
+        entries.add(new BarEntry(0f, breakfastSum));
+        entries.add(new BarEntry(1f, lunchSum));
+        entries.add(new BarEntry(2f, dinnerSum));
 
         BarDataSet dataSet = new BarDataSet(entries, nutrient);
         dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -199,9 +181,9 @@ public class CalendarActivity extends AppCompatActivity {
                 return String.valueOf((int) value);
             }
         });
-        dataSet.setValueTextColor(Color.BLACK); // 값의 색상을 검정색으로 설정
-        dataSet.setValueTextSize(12f); // 값의 글씨 크기 설정
-        dataSet.setDrawValues(true); // 값을 그리도록 설정
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setValueTextSize(12f);
+        dataSet.setDrawValues(true);
 
         BarData barData = new BarData(dataSet);
         barChart.setData(barData);
@@ -219,24 +201,20 @@ public class CalendarActivity extends AppCompatActivity {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         barChart.getAxisLeft().setDrawGridLines(false);
-
-        // 그래프의 크기 고정
-        barChart.setScaleEnabled(false); // 줌을 비활성화하여 크기 고정
+        barChart.setScaleEnabled(false);
         barChart.getAxisLeft().setAxisMinimum(0);
         barChart.getAxisRight().setEnabled(false);
         barChart.getDescription().setEnabled(false);
-        barChart.getLegend().setEnabled(false); // 범례 비활성화
+        barChart.getLegend().setEnabled(false);
 
-        barChart.invalidate(); // refresh
+        barChart.invalidate();
     }
 
-
-
-
-    private List<Recipe.Nutrients> getNutrientValue(List<String> foodIds) {
+    private List<Recipe.Nutrients> getNutrientValue(List<String> foodIds) throws JSONException {
         List<Recipe.Nutrients> nutrientsList = new ArrayList<>();
         for (String foodId : foodIds) {
-            Recipe recipe = recipes.get(foodId);
+            int id = Integer.parseInt(foodId); // foodId가 문자열이므로 정수로 변환
+            Recipe recipe = recipeDbManager.getRecipeById(id);
             if (recipe != null) {
                 nutrientsList.add(recipe.getNutrients());
             }

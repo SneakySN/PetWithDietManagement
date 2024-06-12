@@ -15,18 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.petwithdietmanagement.data.Calendar;
+import com.bumptech.glide.Glide;
 import com.example.petwithdietmanagement.data.Recipe;
-import com.example.petwithdietmanagement.GlideApp;
+import com.example.petwithdietmanagement.database.CalendarDBManager;
 import com.example.petwithdietmanagement.database.RecipeDBManager;
-import com.example.petwithdietmanagement.jsonFunction.GsonMapping;
-import com.example.petwithdietmanagement.jsonFunction.GsonPut;
-import com.google.gson.Gson;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class SpecifiedDietActivity extends AppCompatActivity {
@@ -39,7 +34,8 @@ public class SpecifiedDietActivity extends AppCompatActivity {
     private Spinner mealTimeSpinner;
 
     private String selectedMealTime;
-    private RecipeDBManager dbManager;
+    private RecipeDBManager recipeDbManager;
+    private CalendarDBManager calendarDbManager;
 
     @Override
     public void onBackPressed() {
@@ -60,7 +56,8 @@ public class SpecifiedDietActivity extends AppCompatActivity {
         dietSteps = findViewById(R.id.dietSteps);
         mealTimeSpinner = findViewById(R.id.mealTimeSpinner);
 
-        dbManager = new RecipeDBManager(this);  // dbManager 초기화
+        recipeDbManager = new RecipeDBManager(this);
+        calendarDbManager = new CalendarDBManager(this);
 
         // Spinner 어댑터 설정
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -92,7 +89,7 @@ public class SpecifiedDietActivity extends AppCompatActivity {
             Log.d("SpecifiedDietActivity", "Image URL: " + imageUrl);
 
             // Glide로 이미지 로드
-            GlideApp.with(this)
+            Glide.with(this)
                     .load(imageUrl)
                     .placeholder(R.drawable.camera)
                     .error(R.drawable.camera)
@@ -128,68 +125,30 @@ public class SpecifiedDietActivity extends AppCompatActivity {
         Button submitButton = findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String date = "2024-06-09";
+                try {
+                    String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                    String userId = "1"; // 사용자 ID가 필요하다면 적절히 설정합니다.
+                    int recipeId = recipeDbManager.getRecipeIdByName(recipe.getRecipeName());
 
-                // Gson 객체 생성 및 JSON 파싱
-                GsonMapping gsonMapping = new GsonMapping();
-                File file = new File(getFilesDir(), "calendar.json");
-                Calendar calendarData;
+                    if (recipeId != -1) {
+                        calendarDbManager.insertCalendarData(userId, date, selectedMealTime, recipeId);
+                        Toast.makeText(SpecifiedDietActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
 
-                if (file.exists()) {
-                    try (FileReader reader = new FileReader(file)) {
-                        calendarData = gsonMapping.getCalendar(reader);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.e("SpecifiedDietActivity", "Error reading the JSON file: " + e.getMessage());
-                        return;
+                        // 1초 후에 액티비티 종료
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                                overridePendingTransition(0, 0);
+                            }
+                        }, 1000);
+                    } else {
+                        Log.e("SpecifiedDietActivity", "Recipe ID not found");
                     }
-                } else {
-                    calendarData = new Calendar();
-                    calendarData.setUsers(new HashMap<>());
+                } catch (Exception e) {
+                    Log.e("SpecifiedDietActivity", "Error adding recipe to calendar", e);
+                    Toast.makeText(SpecifiedDietActivity.this, "오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                 }
-
-                Calendar.User user = calendarData.getUsers().get("1");
-
-                if (user == null) {
-                    user = new Calendar.User();
-                    user.setFood_log(new HashMap<>());
-                    calendarData.getUsers().put("1", user);
-                }
-
-                Calendar.User.Meals meals = user.getFood_log().get(date);
-                if (meals == null) {
-                    meals = new Calendar.User.Meals();
-                }
-
-                String selectedRecipe = Integer.toString(dbManager.getRecipeIdByName(recipe.getRecipeName()));
-                switch (selectedMealTime) {
-                    case "아침":
-                        meals.addBreakfast_foodid(selectedRecipe);
-                        break;
-                    case "점심":
-                        meals.addLunch_foodid(selectedRecipe);
-                        break;
-                    case "저녁":
-                        meals.addDinner_foodid(selectedRecipe);
-                        break;
-                }
-
-                user.getFood_log().put(date, meals);
-
-                // JSON 파일 저장
-                GsonPut.saveCalendarToJson(calendarData, file.getPath());
-
-                // 저장되었습니다 토스트 메시지 표시
-                Toast.makeText(SpecifiedDietActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
-
-                // 1초 후에 액티비티 종료
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                        overridePendingTransition(0, 0);
-                    }
-                }, 1000);
             }
         });
     }
