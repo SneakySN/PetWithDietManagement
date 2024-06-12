@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //userDB에서 데이터 불러오기
-        /*User user = userDBManager.getUserById("user123");
+        /*User user = userDBManager.getUserById("1");
 
         if (user != null) {
             List<Items> items = user.getItems();
@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         // DB에서 데이터 가져오기 예시
-        /*List<Calendar> calendarData = calendarDBManager.getCalendarData("user123", "2024-05-15");
+        /*List<Calendar> calendarData = calendarDBManager.getCalendarData("1", "2024-05-15");
         for (Calendar calendar : calendarData) {
             Log.d("CalendarData", "UserId: " + calendar.getUserId() +
                     ", Date: " + calendar.getDate() +
@@ -407,7 +407,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateMealInfo(Integer position) {
-        String userId = "user123"; // 적절한 userId로 변경
+        String userId = "1"; // 적절한 userId로 변경
         String todayDate = getTodayDate();
 
         List<Calendar> meals = calendarDBManager.getCalendarData(userId, todayDate);

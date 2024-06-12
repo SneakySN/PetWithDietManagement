@@ -82,7 +82,7 @@ public class SlideUpFragment extends BottomSheetDialogFragment {
         userDBManager = new UserDBManager(getContext());
 
         // User ID 설정
-        userId = "user123";
+        userId = "1";
 
         return view;
     }
