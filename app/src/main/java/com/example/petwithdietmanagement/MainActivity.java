@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         itemDBM = new ItemDBManager(this); // itemDB를 활용하기 위한 변수 선언
         userDBManager = new UserDBManager(this);
         calendarDBManager = new CalendarDBManager(this);
+        calendarDBManager.deleteCalendarData("1");
 
         petImageView = findViewById(R.id.ic_pet);
         carbsInfoTextView = findViewById(R.id.carbs_info);
@@ -319,6 +320,13 @@ public class MainActivity extends AppCompatActivity {
                     ", Mealtime: " + calendar.getMealtime() +
                     ", FoodId: " + calendar.getFoodId());
         }*/
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 화면에 Activity가 표시될 때마다 loadCalendarData 호출
+        loadCalendarData();
     }
 
     @Override
