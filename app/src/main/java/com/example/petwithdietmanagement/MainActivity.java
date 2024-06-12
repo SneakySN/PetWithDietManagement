@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         itemDBM = new ItemDBManager(this); // itemDB를 활용하기 위한 변수 선언
         userDBManager = new UserDBManager(this);
         calendarDBManager = new CalendarDBManager(this);
-        calendarDBManager.deleteCalendarData("1");
 
         petImageView = findViewById(R.id.ic_pet);
         carbsInfoTextView = findViewById(R.id.carbs_info);
